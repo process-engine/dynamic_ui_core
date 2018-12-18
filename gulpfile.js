@@ -7,8 +7,8 @@ const tsconfig = require('tsconfig');
 const buildSystemConfig = {
   suppressErrorsForTasks: ['lint'],
   copy: {
-    "src/dynamic_ui/dynamic_ui_core/templates/*": "dist/commonjs/dynamic_ui/dynamic_ui_core/templates/",
-    "src/dynamic_ui/dynamic_ui_core/assets/*": "dist/commonjs/dynamic_ui/dynamic_ui_core/assets/",
+    "src/templates/*": "dist/commonjs/templates/",
+    "src/assets/*": "dist/commonjs/assets/",
   },
   conventionalTasks: {
     build: {
