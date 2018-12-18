@@ -1,14 +1,14 @@
-import {Container} from 'addict-ioc';
+'use strict';
 
-import {HttpClient} from '@essential-projects/http';
-import {ConsumerApiClientService, ExternalAccessor} from '@process-engine/consumer_api_client';
-
-import {
+const {
   DynamicFormBuilder,
   DynamicUIService,
-} from '.';
+} = require('./dist/commonjs/index');
 
-export function registerInContainer(container: Container): void {
+const { HttpClient } = require('@essential-projects/http');
+const { ConsumerApiClientService, ExternalAccessor } = require('@process-engine/consumer_api_client');
+
+function registerInContainer(container) {
 
   container.register('ConsumerApiHttpClient', HttpClient)
     .configure('consumer_api:external_accessor');
@@ -26,3 +26,5 @@ export function registerInContainer(container: Container): void {
   container.register('DynamicUIService', DynamicUIService)
     .dependencies('ConsumerApiClientService', 'DynamicFormBuilder');
 }
+
+module.exports.registerInContainer = registerInContainer;
