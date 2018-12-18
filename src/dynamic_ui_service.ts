@@ -23,6 +23,10 @@ export class DynamicUIService implements IDynamicUIApi {
     this.dynamicFormBuilder = dynamicFormBuilder;
   }
 
+  public get assetsPath(): string {
+    return `${__dirname}/assets`;
+  }
+
   public onDialogForCorrelation(identity: IIdentity, correlationId: string, showDialogCallback: OnDialogForCorrelationCallback): void {
     this.logger.info('onDialogForCorrelation');
 
