@@ -1,8 +1,9 @@
 import * as fs from 'fs';
 import * as Handlebars from 'handlebars';
 
-import {UserTask, UserTaskConfig, UserTaskFormField, UserTaskFormFieldType} from '@process-engine/consumer_api_contracts';
-import {IDynamicFormBuilder} from '@process-engine/dynamic_ui_contracts';
+import {UserTask, UserTaskConfig, UserTaskFormField} from '@process-engine/consumer_api_contracts';
+
+import {IDynamicFormBuilder} from '.';
 
 export class DynamicFormBuilder implements IDynamicFormBuilder {
 

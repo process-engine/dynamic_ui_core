@@ -2,7 +2,6 @@ import {IIdentity} from '@essential-projects/iam_contracts';
 import {IConsumerApi, Messages, UserTask, UserTaskList, UserTaskResult} from '@process-engine/consumer_api_contracts';
 import {
   DialogForCorrelationMessage,
-  IDynamicFormBuilder,
   IDynamicUIApi,
   OnDialogForCorrelationCallback,
 } from '@process-engine/dynamic_ui_contracts';
@@ -10,6 +9,8 @@ import {
 import * as fs from 'fs';
 import * as Handlebars from 'handlebars';
 import {Logger} from 'loggerhythm';
+
+import {IDynamicFormBuilder} from '.';
 
 export class DynamicUIService implements IDynamicUIApi {
 
