@@ -3,6 +3,7 @@ import {IConsumerApi, Messages, UserTask, UserTaskList, UserTaskResult} from '@p
 import {
   DialogForCorrelationMessage,
   IDynamicUIApi,
+  IDynamicUISession,
   OnDialogForCorrelationCallback,
 } from '@process-engine/dynamic_ui_contracts';
 
@@ -16,12 +17,14 @@ export class DynamicUIService implements IDynamicUIApi {
 
   private logger: Logger = Logger.createLogger('Dynamic_UI_Service');
 
-  private consumerApi: IConsumerApi;
-  private dynamicFormBuilder: IDynamicFormBuilder;
+  private readonly consumerApi: IConsumerApi;
+  private readonly dynamicFormBuilder: IDynamicFormBuilder;
+  private readonly dynamicUISession: IDynamicUISession;
 
-  constructor(consumerApi: IConsumerApi, dynamicFormBuilder: IDynamicFormBuilder) {
+  constructor(consumerApi: IConsumerApi, dynamicFormBuilder: IDynamicFormBuilder, dynamicUISession: IDynamicUISession) {
     this.consumerApi = consumerApi;
     this.dynamicFormBuilder = dynamicFormBuilder;
+    this.dynamicUISession = dynamicUISession;
   }
 
   public get assetsPath(): string {
@@ -48,22 +51,25 @@ export class DynamicUIService implements IDynamicUIApi {
 
   public async getDialog(sessionId: string, formKey: string, correlationId: string, processInstanceId: string, userTaskId: string): Promise<any> {
 
-    const userTaskList: UserTaskList = await this.consumerApi.getUserTasksForCorrelation({token: ''}, correlationId);
+    const identity: IIdentity = await this.dynamicUISession.getIdentityForSessionId(sessionId);
+    const userTaskList: UserTaskList = await this.consumerApi.getUserTasksForCorrelation(identity, correlationId);
     const userTask: UserTask = userTaskList.userTasks.find((u: UserTask) => u.flowNodeInstanceId === userTaskId);
 
     return this.dynamicFormBuilder.buildFormFor(userTask);
   }
 
   public async finishDialog(sessionId: string, resultData: any): Promise<any> {
-    this.logger.info(JSON.stringify(resultData));
+
+    const identity: IIdentity = await this.dynamicUISession.getIdentityForSessionId(sessionId);
+
     const userTaskResult: UserTaskResult = {
       formFields: resultData.form_fields,
     };
 
     await this.consumerApi.finishUserTask(
-      {token: ''}, resultData.processInstanceId, resultData.correlationId, resultData.userTaskId, userTaskResult);
+      identity, resultData.processInstanceId, resultData.correlationId, resultData.userTaskId, userTaskResult);
 
-    const userTaskList: UserTaskList = await this.consumerApi.getUserTasksForCorrelation({token: ''}, resultData.correlationId);
+    const userTaskList: UserTaskList = await this.consumerApi.getUserTasksForCorrelation(identity, resultData.correlationId);
 
     const hasUserTasksForCorrelation: boolean = userTaskList.userTasks.length > 0;
     if (hasUserTasksForCorrelation) {

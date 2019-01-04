@@ -24,7 +24,7 @@ function registerInContainer(container) {
   container.register('DynamicFormBuilder', DynamicFormBuilder);
 
   container.register('DynamicUIService', DynamicUIService)
-    .dependencies('ConsumerApiClientService', 'DynamicFormBuilder');
+    .dependencies('ConsumerApiClientService', 'DynamicFormBuilder', 'DynamicUISession');
 }
 
 module.exports.registerInContainer = registerInContainer;
