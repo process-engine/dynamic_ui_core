@@ -22,7 +22,7 @@
     response_type: "code",
     scope: "openid test_resource",
     post_logout_redirect_uri: `${basePath}/bot/login/index.html`,
-    userStore: new WebStorageStateStore({ store: window.localStorage }),
+    userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }),
   };
 
   var mgr = new Oidc.UserManager(config);
