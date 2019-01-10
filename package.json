@@ -24,7 +24,7 @@
     "@essential-projects/http": "2.2.3",
     "@essential-projects/iam_contracts": "~3.2.0",
     "@process-engine/consumer_api_client": "1.3.0",
-    "@process-engine/dynamic_ui_contracts": "feature~initial_commit",
+    "@process-engine/dynamic_ui_contracts": "feature~add_session_handling",
     "@types/socket.io": "1.4.38",
     "addict-ioc": "2.5.4",
     "express": "4.16.4"
