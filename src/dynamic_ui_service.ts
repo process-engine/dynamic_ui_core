@@ -60,7 +60,9 @@ export class DynamicUIService implements IDynamicUIApi {
 
   public async finishDialog(sessionId: string, resultData: any): Promise<any> {
 
-    const identity: IIdentity = await this.dynamicUISession.getIdentityForSessionId(sessionId);
+    const identity: IIdentity = {token: sessionId};
+
+    console.log(identity.token);
 
     const userTaskResult: UserTaskResult = {
       formFields: resultData.form_fields,
