@@ -1,6 +1,6 @@
 {
   "name": "@process-engine/dynamic_ui_core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Businesslogic of dynamic ui",
   "main": "dist/commonjs/index.js",
   "typings": "dist/index.d.ts",
@@ -24,7 +24,7 @@
     "@essential-projects/http": "2.2.3",
     "@essential-projects/iam_contracts": "~3.2.0",
     "@process-engine/consumer_api_client": "1.3.0",
-    "@process-engine/dynamic_ui_contracts": "feature~add_session_handling",
+    "@process-engine/dynamic_ui_contracts": "0.2.0",
     "@types/socket.io": "1.4.38",
     "addict-ioc": "2.5.4",
     "express": "4.16.4"
