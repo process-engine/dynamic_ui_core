@@ -19,12 +19,10 @@ export class DynamicUIService implements IDynamicUIApi {
 
   private readonly consumerApi: IConsumerApi;
   private readonly dynamicFormBuilder: IDynamicFormBuilder;
-  private readonly dynamicUISession: IDynamicUISession;
 
-  constructor(consumerApi: IConsumerApi, dynamicFormBuilder: IDynamicFormBuilder, dynamicUISession: IDynamicUISession) {
+  constructor(consumerApi: IConsumerApi, dynamicFormBuilder: IDynamicFormBuilder) {
     this.consumerApi = consumerApi;
     this.dynamicFormBuilder = dynamicFormBuilder;
-    this.dynamicUISession = dynamicUISession;
   }
 
   public get assetsPath(): string {
@@ -51,7 +49,7 @@ export class DynamicUIService implements IDynamicUIApi {
 
   public async getDialog(sessionId: string, formKey: string, correlationId: string, processInstanceId: string, userTaskId: string): Promise<any> {
 
-    const identity: IIdentity = await this.dynamicUISession.getIdentityForSessionId(sessionId);
+    const identity: IIdentity = {token: ''};
     const userTaskList: UserTaskList = await this.consumerApi.getUserTasksForCorrelation(identity, correlationId);
     const userTask: UserTask = userTaskList.userTasks.find((u: UserTask) => u.flowNodeInstanceId === userTaskId);
 
