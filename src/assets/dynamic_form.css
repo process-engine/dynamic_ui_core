@@ -1,0 +1,15 @@
+.form_card {
+  box-shadow: 0 0 25px -15px
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  display: table;
+}
+
+.container-wrapper {
+  display: table-cell;
+  height: 100%;
+  vertical-align: middle;
+}
