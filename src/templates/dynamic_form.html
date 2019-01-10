@@ -12,26 +12,7 @@
 
 <script src="../assets/oidc-client.min.js"></script>
 
-<script>
-  var basePath = window.location.port ? `${window.location.protocol}//${window.location.hostname}:${window.location.port}` : `${window.location.protocol}//${window.location.hostname}`
 
-  var config = {
-    authority: "https://testidentityserver.westeurope.cloudapp.azure.com/identityserver/",
-    client_id: "bot",
-    redirect_uri: `${basePath}/bot/login/callback.html`,
-    response_type: "code",
-    scope: "openid test_resource",
-    post_logout_redirect_uri: `${basePath}/bot/login/index.html`,
-    userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }),
-  };
-
-  var mgr = new Oidc.UserManager(config);
-  mgr.getUser().then(function (user) {
-    if (user) {
-      document.getElementById('access_token').value = user.access_token;
-    }
-  });
-</script>
 
 </head>
 
@@ -61,6 +42,27 @@
       </div>
     </div>
   </div>
+
+  <script>
+    var basePath = window.location.port ? `${window.location.protocol}//${window.location.hostname}:${window.location.port}` : `${window.location.protocol}//${window.location.hostname}`
+
+    var config = {
+      authority: "https://testidentityserver.westeurope.cloudapp.azure.com/identityserver/",
+      client_id: "bot",
+      redirect_uri: `${basePath}/bot/login/callback.html`,
+      response_type: "code",
+      scope: "openid test_resource",
+      post_logout_redirect_uri: `${basePath}/bot/login/index.html`,
+      userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }),
+    };
+
+    var mgr = new Oidc.UserManager(config);
+    mgr.getUser().then(function (user) {
+      if (user) {
+        document.getElementById('access_token').value = user.access_token;
+      }
+    });
+  </script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
