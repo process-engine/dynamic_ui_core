@@ -9,13 +9,10 @@ import {
 
 import * as fs from 'fs';
 import * as Handlebars from 'handlebars';
-import {Logger} from 'loggerhythm';
 
 import {IDynamicFormBuilder} from '.';
 
 export class DynamicUIService implements IDynamicUIApi {
-
-  private logger: Logger = Logger.createLogger('Dynamic_UI_Service');
 
   private readonly consumerApi: IConsumerApi;
   private readonly dynamicFormBuilder: IDynamicFormBuilder;
@@ -30,7 +27,6 @@ export class DynamicUIService implements IDynamicUIApi {
   }
 
   public onDialogForCorrelation(identity: IIdentity, correlationId: string, showDialogCallback: OnDialogForCorrelationCallback): void {
-    this.logger.info('onDialogForCorrelation');
 
     this.consumerApi.onUserTaskWaiting(identity, (message: Messages.SystemEvents.UserTaskReachedMessage) => {
 
@@ -59,8 +55,6 @@ export class DynamicUIService implements IDynamicUIApi {
   public async finishDialog(sessionId: string, resultData: any): Promise<any> {
 
     const identity: IIdentity = {token: sessionId};
-
-    console.log(identity.token);
 
     const userTaskResult: UserTaskResult = {
       formFields: resultData.form_fields,
