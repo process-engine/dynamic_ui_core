@@ -22,7 +22,10 @@ export class MyComponent {
                   <boolean-form-field label='BOOLEAN-FORM-FIELD-LABEL'></boolean-form-field>
                 </div>
                 <div>
-                  <date-form-field label="DATE-FORM-FIELD-LABEL" defaultValue="DATE-FORM-FIELD-DEFAULT-VALUE"></date-form-field>
+                  <date-form-field label="DATE-FORM-FIELD-LABEL" defaultValue="DATE-FORM-FIELD-DEFAULT-VALUE" id="DATE-FORM-FIELD-ID"></date-form-field>
+                </div>
+                <div>
+                  <dialog-error></dialog-error>
                 </div>
             </div>;
   }
