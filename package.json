@@ -6,7 +6,6 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "build": "gulp build",
-    "prepare": "npm run build",
     "lint": "gulp lint",
     "test": "gulp test",
     "start": "stencil build --dev --watch --serve"
