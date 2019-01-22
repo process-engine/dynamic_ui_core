@@ -7,11 +7,12 @@ import { Component, Prop} from '@stencil/core';
   shadow: true,
 })
 
-export class DialogError {
+export class LongFormField {
 
   @Prop() label: string;
   @Prop() id: string;
   @Prop() defaultValue: string;
+
   @Prop() dynamicUiField: HTMLLabelElement;
   @Prop() formFields: Array<string>;
 
