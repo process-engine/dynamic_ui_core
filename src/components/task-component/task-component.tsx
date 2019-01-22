@@ -27,6 +27,9 @@ export class MyComponent {
                 <div>
                   <dialog-error></dialog-error>
                 </div>
+                <div>
+                  <dialog-finished></dialog-finished>
+                </div>
             </div>;
   }
 }
