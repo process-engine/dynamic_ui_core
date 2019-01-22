@@ -1,5 +1,5 @@
 import {IIdentity} from '@essential-projects/iam_contracts';
-import {IConsumerApi, Messages, UserTask, UserTaskList, UserTaskResult} from '@process-engine/consumer_api_contracts';
+import {DataModels, IConsumerApi, Messages} from '@process-engine/consumer_api_contracts';
 import {
   DialogForCorrelationMessage,
   IDynamicUIApi,
@@ -25,7 +25,7 @@ export class DynamicUIService implements IDynamicUIApi {
 
   public onDialogForCorrelation(identity: IIdentity, correlationId: string, showDialogCallback: OnDialogForCorrelationCallback): void {
 
-    this.consumerApi.onUserTaskWaiting(identity, (message: Messages.SystemEvents.UserTaskReachedMessage) => {
+    this.consumerApi.onUserTaskWaiting(identity, (message: Messages.Internal.SystemEvents.UserTaskReachedMessage) => {
 
       if (message.correlationId === correlationId) {
 
@@ -43,8 +43,9 @@ export class DynamicUIService implements IDynamicUIApi {
   public async getDialog(sessionId: string, formKey: string, correlationId: string, processInstanceId: string, userTaskId: string): Promise<any> {
 
     const identity: IIdentity = {token: ''};
-    const userTaskList: UserTaskList = await this.consumerApi.getUserTasksForCorrelation(identity, correlationId);
-    const userTask: UserTask = userTaskList.userTasks.find((u: UserTask) => u.flowNodeInstanceId === userTaskId);
+    const userTaskList: DataModels.UserTasks.UserTaskList = await this.consumerApi.getUserTasksForCorrelation(identity, correlationId);
+    const userTask: DataModels.UserTasks.UserTask = userTaskList.userTasks.find(
+                                                    (u: DataModels.UserTasks.UserTask) => u.flowNodeInstanceId === userTaskId);
 
     return this.dynamicFormBuilder.buildFormFor(userTask);
   }
@@ -53,18 +54,18 @@ export class DynamicUIService implements IDynamicUIApi {
 
     const identity: IIdentity = {token: sessionId};
 
-    const userTaskResult: UserTaskResult = {
+    const userTaskResult: DataModels.UserTasks.UserTaskResult = {
       formFields: resultData.form_fields,
     };
 
     await this.consumerApi.finishUserTask(
       identity, resultData.processInstanceId, resultData.correlationId, resultData.userTaskId, userTaskResult);
 
-    const userTaskList: UserTaskList = await this.consumerApi.getUserTasksForCorrelation(identity, resultData.correlationId);
+    const userTaskList: DataModels.UserTasks.UserTaskList = await this.consumerApi.getUserTasksForCorrelation(identity, resultData.correlationId);
 
     const hasUserTasksForCorrelation: boolean = userTaskList.userTasks.length > 0;
     if (hasUserTasksForCorrelation) {
-      const userTask: UserTask = userTaskList.userTasks.shift();
+      const userTask: DataModels.UserTasks.UserTask = userTaskList.userTasks.shift();
 
       return this.dynamicFormBuilder.buildFormFor(userTask);
     }
