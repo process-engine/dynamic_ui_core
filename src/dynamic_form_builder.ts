@@ -1,5 +1,3 @@
-import * as fs from 'fs';
-
 import {UserTask, UserTaskConfig, UserTaskFormField} from '@process-engine/consumer_api_contracts';
 
 import {IDynamicFormBuilder} from '.';
@@ -7,8 +5,6 @@ import {IDynamicFormBuilder} from '.';
 export class DynamicFormBuilder implements IDynamicFormBuilder {
 
   public buildFormFor(userTask: UserTask): any {
-
-    const template: string = fs.readFileSync(`${__dirname}/templates/dynamic_form.html`).toString();
 
     return '';
   }
@@ -24,7 +20,6 @@ export class DynamicFormBuilder implements IDynamicFormBuilder {
   }
 
   private _buildFormFieldFor(formFieldConfig: UserTaskFormField): string {
-    const template: string = fs.readFileSync(`${__dirname}/templates/${formFieldConfig.type}_form_field.html`).toString();
 
     return '';
   }
