@@ -10,11 +10,13 @@ import { Component, Prop} from '@stencil/core';
 export class DateFormField {
 
   @Prop() label: string;
+  @Prop() id: string;
+  @Prop() defaultValue: string;
 
   render() {
     return<div class="form-group">
-            <label>this.label</label>
-            <input type="text" data-provide="datepicker" class="form-control" id="dynamic-ui-field-{{id}}" name="form_fields[{{id}}]" placeholder="{{label}}" value="{{defaultValue}}"/>
+            <label>{this.label}</label>
+            <input type="text" data-provide="datepicker" class="form-control" id="dynamic-ui-field-{this.id}" name="form_fields[{this.id}]" placeholder={this.label} value={this.defaultValue}/>
           </div>
   }
 }
