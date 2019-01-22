@@ -13,14 +13,20 @@ export class LongFormField {
   @Prop() id: string;
   @Prop() defaultValue: string;
 
-  @Prop() dynamicUiField: HTMLLabelElement;
   @Prop() formFields: Array<string>;
 
 
   render() {
-    return <div class="form-group">
-              <label for={this.dynamicUiField[this.id]}>{this.label}:</label>
-              <input type="text" data-inputmask="'mask': '9{+}'" class="form-control" id={this.dynamicUiField[this.id]} name={this.formFields[this.id]} placeholder={this.label} value={this.defaultValue}/>
+    return (
+            <div class="form-group">
+              {this.formFields.map((field: any) =>
+                <div>
+                  <label>{field.label}</label>
+                  <input type={field.type} data-inputmask="'mask': '9{+}'" class="form-control" id={field.id} name={field.label} placeholder={field.label} value={field.defaultValue}></input>
+                </div>
+              )
+            }
             </div>
+          );
   }
 }
