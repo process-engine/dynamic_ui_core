@@ -1,6 +1,7 @@
 /* tslint:disable */
 import { Component, Prop} from '@stencil/core';
 import {DataModels} from '@process-engine/consumer_api_contracts';
+import { stringify } from 'querystring';
 
 @Component({
   tag: 'enum-form-field',
@@ -16,7 +17,11 @@ export class EnumFormField {
     return (
       <div class="form-group">
         <label>{this.formField.label}</label>
-        <input type="text" data-inputmask="'mask': '9{+}'" class="form-control" id={this.formField.id} name={this.formField.label} placeholder={this.formField.label} value={this.formField.defaultValue}></input>
+        <select class="form-control" id={this.formField.id} name={this.formField.label} placeholder={this.formField.label} value={this.formField.defaultValue}>
+          {this.formField.enumValues.map((enumValue) =>
+            <option value={enumValue.id}>{enumValue.name}</option>
+          )}
+        </select>
       </div>
     );
   }
