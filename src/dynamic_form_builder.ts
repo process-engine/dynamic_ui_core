@@ -10,13 +10,7 @@ export class DynamicFormBuilder implements IDynamicFormBuilder {
 
     const template: string = fs.readFileSync(`${__dirname}/templates/dynamic_form.html`).toString();
 
-    return Handlebars.compile(template)({
-      correlationId: userTask.correlationId,
-      processInstanceId: userTask.processInstanceId,
-      userTaskId: userTask.flowNodeInstanceId,
-      userTaskName: userTask.name,
-      formFields: this._buildFormFieldsFor(userTask.data),
-    });
+    return '';
   }
 
   private _buildFormFieldsFor(userTaskConfig: UserTaskConfig): Array<string> {
@@ -32,6 +26,6 @@ export class DynamicFormBuilder implements IDynamicFormBuilder {
   private _buildFormFieldFor(formFieldConfig: UserTaskFormField): string {
     const template: string = fs.readFileSync(`${__dirname}/templates/${formFieldConfig.type}_form_field.html`).toString();
 
-    return Handlebars.compile(template)(formFieldConfig);
+    return '';
   }
 }
