@@ -8,7 +8,6 @@ import {
 } from '@process-engine/dynamic_ui_contracts';
 
 import * as fs from 'fs';
-import * as Handlebars from 'handlebars';
 
 import {IDynamicFormBuilder} from '.';
 
@@ -74,7 +73,7 @@ export class DynamicUIService implements IDynamicUIApi {
 
     const template: string = fs.readFileSync(`${__dirname}/templates/dialog_finished.html`).toString();
 
-    return Handlebars.compile(template)({});
+    return '';
   }
 
 }
