@@ -1,5 +1,6 @@
 /* tslint:disable */
 import { Component, Prop} from '@stencil/core';
+import {DataModels} from '@process-engine/consumer_api_contracts';
 
 @Component({
   tag: 'enum-form-field',
@@ -9,22 +10,14 @@ import { Component, Prop} from '@stencil/core';
 
 export class EnumFormField {
 
-  @Prop() name: string;
-  @Prop() label: string;
-  @Prop() id: string;
-  @Prop() defaultValue: string;
-
-  @Prop() dynamicUiField: HTMLLabelElement;
-  @Prop() formFields: Array<string>;
+  @Prop() formField: DataModels.UserTasks.UserTaskFormField;
 
   render() {
-    return <div class="form-group">
-              <label for={this.dynamicUiField}>{this.label}:</label>
-              <select class="form-control" id={this.dynamicUiField[this.id]} name={this.formFields[this.id]} placeholder={this.label} value={this.defaultValue}>
-                {/* {{#each enumValues}} */}
-                <option value={this.id}>{this.name}</option>
-                {/* {{/each}} */}
-              </select>
-            </div>;
+    return (
+      <div class="form-group">
+        <label>{this.formField.label}</label>
+        <input type="text" data-inputmask="'mask': '9{+}'" class="form-control" id={this.formField.id} name={this.formField.label} placeholder={this.formField.label} value={this.formField.defaultValue}></input>
+      </div>
+    );
   }
 }
