@@ -16,7 +16,7 @@ export class NumberFormField {
     return (
       <div class="form-group">
         <label>{this.formField.label}</label>
-        <input type="text" data-inputmask="'mask': '9{+}'" class="form-control" id={this.formField.id} name={this.formField.label} placeholder={this.formField.label} value={this.formField.defaultValue}></input>
+        <input type="number" data-inputmask="'mask': '9{+}'" class="form-control" id={this.formField.id} name={this.formField.label} placeholder={this.formField.label} value={this.formField.defaultValue}></input>
       </div>
     );
   }
