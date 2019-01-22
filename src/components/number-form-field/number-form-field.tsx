@@ -1,5 +1,6 @@
 /* tslint:disable */
 import { Component, Prop} from '@stencil/core';
+import {DataModels} from '@process-engine/consumer_api_contracts';
 
 @Component({
   tag: 'number-form-field',
@@ -9,25 +10,14 @@ import { Component, Prop} from '@stencil/core';
 
 export class NumberFormField {
 
-  @Prop() name: string;
-  @Prop() label: string;
-  @Prop() id: string;
-  @Prop() defaultValue: string;
-
-  @Prop() dynamicUiField: HTMLLabelElement;
-  @Prop() formFields: Array<string>;
+  @Prop() formField: DataModels.UserTasks.UserTaskFormField;
 
   render() {
     return (
-            <div class="form-group">
-              {this.formFields.map((field: any) =>
-                <div>
-                  <label>{field.label}</label>
-                  <input type={field.type} data-inputmask="'mask': '9{+}'" class="form-control" id={field.id} name={field.label} placeholder={field.label} value={field.defaultValue}></input>
-                </div>
-              )
-            }
-            </div>
-          );
+      <div class="form-group">
+        <label>{this.formField.label}</label>
+        <input type="text" data-inputmask="'mask': '9{+}'" class="form-control" id={this.formField.id} name={this.formField.label} placeholder={this.formField.label} value={this.formField.defaultValue}></input>
+      </div>
+    );
   }
 }
