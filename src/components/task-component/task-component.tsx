@@ -30,6 +30,9 @@ export class MyComponent {
                 <div>
                   <dialog-finished></dialog-finished>
                 </div>
+                <div>
+                  <dynamic-form userTaskName="DYNAMIC-FORM-USERTASKNAME" processInstanceId="DYNAMIC-FORM-PROCESSINSTANCEID" correlationId="DYNAMIC-FORM-CORRELATIONID" userTaskId="DYNAMIC-FORM-USERTASKID"></dynamic-form>
+                </div>
             </div>;
   }
 }
