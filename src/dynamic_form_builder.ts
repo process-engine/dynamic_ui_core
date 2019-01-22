@@ -1,15 +1,15 @@
-import {UserTask, UserTaskConfig, UserTaskFormField} from '@process-engine/consumer_api_contracts';
+import {DataModels} from '@process-engine/consumer_api_contracts';
 
 import {IDynamicFormBuilder} from '.';
 
 export class DynamicFormBuilder implements IDynamicFormBuilder {
 
-  public buildFormFor(userTask: UserTask): any {
+  public buildFormFor(userTask: DataModels.UserTasks.UserTask): any {
 
     return '';
   }
 
-  private _buildFormFieldsFor(userTaskConfig: UserTaskConfig): Array<string> {
+  private _buildFormFieldsFor(userTaskConfig: DataModels.UserTasks.UserTaskConfig): Array<string> {
     const formFields: Array<string> = [];
 
     for (const formFieldConfig of userTaskConfig.formFields) {
@@ -19,7 +19,7 @@ export class DynamicFormBuilder implements IDynamicFormBuilder {
     return formFields;
   }
 
-  private _buildFormFieldFor(formFieldConfig: UserTaskFormField): string {
+  private _buildFormFieldFor(formFieldConfig: DataModels.UserTasks.UserTaskFormField): string {
 
     return '';
   }
