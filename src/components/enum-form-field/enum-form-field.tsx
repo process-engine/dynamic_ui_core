@@ -7,7 +7,7 @@ import { Component, Prop} from '@stencil/core';
   shadow: true,
 })
 
-export class DialogFinished {
+export class EnumFormField {
 
   @Prop() name: string;
   @Prop() label: string;
