@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import * as Handlebars from 'handlebars';
 
 import {UserTask, UserTaskConfig, UserTaskFormField} from '@process-engine/consumer_api_contracts';
 
