@@ -1,7 +1,6 @@
 /* tslint:disable */
 import { Component, Prop} from '@stencil/core';
 import {DataModels} from '@process-engine/consumer_api_contracts';
-import { stringify } from 'querystring';
 
 @Component({
   tag: 'enum-form-field',
