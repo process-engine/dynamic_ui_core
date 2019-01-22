@@ -7,8 +7,6 @@ import {
   OnDialogForCorrelationCallback,
 } from '@process-engine/dynamic_ui_contracts';
 
-import * as fs from 'fs';
-
 import {IDynamicFormBuilder} from '.';
 
 export class DynamicUIService implements IDynamicUIApi {
@@ -70,8 +68,6 @@ export class DynamicUIService implements IDynamicUIApi {
 
       return this.dynamicFormBuilder.buildFormFor(userTask);
     }
-
-    const template: string = fs.readFileSync(`${__dirname}/templates/dialog_finished.html`).toString();
 
     return '';
   }
