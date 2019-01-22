@@ -17,6 +17,9 @@ export class MyComponent {
   }
 
   render() {
-    return <div>{this.getText()} <boolean-form-field label='True or False?'></boolean-form-field></div>;
+    return  <div>{this.getText()}
+                <boolean-form-field label='BOOLEAN-FORM-FIELD-LABEL'></boolean-form-field>
+                <date-form-field label="DATE-FORM-FIELD-LABEL"></date-form-field>
+            </div>;
   }
 }
