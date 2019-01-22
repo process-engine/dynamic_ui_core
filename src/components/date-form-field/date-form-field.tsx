@@ -16,7 +16,7 @@ export class DateFormField {
   render() {
     return<div class="form-group">
             <label>{this.label}</label>
-            <input type="text" data-provide="datepicker" class="form-control" id="dynamic-ui-field-{this.id}" name="form_fields[{this.id}]" placeholder={this.label} value={this.defaultValue}/>
+            <input type="date" data-provide="datepicker" class="form-control" id="dynamic-ui-field-{this.id}" name="form_fields[{this.id}]" placeholder={this.label} value={this.defaultValue}/>
           </div>
   }
 }
