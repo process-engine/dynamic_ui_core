@@ -1,3 +1,4 @@
+/* tslint:disable */
 import { DataModels } from '@process-engine/consumer_api_contracts';
 import { Component, Prop } from '@stencil/core';
 
@@ -8,14 +9,14 @@ import { Component, Prop } from '@stencil/core';
 })
 export class MyComponent {
 
-  @Prop() public userTask: DataModels.UserTasks.UserTask;
+  @Prop() userTask: DataModels.UserTasks.UserTask;
 
   private getText(): string {
     console.log(this.userTask.id);
     return 'ID: ' + this.userTask.id + ' , Name: ' + this.userTask.name;
   }
 
-  public render() {
+  render() {
     return <div>{this.getText()} <boolean-form-field label='True or False?'></boolean-form-field></div>;
   }
 }
