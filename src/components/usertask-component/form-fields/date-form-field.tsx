@@ -1,5 +1,5 @@
 /* tslint:disable */
-import {Component} from '@stencil/core';
+import {Component, State} from '@stencil/core';
 import {DataModels} from '@process-engine/consumer_api_contracts';
 
 @Component({
@@ -12,10 +12,17 @@ export class DateFormField {
 
   formField: DataModels.UserTasks.UserTaskFormField;
 
+  @State() public value: string;
+
+  // tslint:disable-next-line:typedef
+  public componentWillLoad() {
+    this.value = this.formField.defaultValue;
+  }
+
   render() {
     return <div class="form-group">
       <label htmlFor={this.formField.id}>{this.formField.label}</label>
-      <input type="text" data-provide="datepicker" class="form-control" id={this.formField.id} value={this.formField.defaultValue} />
+      <input type="text" data-provide="datepicker" class="form-control" id={this.formField.id} value={this.value} />
     </div>
   }
 }

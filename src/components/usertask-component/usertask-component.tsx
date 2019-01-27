@@ -14,6 +14,7 @@ import {BooleanFormField, DateFormField, EnumFormField, LongFormField, NumberFor
 })
 export class UserTaskComponent {
   private formFieldComponentsForTyp: Array<IConstructor<any>> = [];
+  private formFields: Array<any> = [];
 
   @Prop() public userTask: IUserTask;
 
@@ -27,18 +28,30 @@ export class UserTaskComponent {
     this.formFieldComponentsForTyp['enum'] = EnumFormField;
   }
 
-  private createComponentForFormField(formField: DataModels.UserTasks.UserTaskFormField): any {
-    const type: IConstructor<any> = this.formFieldComponentsForTyp[formField.type];
-    const component: any = new type();
-    component.formField = formField;
-
-    return component;
+  // tslint:disable-next-line:typedef
+  public componentWillLoad() {
+    for (const formField of this.userTask.data.formFields) {
+      const component: any = this.createComponentForFormField(formField);
+      component.componentWillLoad();
+      this.formFields.push(component);
+    }
   }
 
   // tslint:disable-next-line:typedef
   public render() {
-    return this.userTask.data.formFields.map((formField: DataModels.UserTasks.UserTaskFormField) => {
-      return this.createComponentForFormField(formField).render();
-    });
+    {
+      return this.formFields.map((formField: any) => {
+        return formField.render();
+      });
+    }
+  }
+
+  private createComponentForFormField(formField: DataModels.UserTasks.UserTaskFormField): any {
+    const type: IConstructor<any> = this.formFieldComponentsForTyp[formField.type];
+    const component: any = new type();
+    component.formField = formField;
+    component.value = formField.defaultValue;
+
+    return component;
   }
 }
