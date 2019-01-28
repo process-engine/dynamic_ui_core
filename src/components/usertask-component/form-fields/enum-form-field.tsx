@@ -1,6 +1,7 @@
 /* tslint:disable */
 import {Component, Prop, State} from '@stencil/core';
 import {DataModels} from '@process-engine/consumer_api_contracts';
+import {IFormField} from './iform_field';
 
 @Component({
   tag: 'enum-form-field',
@@ -8,9 +9,13 @@ import {DataModels} from '@process-engine/consumer_api_contracts';
   shadow: true,
 })
 
-export class EnumFormField {
+export class EnumFormField implements IFormField {
 
   formField: DataModels.UserTasks.UserTaskFormField;
+
+  public get name(): string {
+    return this.formField.id;
+  }
 
   @State() public value: string;
 

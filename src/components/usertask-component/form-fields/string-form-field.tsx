@@ -1,14 +1,19 @@
 import {DataModels} from '@process-engine/consumer_api_contracts';
 import {Component, State} from '@stencil/core';
+import {IFormField} from './iform_field';
 
 @Component({
   tag: 'string-form-field',
   styleUrl: 'string-form-field.css',
   shadow: false,
 })
-export class StringFormField {
+export class StringFormField implements IFormField {
 
   public formField: DataModels.UserTasks.UserTaskFormField;
+
+  public get name(): string {
+    return this.formField.id;
+  }
 
   @State() public value: string;
 

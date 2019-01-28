@@ -20,7 +20,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-5 col-md-6 col-sm-7 col-sx-12 m-auto py-5">
-          <dynamic-usertask-form-component id="userTaskComponent"></dynamic-usertask-form-component>
+          <usertask-component id="userTaskComponent"></usertask-component>
         </div>
       </div>
     </div>
@@ -80,6 +80,10 @@
 
     var component = document.getElementById('userTaskComponent');
     component.userTask = userTask;
+    component.addEventListener('submitted', event => {
+      console.log(event.detail);
+    });
+
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>

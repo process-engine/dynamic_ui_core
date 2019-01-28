@@ -1,11 +1,12 @@
 
 import {DataModels} from '@process-engine/consumer_api_contracts';
-import {Component, Prop} from '@stencil/core';
+import {Component, Event, EventEmitter, Prop} from '@stencil/core';
 
 import {IConstructor} from './iconstructor';
 import {IUserTask} from './iusertask';
 
 import {BooleanFormField, DateFormField, EnumFormField, LongFormField, NumberFormField, StringFormField} from './form-fields';
+import {IFormField} from './form-fields/iform_field';
 
 @Component({
   tag: 'usertask-component',
@@ -13,10 +14,12 @@ import {BooleanFormField, DateFormField, EnumFormField, LongFormField, NumberFor
   shadow: false,
 })
 export class UserTaskComponent {
-  private formFieldComponentsForTyp: Array<IConstructor<any>> = [];
-  private formFields: Array<any> = [];
+  private formFieldComponentsForTyp: Array<IConstructor<IFormField>> = [];
+  private formFields: Array<IFormField> = [];
 
   @Prop() public userTask: IUserTask;
+
+  @Event() public submitted: EventEmitter;
 
   constructor() {
     this.formFieldComponentsForTyp['string'] = StringFormField;
@@ -39,11 +42,41 @@ export class UserTaskComponent {
 
   // tslint:disable-next-line:typedef
   public render() {
-    {
-      return this.formFields.map((formField: any) => {
-        return formField.render();
-      });
+    return <div class='card form_card'>
+      <div class='card-body'>
+        <h3 class='card-title'>{this.userTask.name}</h3>
+
+        <form onSubmit={(e: Event): void => this.handleSubmit(e)} >
+          {
+            this.formFields.map((formField: any) => {
+              return formField.render();
+            })
+          }
+          <input type='submit' class='btn btn-primary' value='Abschließen'></input>
+        </form>
+      </div>
+    </div>;
+  }
+
+  private handleSubmit(event: Event): void {
+    event.preventDefault();
+
+    this.submitted.emit({
+      correlationId: this.userTask.correlationId,
+      processInstanceId: this.userTask.processInstanceId,
+      userTaskId: this.userTask.id,
+      results: this.getFormResults(),
+    });
+  }
+
+  private getFormResults(): Array<any> {
+    const result: Array<any> = [];
+
+    for (const formField of this.formFields) {
+      result[formField.name] = formField.value;
     }
+
+    return result;
   }
 
   private createComponentForFormField(formField: DataModels.UserTasks.UserTaskFormField): any {
