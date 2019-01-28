@@ -24,11 +24,16 @@ export class LongFormField implements IFormField {
     this.value = this.formField.defaultValue;
   }
 
+  handleSelect(event) {
+    console.log(event.target.value);
+    this.value = event.target.value;
+  }
+
   render() {
     return (
       <div class="form-group">
         <label htmlFor={this.formField.id}>{this.formField.label}</label>
-        <input type="text" data-inputmask="'mask': '9{+}'" class="form-control" id={this.formField.id} name={this.formField.label} value={this.value}></input>
+        <input type="text" data-inputmask="'mask': '9{+}'" class="form-control" id={this.formField.id} name={this.formField.label} value={this.value} onInput={(event) => this.handleSelect(event)}></input>
       </div>
     );
   }

@@ -24,11 +24,16 @@ export class NumberFormField implements IFormField {
     this.value = this.formField.defaultValue;
   }
 
+  handleSelect(event) {
+    console.log(event.target.value);
+    this.value = event.target.value;
+  }
+
   render() {
     return (
       <div class="form-group">
         <label>{this.formField.label}</label>
-        <input type="text" data-inputmask="'mask': '9{+}[,9{*}]'" class="form-control" id={this.formField.id} name={this.formField.label} value={this.value}></input>
+        <input type="text" data-inputmask="'mask': '9{+}[,9{*}]'" class="form-control" id={this.formField.id} name={this.formField.label} value={this.value} onInput={(event) => this.handleSelect(event)}s></input>
       </div>
     );
   }

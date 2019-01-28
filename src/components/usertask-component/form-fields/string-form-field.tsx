@@ -1,3 +1,4 @@
+/* tslint:disable */
 import {DataModels} from '@process-engine/consumer_api_contracts';
 import {Component, State} from '@stencil/core';
 import {IFormField} from './iform_field';
@@ -22,13 +23,18 @@ export class StringFormField implements IFormField {
     this.value = this.formField.defaultValue;
   }
 
+  handleSelect(event) {
+    console.log(event.target.value);
+    this.value = event.target.value;
+  }
+
   // tslint:disable-next-line:typedef
   public render() {
     return (
       <div class='form-group'>
         <label htmlFor={this.formField.id}>{this.formField.label}</label>
         <input type='text'
-          class='form-control' id={this.formField.id} name={this.formField.id} value={this.value}>
+          class='form-control' id={this.formField.id} name={this.formField.id} value={this.value} onInput={(event) => this.handleSelect(event)}s>
         </input>
       </div>
     );
