@@ -33,7 +33,7 @@ export class NumberFormField implements IFormField {
     return (
       <div class="form-group">
         <label>{this.formField.label}</label>
-        <input type="text" data-inputmask="'mask': '9{+}[,9{*}]'" class="form-control" id={this.formField.id} name={this.formField.label} value={this.value} onInput={(event) => this.handleSelect(event)}s></input>
+        <input type="text" data-inputmask="'mask': '9{+}[,9{*}]'" class="form-control" id={this.formField.id} name={this.formField.label} value={this.value} onInput={(event) => this.handleSelect(event)}></input>
       </div>
     );
   }

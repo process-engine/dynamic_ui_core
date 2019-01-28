@@ -34,7 +34,7 @@ export class StringFormField implements IFormField {
       <div class='form-group'>
         <label htmlFor={this.formField.id}>{this.formField.label}</label>
         <input type='text'
-          class='form-control' id={this.formField.id} name={this.formField.id} value={this.value} onInput={(event) => this.handleSelect(event)}s>
+          class='form-control' id={this.formField.id} name={this.formField.id} value={this.value} onInput={(event) => this.handleSelect(event)}>
         </input>
       </div>
     );
