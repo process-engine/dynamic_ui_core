@@ -24,14 +24,15 @@ export class DateFormField implements IFormField {
     this.value = this.formField.defaultValue;
   }
 
+  handleChange(event) {
+    console.log(event.target.value);
+    this.value = event.target.value;
+  }
+
   render() {
     return <div class="form-group">
       <label htmlFor={this.formField.id}>{this.formField.label}</label>
-      <input type="text" data-provide="datepicker" class="form-control" id={this.formField.id} value={this.value} onChange={(event) => this.handleChange(event)} />
+      <input type="text" data-provide="datepicker" class="form-control" id={this.formField.id} value={this.value} onFocus={(event) => this.handleChange(event)} />
     </div>
-  }
-
-  private handleChange(event) {
-    console.log(event);
   }
 }
