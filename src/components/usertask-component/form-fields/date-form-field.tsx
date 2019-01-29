@@ -26,6 +26,7 @@ export class DateFormField implements IFormField {
 
   handleChange(event) {
     console.log(event.target.value);
+    console.log(event);
     this.value = event.target.value;
   }
 

@@ -5,8 +5,10 @@ import {Component, Event, EventEmitter, Prop} from '@stencil/core';
 import {IConstructor} from './iconstructor';
 import {IUserTask} from './iusertask';
 
+import {IFormField} from '.';
 import {BooleanFormField, DateFormField, EnumFormField, LongFormField, NumberFormField, StringFormField} from './form-fields';
-import {IFormField} from './form-fields/iform_field';
+
+/// form-fields/iform_field
 
 @Component({
   tag: 'usertask-component',
