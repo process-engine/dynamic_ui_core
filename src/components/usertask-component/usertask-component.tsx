@@ -1,4 +1,4 @@
-
+/* tslint:disable */
 import {DataModels} from '@process-engine/consumer_api_contracts';
 import {Component, Event, EventEmitter, Prop} from '@stencil/core';
 
