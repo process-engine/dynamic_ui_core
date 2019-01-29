@@ -35,6 +35,7 @@ export class UserTaskComponent {
 
   // tslint:disable-next-line:typedef
   public componentWillLoad() {
+    console.log('usertask-comp willload');
     for (const formField of this.userTask.data.formFields) {
       const component: any = this.createComponentForFormField(formField);
       component.componentWillLoad();
@@ -44,6 +45,7 @@ export class UserTaskComponent {
 
   // tslint:disable-next-line:typedef
   public render() {
+    console.log('usertask-comp render');
     return <div class='card form_card'>
       <div class='card-body'>
         <h3 class='card-title'>{this.userTask.name}</h3>
@@ -62,7 +64,7 @@ export class UserTaskComponent {
 
   private handleSubmit(event: Event): void {
     event.preventDefault();
-
+    console.log('usertask-comp handleSubmit');
     this.submitted.emit({
       correlationId: this.userTask.correlationId,
       processInstanceId: this.userTask.processInstanceId,
@@ -73,9 +75,11 @@ export class UserTaskComponent {
 
   private getFormResults(): Array<any> {
     const result: Array<any> = [];
-
+    console.log('usertask-comp getFormResults');
     for (const formField of this.formFields) {
       result[formField.name] = formField.value;
+      console.log('usertask-comp value:');
+      console.log(formField.value);
     }
 
     return result;
@@ -86,7 +90,7 @@ export class UserTaskComponent {
     const component: any = new type();
     component.formField = formField;
     component.value = formField.defaultValue;
-
+    console.log('usertask-comp createComponentForFormField');
     return component;
   }
 }
