@@ -78,11 +78,23 @@
       tokenPayload: 'asd',
     };
 
-    var component = document.getElementById('userTaskComponent');
+    // var component = document.getElementById('userTaskComponent');
+    // component.userTask = userTask;
+    // component.addEventListener('submitted', event => {
+    //   console.log(event.detail);
+    // });
+
+    console.log('Anfang');
+    const component = document.getElementById('userTaskComponent');
+    console.log(component);
+    console.log('currentTask:');
+    console.log(userTask);
     component.userTask = userTask;
-    component.addEventListener('submitted', event => {
+
+    component.addEventListener('submitted', (event) => {
       console.log(event.detail);
     });
+    console.log('Ende');
 
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
