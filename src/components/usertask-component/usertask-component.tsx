@@ -35,51 +35,61 @@ export class UserTaskComponent {
 
   // tslint:disable-next-line:typedef
   public componentWillLoad() {
-    console.log('usertask-comp willload');
-    for (const formField of this.userTask.data.formFields) {
-      const component: any = this.createComponentForFormField(formField);
-      component.componentWillLoad();
-      this.formFields.push(component);
+    const hasUserTask: boolean = this.userTask !== undefined && this.userTask !== null;
+
+    if (hasUserTask) {
+      for (const formField of this.userTask.data.formFields) {
+        const component: any = this.createComponentForFormField(formField);
+        component.componentWillLoad();
+        this.formFields.push(component);
+      }
     }
   }
 
   // tslint:disable-next-line:typedef
   public render() {
-    console.log('usertask-comp render');
-    return <div class='card form_card'>
-      <div class='card-body'>
-        <h3 class='card-title'>{this.userTask.name}</h3>
+    const hasUserTask: boolean = this.userTask !== undefined && this.userTask !== null;
+    if (hasUserTask) {
+      return <div class='card form_card'>
+        <div class='card-body'>
+          <h3 class='card-title'>{this.userTask.name}</h3>
 
-        <form onSubmit={(e: Event): void => this.handleSubmit(e)} >
-          {
-            this.formFields.map((formField: any) => {
-              return formField.render();
-            })
-          }
-          <input type='submit' class='btn btn-primary' value='Abschließen'></input>
-        </form>
+          <form onSubmit={(e: Event): void => this.handleSubmit(e)} >
+            {
+              this.formFields.map((formField: any) => {
+                return formField.render();
+              })
+            }
+            <input type='submit' class='btn btn-primary' value='Abschließen'></input>
+          </form>
+        </div>
+      </div>;
+    } else {
+      return <div class="card bg-danger text-white form_card">
+        <div class="card-body">
+          <h3 class="card-title mb-0">Die Aufgabe wurde bereits abgeschlossen.</h3>
+        </div>
       </div>
-    </div>;
+    }
   }
 
   private handleSubmit(event: Event): void {
     event.preventDefault();
-    console.log('usertask-comp handleSubmit');
+
     this.submitted.emit({
       correlationId: this.userTask.correlationId,
       processInstanceId: this.userTask.processInstanceId,
       userTaskId: this.userTask.id,
+      userTaskInstanceId: this.userTask.flowNodeInstanceId,
       results: this.getFormResults(),
     });
   }
 
-  private getFormResults(): Array<any> {
-    const result: Array<any> = [];
-    console.log('usertask-comp getFormResults');
+  private getFormResults(): DataModels.UserTasks.UserTaskResult {
+    const result: DataModels.UserTasks.UserTaskResult = {formFields: {}};
+
     for (const formField of this.formFields) {
-      result[formField.name] = formField.value;
-      console.log('usertask-comp value:');
-      console.log(formField.value);
+      result.formFields[formField.name] = formField.value;
     }
 
     return result;
@@ -90,7 +100,7 @@ export class UserTaskComponent {
     const component: any = new type();
     component.formField = formField;
     component.value = formField.defaultValue;
-    console.log('usertask-comp createComponentForFormField');
+
     return component;
   }
 }

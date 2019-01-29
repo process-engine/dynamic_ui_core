@@ -10,9 +10,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"
     integrity="sha256-JDBcnYeV19J14isGd3EtnsCQK05d8PczJ5+fvEvBJvI=" crossorigin="anonymous" />
   <script src="/build/usertaskcomponent.js"></script>
+  <script src="/assets/consumer_api_client_bundle.js"></script>
   <link rel="stylesheet" href="../assets/dynamic_form.css">
-
-
 </head>
 
 <body>
@@ -25,77 +24,29 @@
       </div>
     </div>
   </div>
+
   <script>
+    const identity = { token: 'ZHVtbXlfdG9rZW4=' };
+    const httpClient = new consumerApi.HttpClient();
+    httpClient.config = { url: 'http://localhost:8000' };
+    const externalAccessor = new consumerApi.ExternalAccessor(httpClient);
+    const consumerApiClient = new consumerApi.ConsumerApiClientService(externalAccessor);
 
-    const userTaskData = {
-      formFields: [{
-        id: 'testText',
-        type: 'string',
-        label: 'Testtext',
-        defaultValue: 'Test1234',
-      },
-      {
-        id: 'testLong',
-        type: 'long',
-        label: 'Testlong',
-        defaultValue: '1234',
-      },
-      {
-        id: 'testDecimal',
-        type: 'number',
-        label: 'TestDecimal',
-        defaultValue: '1234,1234',
-      },
-      {
-        id: 'testBoolean',
-        type: 'boolean',
-        label: 'TestBoolean',
-        defaultValue: 'true',
-      },
-      {
-        id: 'testDate',
-        type: 'date',
-        label: 'TestDate',
-        defaultValue: '20.12.1983',
-      },
-      {
-        id: 'testEnum',
-        type: 'enum',
-        label: 'TestEnum',
-        enumValues: [{ id: '1', name: 'Wert1' }, { id: '2', name: 'Wert2' }],
-        defaultValue: '2',
-      }],
-    };
-
-    const userTask = {
-      id: 'USER-TASK-ID',
-      flowNodeInstanceId: '',
-      name: 'Dynamische UserTask',
-      correlationId: '',
-      processInstanceId: '',
-      processModelId: '',
-      data: userTaskData,
-      tokenPayload: 'asd',
-    };
-
-    // var component = document.getElementById('userTaskComponent');
-    // component.userTask = userTask;
-    // component.addEventListener('submitted', event => {
-    //   console.log(event.detail);
-    // });
-
-    console.log('Anfang');
-    const component = document.getElementById('userTaskComponent');
-    console.log(component);
-    console.log('currentTask:');
-    console.log(userTask);
-    component.userTask = userTask;
-
-    component.addEventListener('submitted', (event) => {
-      console.log(event.detail);
+    var component = document.getElementById('userTaskComponent');
+    component.addEventListener('submitted', event => {
+      const userTask = event.detail;
+      consumerApiClient.finishUserTask(identity, userTask.processInstanceId, userTask.correlationId, userTask.userTaskInstanceId, userTask.results);
     });
-    console.log('Ende');
 
+    consumerApiClient.getUserTasksForCorrelation(identity, 'ef73a55c-e462-4f18-bc5c-b6739d19e809')
+      .then(results => {
+
+        const userTask = results.userTasks[0];
+        component.userTask = userTask;
+      })
+      .catch(error => {
+        alert(error);
+      });
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
@@ -108,8 +59,6 @@
     integrity="sha256-tW5LzEC7QjhG0CiAvxlseMTs2qJS7u3DRPauDjFJ3zo=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.de.min.js"
     integrity="sha256-MRg0FdDDqvQkQ3VIUMZCZ39M6O40kpoIYqCGU2rRyxE=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.en-IE.min.js"
-    integrity="sha256-xvu2Jw+poGAAbjaorSrkU69Ld0+J9/lJtHifgKpn4tY=" crossorigin="anonymous"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.min.js" integrity="sha256-JUbLuiRKiaXfbMpDSL9JwAJugW+Hg2E07+fjOCFjSSA="
     crossorigin="anonymous"></script>

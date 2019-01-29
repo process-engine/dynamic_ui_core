@@ -13,6 +13,7 @@ export const config: Config = {
       serviceWorker: null, // disable service workers
     },
   ],
-  plugins: [
+  copy: [
+    {src: '../node_modules/@process-engine/consumer_api_client_bundle/dist/consumer_api_client_bundle.js', dest: 'assets/consumer_api_client_bundle.js'},
   ],
 };

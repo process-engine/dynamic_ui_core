@@ -25,7 +25,6 @@ export class LongFormField implements IFormField {
   }
 
   handleSelect(event) {
-    console.log(event.target.value);
     this.value = event.target.value;
   }
 
