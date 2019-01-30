@@ -9,6 +9,10 @@
     "lint": "gulp lint",
     "test": "gulp test"
   },
+  "files": [
+    "dist",
+    "ioc_module.js"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/process-engine/dynamic_ui_core.git"
