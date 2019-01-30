@@ -11,11 +11,11 @@ import {BooleanFormField, DateFormField, EnumFormField, LongFormField, NumberFor
 /// form-fields/iform_field
 
 @Component({
-  tag: 'usertask-component',
-  styleUrl: 'usertask-component.css',
+  tag: 'dynamic-usertask-component',
+  styleUrl: 'dynamic-usertask-component.css',
   shadow: false,
 })
-export class UserTaskComponent {
+export class DynamicUserTaskComponent {
   private formFieldComponentsForTyp: Array<IConstructor<IFormField>> = [];
   private formFields: Array<IFormField> = [];
 
@@ -65,9 +65,9 @@ export class UserTaskComponent {
         </div>
       </div>;
     } else {
-      return <div class="card bg-danger text-white form_card">
+      return <div class="card form_card">
         <div class="card-body">
-          <h3 class="card-title mb-0">Die Aufgabe wurde bereits abgeschlossen.</h3>
+          <h3 class="card-title mb-0">Aufgabe abgeschlossen.</h3>
         </div>
       </div>
     }

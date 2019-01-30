@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html dir="ltr" lang="de">
 
 <head>
   <meta charset="utf-8">
@@ -9,7 +9,7 @@
     integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"
     integrity="sha256-JDBcnYeV19J14isGd3EtnsCQK05d8PczJ5+fvEvBJvI=" crossorigin="anonymous" />
-  <script src="/build/usertaskcomponent.js"></script>
+  <script src="/webcomponent/{{form_key}}"></script>
   <script src="/assets/consumer_api_client_bundle.js"></script>
   <link rel="stylesheet" href="../assets/dynamic_form.css">
 </head>
@@ -19,7 +19,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-5 col-md-6 col-sm-7 col-sx-12 m-auto py-5">
-          <usertask-component id="userTaskComponent"></usertask-component>
+          <dynamic-usertask-component id="userTaskComponent"></dynamic-usertask-component>
         </div>
       </div>
     </div>
@@ -27,18 +27,21 @@
 
   <script>
     const identity = { token: 'ZHVtbXlfdG9rZW4=' };
-    const httpClient = new consumerApi.HttpClient();
+    const httpClient = new consumerApiClient.HttpClient();
     httpClient.config = { url: 'http://localhost:8000' };
-    const externalAccessor = new consumerApi.ExternalAccessor(httpClient);
-    const consumerApiClient = new consumerApi.ConsumerApiClientService(externalAccessor);
+    const externalAccessor = new consumerApiClient.ExternalAccessor(httpClient);
+    const consumerApi = new consumerApiClient.ConsumerApiClientService(externalAccessor);
 
     var component = document.getElementById('userTaskComponent');
     component.addEventListener('submitted', event => {
       const userTask = event.detail;
-      consumerApiClient.finishUserTask(identity, userTask.processInstanceId, userTask.correlationId, userTask.userTaskInstanceId, userTask.results);
+      consumerApi.finishUserTask(identity, userTask.processInstanceId, userTask.correlationId, userTask.userTaskInstanceId, userTask.results)
+        .then(result => {
+          component.userTask = undefined;
+        });
     });
 
-    consumerApiClient.getUserTasksForCorrelation(identity, 'ef73a55c-e462-4f18-bc5c-b6739d19e809')
+    consumerApi.getUserTasksForCorrelation(identity, '93b9af94-c47b-4d9d-973d-4653279f60e8')
       .then(results => {
 
         const userTask = results.userTasks[0];

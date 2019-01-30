@@ -1,2 +1,2 @@
 export * from './form-fields/index';
-export * from './usertask-component';
+export * from './dynamic-usertask-component';

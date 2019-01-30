@@ -5,10 +5,9 @@
   "main": "dist/commonjs/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "stencil build",
+    "build": "gulp build && stencil build",
     "lint": "gulp lint",
-    "test": "gulp test",
-    "start": "stencil build --dev --watch --serve --debug"
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
@@ -23,7 +22,7 @@
   "dependencies": {
     "@process-engine/consumer_api_client_bundle": "feature~add_javascript_client",
     "@process-engine/consumer_api_contracts": "^3.0.0",
-    "@process-engine/dynamic_ui_contracts": "0.2.0",
+    "@process-engine/dynamic_ui_contracts": "feature~use_webcomponents",
     "@types/socket.io": "1.4.38",
     "addict-ioc": "2.5.4",
     "express": "4.16.4"
