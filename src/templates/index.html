@@ -11,7 +11,7 @@
     integrity="sha256-JDBcnYeV19J14isGd3EtnsCQK05d8PczJ5+fvEvBJvI=" crossorigin="anonymous" />
   <script src="/webcomponent/{{form_key}}"></script>
   <script src="/assets/consumer_api_client_bundle.js"></script>
-  <link rel="stylesheet" href="../assets/dynamic_form.css">
+  <link rel="stylesheet" href="/assets/dynamic_form.css">
 </head>
 
 <body>
@@ -28,7 +28,7 @@
   <script>
     const identity = { token: 'ZHVtbXlfdG9rZW4=' };
     const httpClient = new consumerApiClient.HttpClient();
-    httpClient.config = { url: 'http://localhost:8000' };
+    httpClient.config = { url: 'https://testidentityserver.westeurope.cloudapp.azure.com' };
     const externalAccessor = new consumerApiClient.ExternalAccessor(httpClient);
     const consumerApi = new consumerApiClient.ConsumerApiClientService(externalAccessor);
 

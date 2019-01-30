@@ -9,10 +9,10 @@ export class DynamicUIService implements IDynamicUIApi {
     return `${__dirname}/assets`;
   }
 
-  public async getIndex(): Promise<any> {
+  public async getIndex(formKey: string): Promise<any> {
     const template: string = fs.readFileSync(`${__dirname}/templates/index.html`).toString();
 
-    return Handlebars.compile(template)({});
+    return Handlebars.compile(template)({form_key: formKey});
   }
   public async getWebcomponent(formKey: string): Promise<any> {
     const webcomponent: string = fs.readFileSync(`${__dirname}/dynamic-usertask-component.js`).toString();
