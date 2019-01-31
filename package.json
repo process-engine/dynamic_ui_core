@@ -3,14 +3,12 @@
   "version": "0.3.0",
   "description": "Businesslogic of dynamic ui",
   "main": "dist/commonjs/index.js",
-  "typings": "dist/index.d.ts",
   "scripts": {
     "build": "gulp build && stencil build",
     "lint": "gulp lint",
     "test": "gulp test"
   },
   "files": [
-    "dist",
     "ioc_module.js"
   ],
   "repository": {
