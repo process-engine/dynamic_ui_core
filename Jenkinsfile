@@ -50,12 +50,6 @@ pipeline {
         sh('npm run build')
       }
     }
-    stage('test') {
-      steps {
-        sh('node --version')
-        sh('npm run test')
-      }
-    }
     stage('publish') {
       steps {
         script {
@@ -117,11 +111,11 @@ pipeline {
       }
     }
   }
-  // post {
-  //   always {
-  //     script {
-  //       cleanup_workspace();
-  //     }
-  //   }
-  // }
+  post {
+    always {
+      script {
+        cleanup_workspace();
+      }
+    }
+  }
 }
