@@ -98,7 +98,7 @@ pipeline {
 
             nodejs(configId: env.NPM_RC_FILE, nodeJSInstallationName: env.NODE_JS_VERSION) {
               sh('node --version')
-              sh('npm --version')
+              sh('tree dist')
               sh("npm version ${publish_version} --no-git-tag-version --force")
               sh("npm publish --tag ${publish_tag} --ignore-scripts")
             }
