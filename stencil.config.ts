@@ -6,7 +6,7 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'dist',
-      dir: 'dist/commonjs',
+      dir: 'dist',
       empty: false,
     },
   ],

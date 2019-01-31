@@ -15,7 +15,7 @@ export class DynamicUIService implements IDynamicUIApi {
     return Handlebars.compile(template)({form_key: formKey});
   }
   public async getWebcomponent(formKey: string): Promise<any> {
-    const webcomponent: string = fs.readFileSync(`${__dirname}/dynamic-usertask-component.js`).toString();
+    const webcomponent: string = fs.readFileSync(`${__dirname}/../dynamic-usertask-component.js`).toString();
 
     return webcomponent;
   }
