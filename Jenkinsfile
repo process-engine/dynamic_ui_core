@@ -117,11 +117,11 @@ pipeline {
       }
     }
   }
-  post {
-    always {
-      script {
-        cleanup_workspace();
-      }
-    }
-  }
+  // post {
+  //   always {
+  //     script {
+  //       cleanup_workspace();
+  //     }
+  //   }
+  // }
 }
