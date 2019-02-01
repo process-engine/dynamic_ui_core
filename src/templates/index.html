@@ -26,6 +26,11 @@
   </div>
 
   <script>
+    var urlParams = new URLSearchParams(window.location.search);
+
+    const correlationId = urlParams.get('correlationId');
+    const userId = urlParams.get('userId');
+
     const identity = { token: 'ZHVtbXlfdG9rZW4=' };
     const httpClient = new consumerApiClient.HttpClient();
     httpClient.config = { url: 'https://testidentityserver.westeurope.cloudapp.azure.com' };
@@ -41,10 +46,13 @@
         });
     });
 
-    consumerApi.getUserTasksForCorrelation(identity, '93b9af94-c47b-4d9d-973d-4653279f60e8')
+    consumerApi.getUserTasksForCorrelation(identity, correlationId)
       .then(results => {
 
-        const userTask = results.userTasks[0];
+        const userTask = results.userTasks.find(function (current) {
+          return current.id === userTaskId;
+        });
+
         component.userTask = userTask;
       })
       .catch(error => {
