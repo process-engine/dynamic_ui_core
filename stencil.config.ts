@@ -6,7 +6,7 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'dist',
-      dir: 'dist',
+      dir: 'dist/webcomponent',
       empty: false,
     },
   ],
