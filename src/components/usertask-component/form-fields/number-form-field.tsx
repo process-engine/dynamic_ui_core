@@ -29,6 +29,8 @@ export class NumberFormField implements IFormField {
 
     if (value.match('9{+}[,9{*}]')) {
       this.value = value;
+    } else {
+      event.preventDefault();
     }
   }
 
