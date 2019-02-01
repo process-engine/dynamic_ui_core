@@ -29,7 +29,7 @@
     var urlParams = new URLSearchParams(window.location.search);
 
     const correlationId = urlParams.get('correlationId');
-    const userId = urlParams.get('userId');
+    const userTaskId = urlParams.get('userTaskId');
 
     const identity = { token: 'ZHVtbXlfdG9rZW4=' };
     const httpClient = new consumerApiClient.HttpClient();
