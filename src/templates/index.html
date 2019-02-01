@@ -50,7 +50,7 @@
       .then(results => {
 
         const userTask = results.userTasks.find(function (current) {
-          return current.id === userTaskId;
+          return current.flowNodeInstanceId === userTaskId;
         });
 
         component.userTask = userTask;
