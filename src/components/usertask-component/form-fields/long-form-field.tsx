@@ -27,7 +27,7 @@ export class LongFormField implements IFormField {
   handleInput(event) {
     const value: string = event.target.value;
 
-    if (value.match('9{+}')) {
+    if (value.match('^\\d+$')) {
       this.value = value;
     } else {
       event.preventDefault();
@@ -38,7 +38,7 @@ export class LongFormField implements IFormField {
     const value: string = (this.value) ? this.value + event.key : event.key;
 
     console.log(value);
-    if (!value.match('9{+}')) {
+    if (!value.match('^\\d+$')) {
       console.log('match');
       event.preventDefault();
     }

@@ -27,7 +27,7 @@ export class NumberFormField implements IFormField {
   handleInput(event) {
     const value: string = event.target.value;
 
-    if (value.match('9{+}[,9{*}]')) {
+    if (value.match(/^-?\d*\,?\d*$/)) {
       this.value = value;
     } else {
       event.preventDefault();
@@ -36,7 +36,7 @@ export class NumberFormField implements IFormField {
 
   handleKeyDown(event) {
     const value: string = this.value + event.key;
-    if (!value.match('9{+}[,9{*}]')) {
+    if (!value.match(/^-?\d*\,?\d*$/)) {
       event.preventDefault();
     }
   }
