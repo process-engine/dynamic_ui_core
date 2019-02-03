@@ -35,8 +35,7 @@ export class LongFormField implements IFormField {
   }
 
   handleKeyDown(event) {
-    console.log(event);
-    const value: string = event.target.value;
+    const value: string = this.value + event.key;
     if (!value.match('9{+}')) {
       event.preventDefault();
     }

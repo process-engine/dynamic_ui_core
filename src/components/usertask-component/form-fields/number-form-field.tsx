@@ -35,7 +35,7 @@ export class NumberFormField implements IFormField {
   }
 
   handleKeyDown(event) {
-    const value: string = event.target.value;
+    const value: string = this.value + event.key;
     if (!value.match('9{+}[,9{*}]')) {
       event.preventDefault();
     }
