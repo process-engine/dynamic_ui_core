@@ -24,7 +24,7 @@ export class NumberFormField implements IFormField {
     this.value = this.formField.defaultValue;
   }
 
-  handleInspect(event) {
+  handleInput(event) {
     const value: string = event.target.value;
 
     if (value.match('9{+}[,9{*}]')) {
@@ -34,11 +34,18 @@ export class NumberFormField implements IFormField {
     }
   }
 
+  handleKeyDown(event) {
+    const value: string = event.target.value;
+    if (!value.match('9{+}[,9{*}]')) {
+      event.preventDefault();
+    }
+  }
+
   render() {
     return (
       <div class="form-group">
         <label>{this.formField.label}</label>
-        <input type="text" class="form-control" id={this.formField.id} name={this.formField.label} value={this.value} onInput={(event) => this.handleInspect(event)}></input>
+        <input type="text" class="form-control" id={this.formField.id} name={this.formField.label} value={this.value} onKeyDown={(event) => this.handleKeyDown(event)} onInput={(event) => this.handleInput(event)}></input>
       </div>
     );
   }

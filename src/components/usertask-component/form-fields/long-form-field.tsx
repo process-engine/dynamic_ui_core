@@ -29,6 +29,15 @@ export class LongFormField implements IFormField {
 
     if (value.match('9{+}')) {
       this.value = value;
+    } else {
+      event.preventDefault();
+    }
+  }
+
+  handleKeyDown(event) {
+    const value: string = event.target.value;
+    if (!value.match('9{+}')) {
+      event.preventDefault();
     }
   }
 
@@ -36,7 +45,7 @@ export class LongFormField implements IFormField {
     return (
       <div class="form-group">
         <label htmlFor={this.formField.id}>{this.formField.label}</label>
-        <input type="text" class="form-control" id={this.formField.id} name={this.formField.label} value={this.value} onInput={(event) => this.handleInput(event)}></input>
+        <input type="text" class="form-control" id={this.formField.id} name={this.formField.label} value={this.value} onKeyDown={(event) => this.handleKeyDown(event)} onInput={(event) => this.handleInput(event)}></input>
       </div>
     );
   }

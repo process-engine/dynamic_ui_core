@@ -23,7 +23,7 @@ export class StringFormField implements IFormField {
     this.value = this.formField.defaultValue;
   }
 
-  handleSelect(event) {
+  handleChange(event) {
     this.value = event.target.value;
   }
 
@@ -33,7 +33,7 @@ export class StringFormField implements IFormField {
       <div class='form-group'>
         <label htmlFor={this.formField.id}>{this.formField.label}</label>
         <input type='text'
-          class='form-control' id={this.formField.id} name={this.formField.id} value={this.value} onInput={(event) => this.handleSelect(event)}>
+          class='form-control' id={this.formField.id} name={this.formField.id} value={this.value} onInput={(event) => this.handleChange(event)}>
         </input>
       </div>
     );
