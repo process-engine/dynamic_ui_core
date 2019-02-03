@@ -39,6 +39,7 @@ export class LongFormField implements IFormField {
 
     console.log(value);
     if (!value.match('9{+}')) {
+      console.log('match');
       event.preventDefault();
     }
   }
