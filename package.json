@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/process-engine/dynamic_ui_core#readme",
   "dependencies": {
-    "@process-engine/consumer_api_client_bundle": "feature~add_javascript_client",
+    "@process-engine/consumer_api_client_bundle": "feature~fix_for_bpmn_studio",
     "@process-engine/consumer_api_contracts": "^3.0.0",
     "@process-engine/dynamic_ui_contracts": "feature~use_webcomponents",
     "@types/socket.io": "1.4.38",
