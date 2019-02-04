@@ -2,6 +2,7 @@
 import {Component, Prop, State} from '@stencil/core';
 import {DataModels} from '@process-engine/consumer_api_contracts';
 import {IFormField} from './iform_field';
+import {InputValidator} from './input_validator';
 
 @Component({
   tag: 'number-form-field',
@@ -10,6 +11,7 @@ import {IFormField} from './iform_field';
 })
 
 export class NumberFormField implements IFormField {
+  private readonly inputValidator: InputValidator = new InputValidator('^-?\\d*\\,?\\d*$');
 
   formField: DataModels.UserTasks.UserTaskFormField;
 
@@ -27,7 +29,7 @@ export class NumberFormField implements IFormField {
   handleInput(event) {
     const value: string = event.target.value;
 
-    if (value.match(/^-?\d*\,?\d*$/)) {
+    if (this.inputValidator.isValid(value)) {
       this.value = value;
     } else {
       event.preventDefault();
@@ -36,7 +38,8 @@ export class NumberFormField implements IFormField {
 
   handleKeyDown(event) {
     const value: string = this.value + event.key;
-    if (!value.match(/^-?\d*\,?\d*$/)) {
+
+    if (this.inputValidator.shouldValidateKey(event.keyCode) && !this.inputValidator.isValid(value)) {
       event.preventDefault();
     }
   }

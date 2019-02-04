@@ -2,6 +2,7 @@
 import {Component, Prop, State} from '@stencil/core';
 import {DataModels} from '@process-engine/consumer_api_contracts';
 import {IFormField} from './iform_field';
+import {InputValidator} from './input_validator';
 
 @Component({
   tag: 'long-form-field',
@@ -10,8 +11,9 @@ import {IFormField} from './iform_field';
 })
 
 export class LongFormField implements IFormField {
+  private readonly inputValidator: InputValidator = new InputValidator('^\\d+$');
 
-  formField: DataModels.UserTasks.UserTaskFormField;
+  public formField: DataModels.UserTasks.UserTaskFormField;
 
   public get name(): string {
     return this.formField.id;
@@ -27,10 +29,8 @@ export class LongFormField implements IFormField {
   handleInput(event) {
     const value: string = event.target.value;
 
-    if (value.match('^\\d+$')) {
+    if (this.inputValidator.isValid(value)) {
       this.value = value;
-    } else {
-      event.preventDefault();
     }
   }
 
@@ -38,7 +38,7 @@ export class LongFormField implements IFormField {
     const value: string = (this.value) ? this.value + event.key : event.key;
 
     console.log(value);
-    if (!value.match('^\\d+$')) {
+    if (this.inputValidator.shouldValidateKey(event.keyCode) && !this.inputValidator.isValid(value)) {
       console.log('match');
       event.preventDefault();
     }
