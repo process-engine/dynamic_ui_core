@@ -28,7 +28,8 @@
     "@process-engine/dynamic_ui_contracts": "feature~use_webcomponents",
     "@types/socket.io": "1.4.38",
     "addict-ioc": "2.5.4",
-    "express": "4.16.4"
+    "express": "4.16.4",
+    "handlebars": "^4.0.12"
   },
   "devDependencies": {
     "@essential-projects/tslint-config": "^1.1.3",
