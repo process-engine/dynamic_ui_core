@@ -3,7 +3,7 @@ import {IDynamicUIApi} from '@process-engine/dynamic_ui_contracts';
 import * as fs from 'fs';
 import * as Handlebars from 'handlebars';
 
-export class DynamicUIService implements IDynamicUIApi {
+export class DynamicUIService {
 
   public get assetsPath(): string {
     return `${__dirname}/assets`;
