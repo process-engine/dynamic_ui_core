@@ -24,7 +24,6 @@ export class DynamicUserTaskComponent {
   @Event() public submitted: EventEmitter;
 
   constructor() {
-    console.log('DYNAMIC_USERTASK_COMPONENT');
     this.formFieldComponentsForTyp['string'] = StringFormField;
     this.formFieldComponentsForTyp['long'] = LongFormField;
     this.formFieldComponentsForTyp['number'] = NumberFormField;
