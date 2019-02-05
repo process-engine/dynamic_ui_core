@@ -32,7 +32,7 @@
     var basePath = window.location.port ? `${window.location.protocol}//${window.location.hostname}:${window.location.port}` : `${window.location.protocol}//${window.location.hostname}`
 
     var config = {
-      authority: "https://testidentityserver.westeurope.cloudapp.azure.com/identityserver/",
+      authority: "{{identity_server_url}}",
       client_id: "bot",
       redirect_uri: `${basePath}/bot/login/callback.html`,
       response_type: "code",
@@ -50,33 +50,35 @@
 
         const identity = { token: user.access_token };
         const httpClient = new consumerApiClient.HttpClient();
-        httpClient.config = { url: 'https://testidentityserver.westeurope.cloudapp.azure.com' };
-        const externalAccessor = new consumerApiClient.ExternalAccessor(httpClient);
-        const consumerApi = new consumerApiClient.ConsumerApiClientService(externalAccessor);
-
-        var component = document.getElementById('userTaskComponent');
-        component.addEventListener('submitted', event => {
-          const userTask = event.detail;
-          consumerApi.finishUserTask(identity, userTask.processInstanceId, userTask.correlationId, userTask.userTaskInstanceId, userTask.results)
-            .then(result => {
-              component.userTask = undefined;
-            });
-        });
-
-        consumerApi.getUserTasksForCorrelation(identity, correlationId)
-          .then(results => {
-
-            const userTask = results.userTasks.find(function (current) {
-              return current.flowNodeInstanceId === userTaskId;
-            });
-
-            component.userTask = userTask;
-          })
-          .catch(error => {
-            alert(error);
-          });
+        httpClient.config = { url: '{{consumer_api__external_accessor__url}}' }
       }
-    });
+
+      const externalAccessor = new consumerApiClient.ExternalAccessor(httpClient);
+      const consumerApi = new consumerApiClient.ConsumerApiClientService(externalAccessor);
+
+      var component = document.getElementById('userTaskComponent');
+      component.addEventListener('submitted', event => {
+        const userTask = event.detail;
+        consumerApi.finishUserTask(identity, userTask.processInstanceId, userTask.correlationId, userTask.userTaskInstanceId, userTask.results)
+          .then(result => {
+            component.userTask = undefined;
+          });
+      });
+
+      consumerApi.getUserTasksForCorrelation(identity, correlationId)
+        .then(results => {
+
+          const userTask = results.userTasks.find(function (current) {
+            return current.flowNodeInstanceId === userTaskId;
+          });
+
+          component.userTask = userTask;
+        })
+        .catch(error => {
+          alert(error);
+        });
+    }
+    );
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
