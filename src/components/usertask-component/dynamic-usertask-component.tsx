@@ -53,7 +53,7 @@ export class DynamicUserTaskComponent {
       return <div class='card form_card'>
         <div class='card-body'>
 
-          <h3 class='card-title'>{this.usertask.name} HALLO</h3>
+          <h3 class='card-title'>{this.usertask.name}</h3>
 
           <form onSubmit={(e: Event): void => this.handleSubmit(e)} >
             {
