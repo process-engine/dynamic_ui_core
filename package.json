@@ -9,7 +9,7 @@
     "test": "gulp test"
   },
   "files": [
-    "dist",
+    "dist/**",
     "ioc_module.js"
   ],
   "repository": {
