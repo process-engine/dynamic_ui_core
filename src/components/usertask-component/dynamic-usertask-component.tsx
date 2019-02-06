@@ -19,7 +19,7 @@ export class DynamicUserTaskComponent {
   private formFieldComponentsForTyp: Array<IConstructor<IFormField>> = [];
   private formFields: Array<IFormField> = [];
 
-  @Prop() public userTask: IUserTask;
+  @Prop() public usertask: IUserTask;
 
   @Event() public submitted: EventEmitter;
 
@@ -35,10 +35,10 @@ export class DynamicUserTaskComponent {
 
   // tslint:disable-next-line:typedef
   public componentWillLoad() {
-    const hasUserTask: boolean = this.userTask !== undefined && this.userTask !== null;
+    const hasUserTask: boolean = this.usertask !== undefined && this.usertask !== null;
 
     if (hasUserTask) {
-      for (const formField of this.userTask.data.formFields) {
+      for (const formField of this.usertask.data.formFields) {
         const component: any = this.createComponentForFormField(formField);
         component.componentWillLoad();
         this.formFields.push(component);
@@ -48,11 +48,12 @@ export class DynamicUserTaskComponent {
 
   // tslint:disable-next-line:typedef
   public render() {
-    const hasUserTask: boolean = this.userTask !== undefined && this.userTask !== null;
+    const hasUserTask: boolean = this.usertask !== undefined && this.usertask !== null;
     if (hasUserTask) {
       return <div class='card form_card'>
         <div class='card-body'>
-          <h3 class='card-title'>{this.userTask.name}</h3>
+
+          <h3 class='card-title'>{this.usertask.name} HALLO</h3>
 
           <form onSubmit={(e: Event): void => this.handleSubmit(e)} >
             {
@@ -77,10 +78,10 @@ export class DynamicUserTaskComponent {
     event.preventDefault();
 
     this.submitted.emit({
-      correlationId: this.userTask.correlationId,
-      processInstanceId: this.userTask.processInstanceId,
-      userTaskId: this.userTask.id,
-      userTaskInstanceId: this.userTask.flowNodeInstanceId,
+      correlationId: this.usertask.correlationId,
+      processInstanceId: this.usertask.processInstanceId,
+      userTaskId: this.usertask.id,
+      userTaskInstanceId: this.usertask.flowNodeInstanceId,
       results: this.getFormResults(),
     });
   }

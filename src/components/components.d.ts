@@ -16,11 +16,11 @@ import {
 export namespace Components {
 
   interface DynamicUsertaskComponent {
-    'userTask': IUserTask;
+    'usertask': IUserTask;
   }
   interface DynamicUsertaskComponentAttributes extends StencilHTMLAttributes {
     'onSubmitted'?: (event: CustomEvent) => void;
-    'userTask'?: IUserTask;
+    'usertask'?: IUserTask;
   }
 
   interface BooleanFormField {}
