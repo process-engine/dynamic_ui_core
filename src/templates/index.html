@@ -61,7 +61,7 @@
           const userTask = event.detail;
           consumerApi.finishUserTask(identity, userTask.processInstanceId, userTask.correlationId, userTask.userTaskInstanceId, userTask.results)
             .then(result => {
-              component.userTask = undefined;
+              component.usertask = undefined;
             });
         });
 
@@ -72,7 +72,7 @@
               return current.flowNodeInstanceId === userTaskId;
             });
 
-            component.userTask = userTask;
+            component.usertask = userTask;
           })
           .catch(error => {
             alert(error);
