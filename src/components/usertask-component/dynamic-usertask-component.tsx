@@ -19,7 +19,8 @@ export class DynamicUserTaskComponent {
   private formFieldComponentsForTyp: Array<IConstructor<IFormField>> = [];
   private formFields: Array<IFormField> = [];
 
-  @Prop() public userTask: IUserTask;
+  @Prop() public usertask: string;
+  public userTask: IUserTask;
 
   @Event() public submitted: EventEmitter;
 
@@ -35,6 +36,8 @@ export class DynamicUserTaskComponent {
 
   // tslint:disable-next-line:typedef
   public componentWillLoad() {
+    this.userTask = JSON.parse(this.usertask);
+    console.log(this.usertask, this.userTask);
     const hasUserTask: boolean = this.userTask !== undefined && this.userTask !== null;
 
     if (hasUserTask) {
@@ -52,7 +55,8 @@ export class DynamicUserTaskComponent {
     if (hasUserTask) {
       return <div class='card form_card'>
         <div class='card-body'>
-          <h3 class='card-title'>{this.userTask.name}</h3>
+
+          <h3 class='card-title'>{this.userTask.name} HALLO</h3>
 
           <form onSubmit={(e: Event): void => this.handleSubmit(e)} >
             {
