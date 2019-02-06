@@ -37,7 +37,6 @@ export class DynamicUserTaskComponent {
   // tslint:disable-next-line:typedef
   public componentWillLoad() {
     this.userTask = JSON.parse(this.usertask);
-    console.log(this.usertask, this.userTask);
     const hasUserTask: boolean = this.userTask !== undefined && this.userTask !== null;
 
     if (hasUserTask) {
