@@ -8,19 +8,16 @@
 import '@stencil/core';
 
 
-import {
-  IUserTask,
-} from './usertask-component/iusertask';
 
 
 export namespace Components {
 
   interface DynamicUsertaskComponent {
-    'userTask': IUserTask;
+    'usertask': string;
   }
   interface DynamicUsertaskComponentAttributes extends StencilHTMLAttributes {
     'onSubmitted'?: (event: CustomEvent) => void;
-    'userTask'?: IUserTask;
+    'usertask'?: string;
   }
 
   interface BooleanFormField {}
