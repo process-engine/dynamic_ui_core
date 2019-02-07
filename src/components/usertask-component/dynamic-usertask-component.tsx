@@ -61,7 +61,7 @@ export class DynamicUserTaskComponent {
                 return formField.render();
               })
             }
-            <input type='submit' class='btn btn-primary' value='Abschließen'></input>
+            <input type='submit' class='btn btn-primary' id='dynamic-ui-wrapper-continue-button' value='Abschließen'></input>
           </form>
         </div>
       </div>;
