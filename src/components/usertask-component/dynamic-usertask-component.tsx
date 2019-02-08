@@ -33,7 +33,7 @@ export class DynamicUserTaskComponent {
     this.formFieldComponentsForTyp['enum'] = EnumFormField;
   }
 
-  @Watch('userTask')
+  @Watch('usertask')
   // tslint:disable-next-line:typedef
   public watchUserTaskHandler(newUserTask: IUserTask, oldUserTask: IUserTask) {
     this.formFields = [];
