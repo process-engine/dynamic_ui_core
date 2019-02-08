@@ -1,6 +1,6 @@
 /* tslint:disable */
 import {DataModels} from '@process-engine/consumer_api_contracts';
-import {Component, Event, EventEmitter, Prop} from '@stencil/core';
+import {Component, Event, EventEmitter, Prop, Watch} from '@stencil/core';
 
 import {IConstructor} from './iconstructor';
 import {IUserTask} from './iusertask';
@@ -33,12 +33,15 @@ export class DynamicUserTaskComponent {
     this.formFieldComponentsForTyp['enum'] = EnumFormField;
   }
 
+  @Watch('userTask')
   // tslint:disable-next-line:typedef
-  public componentWillLoad() {
-    const hasUserTask: boolean = this.usertask !== undefined && this.usertask !== null;
+  public watchUserTaskHandler(newUserTask: IUserTask, oldUserTask: IUserTask) {
+    this.formFields = [];
+
+    const hasUserTask: boolean = newUserTask !== undefined && newUserTask !== null;
 
     if (hasUserTask) {
-      for (const formField of this.usertask.data.formFields) {
+      for (const formField of newUserTask.data.formFields) {
         const component: any = this.createComponentForFormField(formField);
         component.componentWillLoad();
         this.formFields.push(component);
