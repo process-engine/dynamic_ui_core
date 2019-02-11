@@ -1,14 +1,18 @@
-/* tslint:disable */
-import {DataModels} from '@process-engine/consumer_api_contracts';
 import {Component, Event, EventEmitter, Prop, Watch} from '@stencil/core';
 
-import {IConstructor} from './iconstructor';
-import {IUserTask} from './iusertask';
+import {DataModels} from '@process-engine/consumer_api_contracts';
 
-import {IFormField} from '.';
-import {BooleanFormField, DateFormField, EnumFormField, LongFormField, NumberFormField, StringFormField} from './form-fields';
-
-/// form-fields/iform_field
+import {
+  BooleanFormField,
+  DateFormField,
+  EnumFormField,
+  IConstructor,
+  IFormField,
+  IUserTask,
+  LongFormField,
+  NumberFormField,
+  StringFormField,
+} from '.';
 
 @Component({
   tag: 'dynamic-usertask-component',
@@ -16,45 +20,42 @@ import {BooleanFormField, DateFormField, EnumFormField, LongFormField, NumberFor
   shadow: false,
 })
 export class DynamicUserTaskComponent {
-  private formFieldComponentsForTyp: Array<IConstructor<IFormField>> = [];
-  private formFields: Array<IFormField> = [];
-
   @Prop() public usertask: IUserTask;
-
   @Event() public submitted: EventEmitter;
 
+  private _formFieldComponentsForTyp: Array<IConstructor<IFormField>> = [];
+  private _formFields: Array<IFormField> = [];
+
   constructor() {
-    this.formFieldComponentsForTyp['string'] = StringFormField;
-    this.formFieldComponentsForTyp['long'] = LongFormField;
-    this.formFieldComponentsForTyp['number'] = NumberFormField;
-    this.formFieldComponentsForTyp['boolean'] = BooleanFormField;
-    this.formFieldComponentsForTyp['decimal'] = NumberFormField;
-    this.formFieldComponentsForTyp['date'] = DateFormField;
-    this.formFieldComponentsForTyp['enum'] = EnumFormField;
+    this._formFieldComponentsForTyp['string'] = StringFormField;
+    this._formFieldComponentsForTyp['long'] = LongFormField;
+    this._formFieldComponentsForTyp['number'] = NumberFormField;
+    this._formFieldComponentsForTyp['boolean'] = BooleanFormField;
+    this._formFieldComponentsForTyp['decimal'] = NumberFormField;
+    this._formFieldComponentsForTyp['date'] = DateFormField;
+    this._formFieldComponentsForTyp['enum'] = EnumFormField;
   }
 
-  public componentWillLoad(){
+  public componentWillLoad(): void {
     this.watchUserTaskHandler(this.usertask, undefined);
   }
 
   @Watch('usertask')
-  // tslint:disable-next-line:typedef
-  public watchUserTaskHandler(newUserTask: IUserTask, oldUserTask: IUserTask) {
-    this.formFields = [];
+  public watchUserTaskHandler(newUserTask: IUserTask, oldUserTask: IUserTask): void {
+    this._formFields = [];
 
     const hasUserTask: boolean = newUserTask !== undefined && newUserTask !== null;
 
     if (hasUserTask) {
       for (const formField of newUserTask.data.formFields) {
-        const component: any = this.createComponentForFormField(formField);
+        const component: any = this._createComponentForFormField(formField);
         component.componentWillLoad();
-        this.formFields.push(component);
+        this._formFields.push(component);
       }
     }
   }
 
-  // tslint:disable-next-line:typedef
-  public render() {
+  public render(): any {
     const hasUserTask: boolean = this.usertask !== undefined && this.usertask !== null;
     if (hasUserTask) {
       return <div class='card form_card'>
@@ -62,9 +63,9 @@ export class DynamicUserTaskComponent {
 
           <h3 class='card-title'>{this.usertask.name}</h3>
 
-          <form onSubmit={(e: Event): void => this.handleSubmit(e)} >
+          <form onSubmit={(e: Event): void => this._handleSubmit(e)} >
             {
-              this.formFields.map((formField: any) => {
+              this._formFields.map((formField: any) => {
                 return formField.render();
               })
             }
@@ -73,15 +74,15 @@ export class DynamicUserTaskComponent {
         </div>
       </div>;
     } else {
-      return <div class="card form_card">
-        <div class="card-body">
-          <h3 class="card-title mb-0">Aufgabe abgeschlossen.</h3>
+      return <div class='card form_card'>
+        <div class='card-body'>
+          <h3 class='card-title mb-0'>Aufgabe abgeschlossen.</h3>
         </div>
-      </div>
+      </div>;
     }
   }
 
-  private handleSubmit(event: Event): void {
+  private _handleSubmit(event: Event): void {
     event.preventDefault();
 
     this.submitted.emit({
@@ -89,22 +90,22 @@ export class DynamicUserTaskComponent {
       processInstanceId: this.usertask.processInstanceId,
       userTaskId: this.usertask.id,
       userTaskInstanceId: this.usertask.flowNodeInstanceId,
-      results: this.getFormResults(),
+      results: this._getFormResults(),
     });
   }
 
-  private getFormResults(): DataModels.UserTasks.UserTaskResult {
+  private _getFormResults(): DataModels.UserTasks.UserTaskResult {
     const result: DataModels.UserTasks.UserTaskResult = {formFields: {}};
 
-    for (const formField of this.formFields) {
+    for (const formField of this._formFields) {
       result.formFields[formField.name] = formField.value;
     }
 
     return result;
   }
 
-  private createComponentForFormField(formField: DataModels.UserTasks.UserTaskFormField): any {
-    const type: IConstructor<any> = this.formFieldComponentsForTyp[formField.type];
+  private _createComponentForFormField(formField: DataModels.UserTasks.UserTaskFormField): any {
+    const type: IConstructor<any> = this._formFieldComponentsForTyp[formField.type];
     const component: any = new type();
     component.formField = formField;
     component.value = formField.defaultValue;

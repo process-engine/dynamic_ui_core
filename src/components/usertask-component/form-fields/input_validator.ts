@@ -1,12 +1,12 @@
 export class InputValidator {
-  private readonly regex: RegExp;
+  private readonly _regex: RegExp;
 
   constructor(regex: string) {
-    this.regex = new RegExp(regex);
+    this._regex = new RegExp(regex);
   }
 
   public isValid(value: string): boolean {
-    return this.regex.test(value);
+    return this._regex.test(value);
   }
 
   public shouldValidateKey(keyCode: number): boolean {

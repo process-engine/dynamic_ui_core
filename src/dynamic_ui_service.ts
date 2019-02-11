@@ -18,10 +18,10 @@ export class DynamicUIService implements IDynamicUIApi {
       identity_server_url: process.env.IDENTITY_SERVER_URL,
     });
   }
+
   public async getWebcomponent(formKey: string): Promise<any> {
     const webcomponent: string = fs.readFileSync(`${__dirname}/../dynamic-usertask-component.js`).toString();
 
     return webcomponent;
   }
-
 }
