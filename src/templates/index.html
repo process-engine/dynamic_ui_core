@@ -56,7 +56,7 @@
         const externalAccessor = new consumerApiClient.ExternalAccessor(httpClient);
         const consumerApi = new consumerApiClient.ConsumerApiClientService(externalAccessor);
 
-        var component = document.getElementById('userTaskComponent');
+        const component = document.getElementById('userTaskComponent');
         component.addEventListener('submitted', event => {
           const userTask = event.detail;
           consumerApi.finishUserTask(identity, userTask.processInstanceId, userTask.correlationId, userTask.userTaskInstanceId, userTask.results)
