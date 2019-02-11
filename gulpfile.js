@@ -9,6 +9,7 @@ const buildSystemConfig = {
   copy: {
     "src/templates/*": "dist/commonjs/templates/",
     "src/assets/*": "dist/commonjs/assets/",
+    "node_modules/@process-engine/consumer_api_client_bundle/dist/consumer_api_client_bundle.js": "dist/commonjs/assets/"
   },
   conventionalTasks: {
     build: {
