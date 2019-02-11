@@ -50,12 +50,6 @@ pipeline {
         sh('npm run build')
       }
     }
-    stage('test') {
-      steps {
-        sh('node --version')
-        sh('npm run test')
-      }
-    }
     stage('publish') {
       steps {
         script {
@@ -98,6 +92,8 @@ pipeline {
 
             nodejs(configId: env.NPM_RC_FILE, nodeJSInstallationName: env.NODE_JS_VERSION) {
               sh('node --version')
+              sh('tree dist')
+              sh('find . -name dynamic-usertask-component.js')
               sh("npm version ${publish_version} --no-git-tag-version --force")
               sh("npm publish --tag ${publish_tag} --ignore-scripts")
             }
