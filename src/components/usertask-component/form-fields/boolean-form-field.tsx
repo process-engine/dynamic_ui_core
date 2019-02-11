@@ -1,6 +1,5 @@
-import {Component, State} from '@stencil/core';
-
 import {DataModels} from '@process-engine/consumer_api_contracts';
+import {Component, State} from '@stencil/core';
 
 import {IFormField} from './iform_field';
 
