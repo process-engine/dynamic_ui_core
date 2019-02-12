@@ -70,9 +70,11 @@ export class DynamicUserTaskComponent {
                 return formField.render();
               })
             }
-            <input type='button' class='btn btn-secondary' onClick={(e: Event): void => this._handleCancel(e)}
-              id='dynamic-ui-wrapper-cancel-button' value='Cancel'></input>
-            <input type='submit' class='btn btn-primary' id='dynamic-ui-wrapper-continue-button' value='Continue'></input>
+            <div>
+              <button type='button' class='btn btn-secondary' onClick={(e: Event): void => this._handleCancel(e)}
+                id='dynamic-ui-wrapper-cancel-button'>Cancel</button>
+              <button type='submit' class='btn btn-primary' id='dynamic-ui-wrapper-continue-button'>Continue</button>
+            </div>
           </form>
         </div>
       </div>;
