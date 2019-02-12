@@ -22,6 +22,7 @@ import {
 export class DynamicUserTaskComponent {
   @Prop() public usertask: IUserTask;
   @Event() public submitted: EventEmitter;
+  @Event() public canceled: EventEmitter;
 
   private _formFieldComponentsForTyp: Array<IConstructor<IFormField>> = [];
   private _formFields: Array<IFormField> = [];
@@ -69,14 +70,16 @@ export class DynamicUserTaskComponent {
                 return formField.render();
               })
             }
-            <input type='submit' class='btn btn-primary' id='dynamic-ui-wrapper-continue-button' value='Abschließen'></input>
+            <input type='button' class='btn btn-secondary' onClick={(e: Event): void => this._handleCancel(e)}
+              id='dynamic-ui-wrapper-cancel-button' value='Cancel'></input>
+            <input type='submit' class='btn btn-primary' id='dynamic-ui-wrapper-continue-button' value='Continue'></input>
           </form>
         </div>
       </div>;
     } else {
       return <div class='card form_card'>
         <div class='card-body'>
-          <h3 class='card-title mb-0'>Aufgabe abgeschlossen.</h3>
+          <h3 class='card-title mb-0'>UserTask finished.</h3>
         </div>
       </div>;
     }
@@ -92,6 +95,10 @@ export class DynamicUserTaskComponent {
       userTaskInstanceId: this.usertask.flowNodeInstanceId,
       results: this._getFormResults(),
     });
+  }
+
+  private _handleCancel(event: Event): void {
+    this.canceled.emit();
   }
 
   private _getFormResults(): DataModels.UserTasks.UserTaskResult {
