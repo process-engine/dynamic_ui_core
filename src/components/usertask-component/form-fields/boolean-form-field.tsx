@@ -32,6 +32,7 @@ export class BooleanFormField implements IFormField {
   }
 
   private _handleClick(event: any): void {
+    console.log(event.taget);
     this.value = event.target.checked === 'true';
   }
 }
