@@ -7,7 +7,7 @@ import {IManualTask} from './imanualtask';
   styleUrl: 'manualtask-component.css',
   shadow: false,
 })
-export class DynamicUserTaskComponent {
+export class ManualTaskComponent {
   @Prop() public manualtask: IManualTask;
   @Event() public continued: EventEmitter;
   @Event() public canceled: EventEmitter;

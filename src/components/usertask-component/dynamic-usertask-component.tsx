@@ -89,7 +89,7 @@ export class DynamicUserTaskComponent {
           <button type='button' class='btn btn-secondary' onClick={(e: Event): void => this._handleCancel(e)}
             id='dynamic-ui-wrapper-cancel-button'>Cancel</button>&nbsp;
           <button type='button' class='btn btn-danger' onClick={(e: Event): void => this._handleDecline(e)}
-            id='dynamic-ui-wrapper-decline-button'>decline</button>&nbsp;
+            id='dynamic-ui-wrapper-decline-button'>Decline</button>&nbsp;
           <button type='button' class='btn btn-success' onClick={(e: Event): void => this._handleProceed(e)}
             id='dynamic-ui-wrapper-proceed-button'>Proceed</button>
         </div>
