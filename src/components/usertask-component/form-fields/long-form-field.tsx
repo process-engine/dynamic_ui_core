@@ -11,7 +11,7 @@ import {InputValidator} from './input_validator';
 })
 export class LongFormField implements IFormField {
 
-  @State() public value: string;
+  @State() public value: number;
 
   public formField: DataModels.UserTasks.UserTaskFormField;
 
@@ -39,7 +39,7 @@ export class LongFormField implements IFormField {
     const value: string = event.target.value;
 
     if (this._inputValidator.isValid(value)) {
-      this.value = value;
+      this.value = parseInt(value);
     }
   }
 

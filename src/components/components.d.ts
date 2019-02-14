@@ -10,7 +10,7 @@ import '@stencil/core';
 
 import {
   IUserTask,
-} from './usertask-component/iusertask';
+} from './usertask-component';
 
 
 export namespace Components {
@@ -19,6 +19,7 @@ export namespace Components {
     'usertask': IUserTask;
   }
   interface DynamicUsertaskComponentAttributes extends StencilHTMLAttributes {
+    'onCanceled'?: (event: CustomEvent) => void;
     'onSubmitted'?: (event: CustomEvent) => void;
     'usertask'?: IUserTask;
   }
