@@ -166,7 +166,7 @@ export class DynamicUserTaskComponent {
     return result;
   }
 
-  private _getConfirmResult(proceedClicked: boolean) {
+  private _getConfirmResult(proceedClicked: boolean): DataModels.UserTasks.UserTaskResult {
     const result: DataModels.UserTasks.UserTaskResult = {formFields: {}};
     const firstFormField: DataModels.UserTasks.UserTaskFormField = this.usertask.data.formFields[0];
 
