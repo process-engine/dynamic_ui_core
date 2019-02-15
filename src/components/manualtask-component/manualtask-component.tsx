@@ -15,6 +15,7 @@ export class ManualTaskComponent {
   public render(): any {
     const hasManualTask: boolean = this.manualtask !== undefined && this.manualtask !== null;
     if (hasManualTask) {
+    
       return <div class='card form_card'>
         <div class='card-body'>
           <h3 class='card-title'>{this.manualtask.name}</h3>
@@ -27,7 +28,9 @@ export class ManualTaskComponent {
           </div>
         </div>
       </div>;
+      
     } else {
+    
       return <div class='card form_card'>
         <div class='card-body'>
           <h3 class='card-title mb-0'>ManualTask finished.</h3>
