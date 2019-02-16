@@ -9,16 +9,29 @@ import '@stencil/core';
 
 
 import {
+  IManualTask,
+} from './manualtask-component/imanualtask';
+import {
   IUserTask,
-} from './usertask-component/iusertask';
+} from './usertask-component';
 
 
 export namespace Components {
+
+  interface ManualtaskComponent {
+    'manualtask': IManualTask;
+  }
+  interface ManualtaskComponentAttributes extends StencilHTMLAttributes {
+    'manualtask'?: IManualTask;
+    'onCanceled'?: (event: CustomEvent) => void;
+    'onContinued'?: (event: CustomEvent) => void;
+  }
 
   interface DynamicUsertaskComponent {
     'usertask': IUserTask;
   }
   interface DynamicUsertaskComponentAttributes extends StencilHTMLAttributes {
+    'onCanceled'?: (event: CustomEvent) => void;
     'onSubmitted'?: (event: CustomEvent) => void;
     'usertask'?: IUserTask;
   }
@@ -44,6 +57,7 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
+    'ManualtaskComponent': Components.ManualtaskComponent;
     'DynamicUsertaskComponent': Components.DynamicUsertaskComponent;
     'BooleanFormField': Components.BooleanFormField;
     'DateFormField': Components.DateFormField;
@@ -54,6 +68,7 @@ declare global {
   }
 
   interface StencilIntrinsicElements {
+    'manualtask-component': Components.ManualtaskComponentAttributes;
     'dynamic-usertask-component': Components.DynamicUsertaskComponentAttributes;
     'boolean-form-field': Components.BooleanFormFieldAttributes;
     'date-form-field': Components.DateFormFieldAttributes;
@@ -63,6 +78,12 @@ declare global {
     'string-form-field': Components.StringFormFieldAttributes;
   }
 
+
+  interface HTMLManualtaskComponentElement extends Components.ManualtaskComponent, HTMLStencilElement {}
+  var HTMLManualtaskComponentElement: {
+    prototype: HTMLManualtaskComponentElement;
+    new (): HTMLManualtaskComponentElement;
+  };
 
   interface HTMLDynamicUsertaskComponentElement extends Components.DynamicUsertaskComponent, HTMLStencilElement {}
   var HTMLDynamicUsertaskComponentElement: {
@@ -107,6 +128,7 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
+    'manualtask-component': HTMLManualtaskComponentElement
     'dynamic-usertask-component': HTMLDynamicUsertaskComponentElement
     'boolean-form-field': HTMLBooleanFormFieldElement
     'date-form-field': HTMLDateFormFieldElement
@@ -117,6 +139,7 @@ declare global {
   }
 
   interface ElementTagNameMap {
+    'manualtask-component': HTMLManualtaskComponentElement;
     'dynamic-usertask-component': HTMLDynamicUsertaskComponentElement;
     'boolean-form-field': HTMLBooleanFormFieldElement;
     'date-form-field': HTMLDateFormFieldElement;

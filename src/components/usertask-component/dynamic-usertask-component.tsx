@@ -22,6 +22,7 @@ import {
 export class DynamicUserTaskComponent {
   @Prop() public usertask: IUserTask;
   @Event() public submitted: EventEmitter;
+  @Event() public canceled: EventEmitter;
 
   private _formFieldComponentsForTyp: Array<IConstructor<IFormField>> = [];
   private _formFields: Array<IFormField> = [];
@@ -58,28 +59,69 @@ export class DynamicUserTaskComponent {
   public render(): any {
     const hasUserTask: boolean = this.usertask !== undefined && this.usertask !== null;
     if (hasUserTask) {
-      return <div class='card form_card'>
-        <div class='card-body'>
+      const isConfirmUserTask: boolean = this.usertask.data.preferredControl === 'confirm';
 
-          <h3 class='card-title'>{this.usertask.name}</h3>
-
-          <form onSubmit={(e: Event): void => this._handleSubmit(e)} >
-            {
-              this._formFields.map((formField: any) => {
-                return formField.render();
-              })
-            }
-            <input type='submit' class='btn btn-primary' id='dynamic-ui-wrapper-continue-button' value='Abschließen'></input>
-          </form>
-        </div>
-      </div>;
+      if (isConfirmUserTask) {
+      
+        return this._renderConfirmUserTask();
+      } else {
+      
+        return this._renderUserTask();
+      }
     } else {
+    
       return <div class='card form_card'>
         <div class='card-body'>
-          <h3 class='card-title mb-0'>Aufgabe abgeschlossen.</h3>
+          <h3 class='card-title mb-0'>UserTask finished.</h3>
         </div>
       </div>;
     }
+  }
+
+  private _renderConfirmUserTask(): any {
+    const firstFormField: DataModels.UserTasks.UserTaskFormField = this.usertask.data.formFields[0];
+
+    return <div class='card form_card'>
+      <div class='card-body'>
+
+        <h3 class='card-title'>{this.usertask.name}</h3>
+
+        <p>{firstFormField.label}</p>
+        <br></br>
+        <div class='float-right'>
+          <button type='button' class='btn btn-secondary' onClick={(e: Event): void => this._handleCancel(e)}
+            id='dynamic-ui-wrapper-cancel-button'>Cancel</button>&nbsp;
+          <button type='button' class='btn btn-danger' onClick={(e: Event): void => this._handleDecline(e)}
+            id='dynamic-ui-wrapper-decline-button'>Decline</button>&nbsp;
+          <button type='button' class='btn btn-success' onClick={(e: Event): void => this._handleProceed(e)}
+            id='dynamic-ui-wrapper-proceed-button'>Proceed</button>
+        </div>
+      </div>
+    </div>;
+  }
+
+  private _renderUserTask(): any {
+  
+    return <div class='card form_card'>
+      <div class='card-body'>
+
+        <h3 class='card-title'>{this.usertask.name}</h3>
+
+        <form onSubmit={(e: Event): void => this._handleSubmit(e)} >
+          {
+            this._formFields.map((formField: any) => {
+              return formField.render();
+            })
+          }
+          <br></br>
+          <div class='float-right'>
+            <button type='button' class='btn btn-secondary' onClick={(e: Event): void => this._handleCancel(e)}
+              id='dynamic-ui-wrapper-cancel-button'>Cancel</button>&nbsp;
+          <button type='submit' class='btn btn-primary' id='dynamic-ui-wrapper-continue-button'>Continue</button>
+          </div>
+        </form>
+      </div>
+    </div>;
   }
 
   private _handleSubmit(event: Event): void {
@@ -94,12 +136,45 @@ export class DynamicUserTaskComponent {
     });
   }
 
+  private _handleProceed(event: Event): void {
+    this.submitted.emit({
+      correlationId: this.usertask.correlationId,
+      processInstanceId: this.usertask.processInstanceId,
+      userTaskId: this.usertask.id,
+      userTaskInstanceId: this.usertask.flowNodeInstanceId,
+      results: this._getConfirmResult(true),
+    });
+  }
+
+  private _handleDecline(event: Event): void {
+    this.submitted.emit({
+      correlationId: this.usertask.correlationId,
+      processInstanceId: this.usertask.processInstanceId,
+      userTaskId: this.usertask.id,
+      userTaskInstanceId: this.usertask.flowNodeInstanceId,
+      results: this._getConfirmResult(false),
+    });
+  }
+
+  private _handleCancel(event: Event): void {
+    this.canceled.emit();
+  }
+
   private _getFormResults(): DataModels.UserTasks.UserTaskResult {
     const result: DataModels.UserTasks.UserTaskResult = {formFields: {}};
 
     for (const formField of this._formFields) {
       result.formFields[formField.name] = formField.value;
     }
+
+    return result;
+  }
+
+  private _getConfirmResult(proceedClicked: boolean): DataModels.UserTasks.UserTaskResult {
+    const result: DataModels.UserTasks.UserTaskResult = {formFields: {}};
+    const firstFormField: DataModels.UserTasks.UserTaskFormField = this.usertask.data.formFields[0];
+
+    result.formFields[firstFormField.id] = proceedClicked;
 
     return result;
   }
