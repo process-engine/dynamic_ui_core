@@ -54,10 +54,10 @@ export class DateFormField implements IFormField {
   private _handleKeyDown(event: any): void {
     const value: string = this.value + event.key;
 
-    if (value.length > 10 && this._inputValidator.shouldValidateKey(event.keyCode) && !this._inputValidator.isValid(value) ) {
-      event.preventDefault();
-      console.log('preventDefault()');
-    }
+    // if (!this._inputValidator.isValid(value) ) {
+    //   event.preventDefault();
+    //   console.log('preventDefault()');
+    // }
   }
 
   private _handleChange(event: any): void {
