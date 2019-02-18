@@ -24,12 +24,12 @@ export class DateFormField implements IFormField {
   }
 
   public render(): any {
-    return <div class='form-group'>
-      <label htmlFor={this.formField.id}>{this.formField.label}</label>
-      <input type='date' data-provide='datepicker' class='form-control'
-        id={this.formField.id} value={this.value} onFocus={(event: any): void => this._handleChange(event)}></input>
-
-    </div>;
+    return (
+      <div class= 'form-group'>
+        <label htmlFor={this.formField.id}>{this.formField.label}</label>
+        <input type='date' data-provide='datepicker' class='form-control'
+          id={this.formField.id} value={this.value} onFocus={(event: any): void => this._handleChange(event)}></input>;
+      </div>);
   }
 
   private _handleChange(event: any): void {
