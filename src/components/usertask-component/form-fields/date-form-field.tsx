@@ -23,7 +23,7 @@ export class DateFormField implements IFormField {
   private readonly _inputValidator: InputValidator = new InputValidator(this._reg);
 
   public componentWillLoad(): void {
-    this.value = this.formField.defaultValue;
+    this.value = '--.--.----';
   }
 
   public render(): any {
