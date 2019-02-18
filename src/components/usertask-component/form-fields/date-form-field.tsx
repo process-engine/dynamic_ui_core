@@ -20,7 +20,7 @@ export class DateFormField implements IFormField {
   }
 
   public componentWillLoad(): void {
-    this.value = '--.--.----';
+    this.value = this.formField.defaultValue;
   }
 
   public render(): any {
