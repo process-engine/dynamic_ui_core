@@ -29,10 +29,12 @@ export class DateFormField implements IFormField {
     return <div class='form-group'>
       <label htmlFor={this.formField.id}>{this.formField.label}</label>
       <input type='text' data-provide='datepicker' class='form-control'
-        id={this.formField.id} value={this.value} onFocus={(event: any): void => this._handleChange(event)}
-        onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
+        id={this.formField.id} value={this.value} onFocus={(event: any): void => this._handleChange(event)}></input>
+
     </div>;
   }
+
+  // onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
 
   private _handleInput(event: any): void {
     const value: string = event.target.value;
