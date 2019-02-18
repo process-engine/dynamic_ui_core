@@ -20,7 +20,7 @@ export class DateFormField implements IFormField {
   }
 
   private readonly _reg: any = /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
-  private readonly _inputValidator: RegExp = new RegExp(this._reg);
+  private readonly _inputValidator: InputValidator = new InputValidator(this._reg);
 
   public componentWillLoad(): void {
     this.value = this.formField.defaultValue;
@@ -38,16 +38,17 @@ export class DateFormField implements IFormField {
 
   private _handleInput(event: any): void {
     const value: string = event.target.value;
-    if (value.match(this._inputValidator)) {
+    // if (value.match(this._inputValidator)) {
+    //   console.log('Date is valid');
+    // } else {
+    //   console.log('Date is NOT valid');
+    // }
+    if (this._inputValidator.isValid(value)) {
       console.log('Date is valid');
     } else {
       console.log('Date is NOT valid');
+      event.preventDefault();
     }
-    // if (this._inputValidator.isValid(value)) {
-    //   // this.value = parseFloat(value.replace(',', '.'));
-    // } else {
-    //   event.preventDefault();
-    // }
   }
 
   private _handleKeyDown(event: any): void {
