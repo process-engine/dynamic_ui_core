@@ -19,8 +19,7 @@ export class DateFormField implements IFormField {
     return this.formField.id;
   }
 
-  private readonly _inputValidator: InputValidator = new InputValidator('^-?\\d*\\,?\\d*$');
-  // new InputValidator('(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.(20\d{2}\s*$');
+  private readonly _inputValidator: InputValidator = new InputValidator('(3[01]|[12][0-9]|0?[1-9]).(1[012]|0?[1-9]).(20\d{2}\s*$');
 
   public public; public componentWillLoad(): void {
     this.value = this.formField.defaultValue;
