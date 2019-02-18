@@ -19,10 +19,10 @@ export class DateFormField implements IFormField {
     return this.formField.id;
   }
 
-  private readonly _reg: any = /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
-  private readonly _regCheck: any = /[0-9\.]/;
-  private readonly _inputValidator: InputValidator = new InputValidator(this._reg);
-  private readonly _inputValidatorCheck: InputValidator = new InputValidator(this._regCheck);
+  // private readonly _reg: any = /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
+  // private readonly _regCheck: any = /[0-9\.]/;
+  // private readonly _inputValidator: InputValidator = new InputValidator(this._reg);
+  // private readonly _inputValidatorCheck: InputValidator = new InputValidator(this._regCheck);
 
   public componentWillLoad(): void {
     this.value = '--.--.----';
@@ -39,32 +39,32 @@ export class DateFormField implements IFormField {
 
 // onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
 
-  private _handleInput(event: any): void {
-    const value: string = event.target.value;
-    // if (value.match(this._inputValidator)) {
-    //   console.log('Date is valid');
-    // } else {
-    //   console.log('Date is NOT valid');
-    // }
-    if (this._inputValidator.isValid(value)) {
-      console.log('Date is valid', value);
-    } else {
-      console.log('Date is NOT valid');
-      event.preventDefault();
-    }
-  }
+  // private _handleInput(event: any): void {
+  //   const value: string = event.target.value;
+  //   // if (value.match(this._inputValidator)) {
+  //   //   console.log('Date is valid');
+  //   // } else {
+  //   //   console.log('Date is NOT valid');
+  //   // }
+  //   if (this._inputValidator.isValid(value)) {
+  //     console.log('Date is valid', value);
+  //   } else {
+  //     console.log('Date is NOT valid');
+  //     event.preventDefault();
+  //   }
+  // }
 
-  private _handleKeyDown(event: any): void {
-    const value: string = this.value + event.key;
+  // private _handleKeyDown(event: any): void {
+  //   const value: string = this.value + event.key;
 
-    if (!this._inputValidatorCheck.isValid(event.key)) {
-      event.preventDefault();
-      console.log('NO Valid Key:', event.key);
-    } else {
-      console.log('Valid Key:', event.key);
-    }
+  //   if (!this._inputValidatorCheck.isValid(event.key)) {
+  //     event.preventDefault();
+  //     console.log('NO Valid Key:', event.key);
+  //   } else {
+  //     console.log('Valid Key:', event.key);
+  //   }
 
-  }
+  // }
 
   private _handleChange(event: any): void {
     this.value = event.target.value;
