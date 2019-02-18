@@ -28,7 +28,7 @@ export class DateFormField implements IFormField {
       <div class= 'form-group'>
         <label htmlFor={this.formField.id}>{this.formField.label}</label>
         <input type='date' data-provide='datepicker' class='form-control'
-          id={this.formField.id} value={this.value} onFocus={(event: any): void => this._handleChange(event)}></input>;
+          id={this.formField.id} value={this.value} onFocus={(event: any): void => this._handleChange(event)}></input>
       </div>
     );
   }
