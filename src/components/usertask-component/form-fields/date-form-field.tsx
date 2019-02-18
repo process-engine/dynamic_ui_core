@@ -53,11 +53,10 @@ export class DateFormField implements IFormField {
 
   private _handleKeyDown(event: any): void {
     const value: string = this.value + event.key;
+    console.log('## _handleKeyDown ##');
+    console.log('event.key:', event.key);
+    console.log('value:', value);
 
-    // if (!this._inputValidator.isValid(value) ) {
-    //   event.preventDefault();
-    //   console.log('preventDefault()');
-    // }
   }
 
   private _handleChange(event: any): void {
