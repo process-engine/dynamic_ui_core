@@ -44,7 +44,7 @@ export class DateFormField implements IFormField {
     //   console.log('Date is NOT valid');
     // }
     if (this._inputValidator.isValid(value)) {
-      console.log('Date is valid');
+      console.log('Date is valid', value);
     } else {
       console.log('Date is NOT valid');
       event.preventDefault();
@@ -54,9 +54,10 @@ export class DateFormField implements IFormField {
   private _handleKeyDown(event: any): void {
     const value: string = this.value + event.key;
 
-    // if (this._inputValidator.shouldValidateKey(event.keyCode) && !this._inputValidator.isValid(value)) {
-    //   event.preventDefault();
-    // }
+    if (this._inputValidator.shouldValidateKey(event.keyCode) && !this._inputValidator.isValid(value)) {
+      // event.preventDefault();
+      console.log('preventDefault()');
+    }
   }
 
   private _handleChange(event: any): void {
