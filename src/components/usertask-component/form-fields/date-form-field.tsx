@@ -20,7 +20,7 @@ export class DateFormField implements IFormField {
   }
 
   private readonly _reg: any = /^(\d{2})\.(\d{2})\.(\d{4})$/;
-  private readonly _inputValidator: InputValidator = new InputValidator(this._reg);
+  private readonly _inputValidator: RegExp = new RegExp(this._reg);
 
   public componentWillLoad(): void {
     this.value = this.formField.defaultValue;
@@ -38,20 +38,24 @@ export class DateFormField implements IFormField {
 
   private _handleInput(event: any): void {
     const value: string = event.target.value;
-
-    if (this._inputValidator.isValid(value)) {
-      // this.value = parseFloat(value.replace(',', '.'));
+    if (value.match(this._inputValidator)) {
+      console.log('Date is valid');
     } else {
-      event.preventDefault();
+      console.log('Date is NOT valid');
     }
+    // if (this._inputValidator.isValid(value)) {
+    //   // this.value = parseFloat(value.replace(',', '.'));
+    // } else {
+    //   event.preventDefault();
+    // }
   }
 
   private _handleKeyDown(event: any): void {
     const value: string = this.value + event.key;
 
-    if (this._inputValidator.shouldValidateKey(event.keyCode) && !this._inputValidator.isValid(value)) {
-      event.preventDefault();
-    }
+    // if (this._inputValidator.shouldValidateKey(event.keyCode) && !this._inputValidator.isValid(value)) {
+    //   event.preventDefault();
+    // }
   }
 
   private _handleChange(event: any): void {
