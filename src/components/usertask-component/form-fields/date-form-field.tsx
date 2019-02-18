@@ -19,7 +19,7 @@ export class DateFormField implements IFormField {
     return this.formField.id;
   }
 
-  private readonly _reg: any = /^(\d{2})\.(\d{2})\.(\d{4})$/;
+  private readonly _reg: any = /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
   private readonly _inputValidator: RegExp = new RegExp(this._reg);
 
   public componentWillLoad(): void {
