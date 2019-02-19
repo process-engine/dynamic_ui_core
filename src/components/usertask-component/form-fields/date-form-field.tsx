@@ -1,14 +1,15 @@
 import {DataModels} from '@process-engine/consumer_api_contracts';
 import {Component, State} from '@stencil/core';
 
+import {DateInputValidator} from './date_input_validator';
 import {IFormField} from './iform_field';
-import {InputValidator} from './input_validator';
 
 @Component({
   tag: 'date-form-field',
   styleUrl: 'date-form-field.css',
   shadow: true,
 })
+
 export class DateFormField implements IFormField {
 
   @State() public value: string;
@@ -19,8 +20,8 @@ export class DateFormField implements IFormField {
     return this.formField.id;
   }
 
-  private readonly _reg: any = /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
-  private readonly _inputValidator: InputValidator = new InputValidator(this._reg);
+  // tslint:disable-next-line
+  private readonly _inputValidator: DateInputValidator = new DateInputValidator('/^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/');
 
   public componentWillLoad(): void {
     this.value = this.formField.defaultValue;
@@ -45,7 +46,7 @@ export class DateFormField implements IFormField {
   private _handleKeyDown(event: any): void {
     const value: string = this.value + event.key;
 
-    if (!this._inputValidator.shouldValidateKeyForDate(event.keyCode, event.target.value) && !this._inputValidator.isValid(value)) {
+    if (!this._inputValidator.shouldValidateKey(event.keyCode, event.target.value) && !this._inputValidator.isValid(value)) {
       event.preventDefault();
     }
   }

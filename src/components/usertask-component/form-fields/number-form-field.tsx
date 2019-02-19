@@ -2,7 +2,7 @@ import {DataModels} from '@process-engine/consumer_api_contracts';
 import {Component, State} from '@stencil/core';
 
 import {IFormField} from './iform_field';
-import {InputValidator} from './input_validator';
+import {NumberInputValidator} from './number_input_validator';
 
 @Component({
   tag: 'number-form-field',
@@ -19,7 +19,7 @@ export class NumberFormField implements IFormField {
     return this.formField.id;
   }
 
-  private readonly _inputValidator: InputValidator = new InputValidator('^-?\\d*\\,?\\d*$');
+  private readonly _inputValidator: NumberInputValidator = new NumberInputValidator('^-?\\d*\\,?\\d*$');
 
   public componentWillLoad(): void {
     this.value = this.formField.defaultValue;
