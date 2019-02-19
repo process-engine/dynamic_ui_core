@@ -23,7 +23,7 @@ export class InputValidator {
     const keyCodeEnter: number = 13;
 
     if (keyCode === keyCodeEnter) {
-      return this.isValid(value);
+      return this.isValid(value) && this.isValidDate(value);
     }
 
     if (value.length === 2) {
@@ -34,4 +34,19 @@ export class InputValidator {
 
     return (keyCode <= keyCodeDigitNine && keyCode >= keyCodeDigitZero) || keyCode === keyCodeBackspace;
   }
+
+  public isValidDate(value: string): boolean {
+    const year: number = parseInt(value.substring(6, 10));
+    const month: number = parseInt(value.substring(3, 5));
+    const day: number = parseInt(value.substring(0, 2));
+
+    return this.isDayInMonth(day, month, year);
+  }
+
+  private isDayInMonth(day: number, month: number, year: number): boolean {
+    const date: any = new Date(year, month, 0).getDate();
+
+    return day <= date;
+  }
+
 }
