@@ -30,37 +30,23 @@ export class DateFormField implements IFormField {
     return (
       <div class= 'form-group'>
         <label htmlFor={this.formField.id}>{this.formField.label}</label>
-        <input type='text' pattern='\d{1,2}/\d{1,2}/\d{4}' data-provide='datepicker' class='form-control'
+        <input type='text' data-provide='datepicker' class='form-control' maxlength='10'
           id={this.formField.id} value={this.value} onFocus={(event: any): void => this._handleChange(event)}
-          ></input>
+          onKeyDown={(event: any): void => this._handleKeyDown(event)}></input>
 
       </div>
     );
   }
 
-  // onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}
-
   private _handleChange(event: any): void {
     this.value = event.target.value;
-  }
-
-  private _handleInput(event: any): void {
-    const value: string = event.target.value;
-    // if (value.match(this._inputValidator)) {
-    //   console.log('Date is valid');
-    // } else {
-    //   console.log('Date is NOT valid');
-    // }
-    if (this._inputValidator.isValid(value)) {
-      console.log('Date is valid', value);
-    } else {
-      console.log('Date is NOT valid');
-      event.preventDefault();
-    }
   }
 
   private _handleKeyDown(event: any): void {
     const value: string = this.value + event.key;
 
+    if (!this._inputValidator.shouldValidateKeyForDate(event.keyCode, event.target.value) && !this._inputValidator.isValid(value)) {
+      event.preventDefault();
+    }
   }
 }
