@@ -2,7 +2,7 @@ import {DataModels} from '@process-engine/consumer_api_contracts';
 import {Component, State} from '@stencil/core';
 
 import {IFormField} from './iform_field';
-import {InputValidator} from './input_validator';
+import {NumberInputValidator} from './number_input_validator';
 
 @Component({
   tag: 'long-form-field',
@@ -15,11 +15,11 @@ export class LongFormField implements IFormField {
 
   public formField: DataModels.UserTasks.UserTaskFormField;
 
-  private readonly _inputValidator: InputValidator;
+  private readonly _inputValidator: NumberInputValidator;
 
   constructor() {
-    const validatorRegex: string = '^\\d+$';
-    this._inputValidator = new InputValidator(validatorRegex);
+    const validatorRegex: RegExp = /^\\d+$/;
+    this._inputValidator = new NumberInputValidator(validatorRegex);
   }
 
   public get name(): string {
@@ -34,7 +34,7 @@ export class LongFormField implements IFormField {
     return <div class='form-group'>
               <label htmlFor={this.formField.id}>{this.formField.label}</label>
               <input type='text' class='form-control' id={this.formField.id} name={this.formField.label} value={this.value}
-                onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
+                onKeyUp={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
             </div>;
   }
 

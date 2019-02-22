@@ -3,6 +3,7 @@ import {Component, State} from '@stencil/core';
 
 import {DateInputValidator} from './date_input_validator';
 import {IFormField} from './iform_field';
+import {IKeyDownOnInputEvent} from './ikey_down_on_input_event';
 
 @Component({
   tag: 'date-form-field',
@@ -18,8 +19,7 @@ export class DateFormField implements IFormField {
   private readonly _inputValidator: DateInputValidator;
 
   constructor() {
-    const validatorRegex: string = `/^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/`;
-    this._inputValidator = new DateInputValidator(validatorRegex);
+    this._inputValidator = new DateInputValidator();
   }
 
   public get name(): string {
@@ -32,24 +32,26 @@ export class DateFormField implements IFormField {
 
   public render(): any {
     return <div class= 'form-group'>
-              <label htmlFor={this.formField.id}>{this.formField.label}</label>
-              <input type='text' data-provide='datepicker' class='form-control' maxlength='10' placeholder='--.--.----'
-                id={this.formField.id} value={this.value} onFocus={(event: any): void => this._handleChange(event)}
-                onKeyDown={(event: any): void => this._handleKeyDown(event)}></input>
-            </div>;
+            <label htmlFor={this.formField.id}>{this.formField.label}</label>
+            <input type='text' data-provide='datepicker' class='form-control' maxlength='10' placeholder='--.--.----'
+            pattern='^(0?[1-9]|[12][0-9]|3[01])([ \.])(0?[1-9]|1[012])\2([0-9][0-9][0-9][0-9])(([ -])([0-1]?[0-9]|2[0-3]):[0-5]?[0-9]:[0-5]?[0-9])?$'
+            id={this.formField.id} value={this.value} onFocus={(event: any): void => this._handleChange(event)}
+            onKeyDown={(event: any): void => this._handleKeyDown(event)}></input>
+          </div>;
   }
 
-  private _handleChange(event: any): void {
+  private _handleChange(event: IKeyDownOnInputEvent): void {
     this.value = event.target.value;
   }
 
-  private _handleKeyDown(event: any): void {
-    const value: string = this.value + event.key;
+  private _handleKeyDown(event: IKeyDownOnInputEvent): void {
 
-    const isValidInput: boolean = (!this._inputValidator.validateKey(event.keyCode, event.target.value) && !this._inputValidator.isValid(value));
+    const isValidInput: boolean = this._inputValidator.validateKey(event);
 
     if (isValidInput) {
-      event.preventDefault();
+      return;
     }
+
+    event.preventDefault();
   }
 }

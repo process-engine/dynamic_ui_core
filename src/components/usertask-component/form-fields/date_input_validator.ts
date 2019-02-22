@@ -1,29 +1,27 @@
-import {InputValidator} from './input_validator';
+import {IKeyDownOnInputEvent} from './ikey_down_on_input_event';
 
-export class DateInputValidator extends InputValidator {
+export class DateInputValidator {
 
-  constructor(regex: string) {
-    super(regex);
-  }
-
-  public validateKey(keyCode: number, value: string): boolean {
+  public validateKey(event: IKeyDownOnInputEvent): boolean {
     const keyCodeDigitDot: number = 190;
     const keyCodeDigitZero: number = 48;
     const keyCodeDigitNine: number = 57;
     const keyCodeBackspace: number = 8;
     const keyCodeEnter: number = 13;
 
-    const isEnterPressed: boolean = keyCode === keyCodeEnter;
-    const isFirstDotPosition: boolean = value.length === 2;
-    const isSecondDotPosition: boolean = value.length === 5;
-    const isValidKey: boolean = (keyCode <= keyCodeDigitNine && keyCode >= keyCodeDigitZero) || keyCode === keyCodeBackspace;
+    const isEnterPressed: boolean = event.keyCode === keyCodeEnter;
+    const isBackspacePressed: boolean = event.keyCode === keyCodeBackspace;
+    const isDotPosition: boolean = event.target.value.length === 2 || event.target.value.length === 5;
+    const isValidKey: boolean = (event.keyCode <= keyCodeDigitNine && event.keyCode >= keyCodeDigitZero) || isBackspacePressed || isEnterPressed;
+    const keyCodeIsDot: boolean = event.keyCode === keyCodeDigitDot;
 
-    if (isEnterPressed) {
-      return this.isValidDate(value);
-    }
+    if (isDotPosition) {
 
-    if (isFirstDotPosition || isSecondDotPosition) {
-      return keyCode === keyCodeDigitDot || keyCode === keyCodeBackspace;
+      if (keyCodeIsDot || isBackspacePressed) {
+        return true;
+      } else {
+        return false;
+      }
     }
 
     return isValidKey;

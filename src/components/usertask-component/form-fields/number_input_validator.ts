@@ -1,13 +1,12 @@
-import {InputValidator} from './input_validator';
+export class NumberInputValidator {
+  private readonly _regex: RegExp;
 
-export class NumberInputValidator extends InputValidator {
-
-  constructor(regex: string) {
-    super(regex);
+  constructor(regex: RegExp) {
+    this._regex = new RegExp(regex);
   }
 
   public isValid(value: string): boolean {
-    return super.isValid(value);
+    return this._regex.test(value);
   }
 
   public validateKey(keyCode: number): boolean {

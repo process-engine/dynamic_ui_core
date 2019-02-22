@@ -1,7 +1,7 @@
 export class InputValidator {
   private readonly _regex: RegExp;
 
-  constructor(regex: string) {
+  constructor(regex: RegExp) {
     this._regex = new RegExp(regex);
   }
 

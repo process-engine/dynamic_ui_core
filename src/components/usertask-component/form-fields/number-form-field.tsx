@@ -18,7 +18,7 @@ export class NumberFormField implements IFormField {
   private readonly _inputValidator: NumberInputValidator;
 
   constructor() {
-    const validatorRegex: string = '^-?\\d*\\,?\\d*$';
+    const validatorRegex: RegExp = /^-?\\d*\\,?\\d*$/;
     this._inputValidator = new NumberInputValidator(validatorRegex);
   }
 
@@ -34,7 +34,7 @@ export class NumberFormField implements IFormField {
     return <div class='form-group'>
               <label>{this.formField.label}</label>
               <input type='text' class='form-control' id={this.formField.id} name={this.formField.label} value={this.value}
-                onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
+                onKeyUp={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
             </div>;
   }
 
