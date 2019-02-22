@@ -1,3 +1,5 @@
+import {KeyCodes} from './key_codes';
+
 export class NumberInputValidator {
   private readonly _regex: RegExp;
 
@@ -10,18 +12,11 @@ export class NumberInputValidator {
   }
 
   public validateKey(keyCode: number): boolean {
-    const keyCodeBackspace: number = 8;
-    const keyCodeDigitZero: number = 48;
-    const keyCodeDigitNine: number = 57;
-    const keyCodeEnter: number = 13;
-    const keyCodeComma: number = 188;
-    const keyCodeDigitDot: number = 190;
-
-    const isEnterPressed: boolean = keyCode === keyCodeEnter;
-    const isBackspacePressed: boolean = keyCode === keyCodeBackspace;
-    const isKeyCommaPressed: boolean = keyCode === keyCodeComma;
-    const isKeyDotPressed: boolean = keyCode === keyCodeDigitDot;
-    const isValidKey: boolean = (keyCode <= keyCodeDigitNine && keyCode >= keyCodeDigitZero)
+    const isEnterPressed: boolean = keyCode === KeyCodes.ENTER;
+    const isBackspacePressed: boolean = keyCode === KeyCodes.BACKSPACE;
+    const isKeyCommaPressed: boolean = keyCode === KeyCodes.COMMA;
+    const isKeyDotPressed: boolean = keyCode === KeyCodes.DOT;
+    const isValidKey: boolean = (keyCode <= KeyCodes.NINE && keyCode >= KeyCodes.ZERO)
                                 || isBackspacePressed
                                 || isEnterPressed
                                 || isKeyCommaPressed

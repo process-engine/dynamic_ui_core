@@ -1,19 +1,14 @@
 import {IKeyDownOnInputEvent} from './ikey_down_on_input_event';
+import {KeyCodes} from './key_codes';
 
 export class DateInputValidator {
 
   public validateKey(event: IKeyDownOnInputEvent): boolean {
-    const keyCodeDigitDot: number = 190;
-    const keyCodeDigitZero: number = 48;
-    const keyCodeDigitNine: number = 57;
-    const keyCodeBackspace: number = 8;
-    const keyCodeEnter: number = 13;
-
-    const isEnterPressed: boolean = event.keyCode === keyCodeEnter;
-    const isBackspacePressed: boolean = event.keyCode === keyCodeBackspace;
+    const isEnterPressed: boolean = event.keyCode === KeyCodes.ENTER;
+    const isBackspacePressed: boolean = event.keyCode === KeyCodes.BACKSPACE;
     const isDotPosition: boolean = event.target.value.length === 2 || event.target.value.length === 5;
-    const isValidKey: boolean = (event.keyCode <= keyCodeDigitNine && event.keyCode >= keyCodeDigitZero) || isBackspacePressed;
-    const keyCodeIsDot: boolean = event.keyCode === keyCodeDigitDot;
+    const isValidKey: boolean = (event.keyCode <= KeyCodes.NINE && event.keyCode >= KeyCodes.ZERO) || isBackspacePressed;
+    const keyCodeIsDot: boolean = event.keyCode === KeyCodes.DOT;
 
     if (isEnterPressed) {
       return this.isValidDate(event.target.value);
