@@ -15,10 +15,10 @@ export class LongFormField implements IFormField {
 
   public formField: DataModels.UserTasks.UserTaskFormField;
 
-  private readonly _inputValidator: NumberInputValidator;
+  private _numberinputValidator: NumberInputValidator;
 
   constructor() {
-    this._inputValidator = new NumberInputValidator();
+    this._numberinputValidator = new NumberInputValidator(/^\d+$/);
   }
 
   public get name(): string {
@@ -41,15 +41,13 @@ export class LongFormField implements IFormField {
   private _handleInput(event: any): void {
     const value: string = event.target.value;
 
-    if (this._inputValidator.isValid(value)) {
+    if (this._numberinputValidator.isValid(value)) {
       this.value = parseInt(value);
     }
   }
 
   private _handleKeyDown(event: any): void {
-    console.log('long form field');
-
-    const isValidInput: boolean = this._inputValidator.validateKey(event.keyCode);
+    const isValidInput: boolean = this._numberinputValidator.validateKey(event.keyCode);
 
     if (isValidInput) {
       return;
