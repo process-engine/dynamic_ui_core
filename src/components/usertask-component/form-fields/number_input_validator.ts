@@ -1,4 +1,4 @@
-import { InputValidator } from './input_validator';
+import {InputValidator} from './input_validator';
 
 export class NumberInputValidator extends InputValidator {
 
@@ -10,7 +10,7 @@ export class NumberInputValidator extends InputValidator {
     return super.isValid(value);
   }
 
-  public shouldValidateKey(keyCode: number): boolean {
+  public validateKey(keyCode: number): boolean {
     const keyCodeDigitOne: number = 49;
 
     return keyCode >= keyCodeDigitOne;

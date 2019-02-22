@@ -9,7 +9,7 @@ export class InputValidator {
     return this._regex.test(value);
   }
 
-  public shouldValidateKey(keyCode: number, value?: string): boolean {
+  public validateKey(keyCode: number, value?: string): boolean {
     const keyCodeDigitOne: number = 49;
 
     return keyCode >= keyCodeDigitOne;

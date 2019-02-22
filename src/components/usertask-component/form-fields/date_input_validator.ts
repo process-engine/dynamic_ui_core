@@ -1,4 +1,4 @@
-import { InputValidator } from './input_validator';
+import {InputValidator} from './input_validator';
 
 export class DateInputValidator extends InputValidator {
 
@@ -6,7 +6,7 @@ export class DateInputValidator extends InputValidator {
     super(regex);
   }
 
-  public shouldValidateKey(keyCode: number, value: string): boolean {
+  public validateKey(keyCode: number, value: string): boolean {
     const keyCodeDigitDot: number = 190;
     const keyCodeDigitZero: number = 48;
     const keyCodeDigitNine: number = 57;
@@ -35,9 +35,9 @@ export class DateInputValidator extends InputValidator {
   }
 
   private isDayInMonth(day: number, month: number, year: number): boolean {
-    const date: any = new Date(year, month, 0).getDate();
+    const numberOfDaysInSelectedMonth: number = new Date(year, month, 0).getDate();
 
-    return day <= date;
+    return day <= numberOfDaysInSelectedMonth;
   }
 
 }

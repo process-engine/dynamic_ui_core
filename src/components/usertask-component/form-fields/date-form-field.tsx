@@ -9,7 +9,6 @@ import {IFormField} from './iform_field';
   styleUrl: 'date-form-field.css',
   shadow: true,
 })
-
 export class DateFormField implements IFormField {
 
   @State() public value: string;
