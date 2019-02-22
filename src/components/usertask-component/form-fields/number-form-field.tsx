@@ -2,6 +2,7 @@ import {DataModels} from '@process-engine/consumer_api_contracts';
 import {Component, State} from '@stencil/core';
 
 import {IFormField} from './iform_field';
+import {IKeyDownOnInputEvent} from './ikey_down_on_input_event';
 import {NumberInputValidator} from './number_input_validator';
 
 @Component({
@@ -18,8 +19,7 @@ export class NumberFormField implements IFormField {
   private readonly _inputValidator: NumberInputValidator;
 
   constructor() {
-    const validatorRegex: RegExp = /^-?\\d*\\,?\\d*$/;
-    this._inputValidator = new NumberInputValidator(validatorRegex);
+    this._inputValidator = new NumberInputValidator();
   }
 
   public get name(): string {
@@ -33,13 +33,16 @@ export class NumberFormField implements IFormField {
   public render(): any {
     return <div class='form-group'>
               <label>{this.formField.label}</label>
-              <input type='text' class='form-control' id={this.formField.id} name={this.formField.label} value={this.value}
-                onKeyUp={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
+              <input type='text' class='form-control' id={this.formField.id} name={this.formField.label}
+                placeholder='0.0' value={this.value} pattern='^-?\d+(,|\.)\d+$'
+                onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
             </div>;
   }
 
-  private _handleInput(event: any): void {
+  private _handleInput(event: IKeyDownOnInputEvent): void {
     const value: string = event.target.value;
+
+    console.log('NumberField');
 
     if (this._inputValidator.isValid(value)) {
       this.value = parseFloat(value.replace(',', '.'));
@@ -48,13 +51,14 @@ export class NumberFormField implements IFormField {
     }
   }
 
-  private _handleKeyDown(event: any): void {
-    const value: string = this.value + event.key;
+  private _handleKeyDown(event: IKeyDownOnInputEvent): void {
 
-    const isNoValidInput: boolean = this._inputValidator.validateKey(event.keyCode) && !this._inputValidator.isValid(value);
+    const isValidInput: boolean = this._inputValidator.validateKey(event.keyCode);
 
-    if (isNoValidInput) {
-      event.preventDefault();
+    if (isValidInput) {
+      return;
     }
+
+    event.preventDefault();
   }
 }

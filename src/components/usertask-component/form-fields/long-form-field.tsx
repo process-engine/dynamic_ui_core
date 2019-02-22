@@ -18,8 +18,7 @@ export class LongFormField implements IFormField {
   private readonly _inputValidator: NumberInputValidator;
 
   constructor() {
-    const validatorRegex: RegExp = /^\\d+$/;
-    this._inputValidator = new NumberInputValidator(validatorRegex);
+    this._inputValidator = new NumberInputValidator();
   }
 
   public get name(): string {
@@ -34,6 +33,7 @@ export class LongFormField implements IFormField {
     return <div class='form-group'>
               <label htmlFor={this.formField.id}>{this.formField.label}</label>
               <input type='text' class='form-control' id={this.formField.id} name={this.formField.label} value={this.value}
+                placeholder='0' pattern='^\d+$'
                 onKeyUp={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
             </div>;
   }
@@ -47,12 +47,14 @@ export class LongFormField implements IFormField {
   }
 
   private _handleKeyDown(event: any): void {
-    const value: string = (this.value) ? this.value + event.key : event.key;
+    console.log('long form field');
 
-    const isNoValidInput: boolean = this._inputValidator.validateKey(event.keyCode) && !this._inputValidator.isValid(value);
+    const isValidInput: boolean = this._inputValidator.validateKey(event.keyCode);
 
-    if (isNoValidInput) {
-      event.preventDefault();
+    if (isValidInput) {
+      return;
     }
+
+    event.preventDefault();
   }
 }
