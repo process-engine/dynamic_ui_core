@@ -45,7 +45,7 @@ export class DateFormField implements IFormField {
   private _handleKeyDown(event: any): void {
     const value: string = this.value + event.key;
 
-    if (!this._inputValidator.shouldValidateKey(event.keyCode, event.target.value) && !this._inputValidator.isValid(value)) {
+    if (!this._inputValidator.validateKey(event.keyCode, event.target.value) && !this._inputValidator.isValid(value)) {
       event.preventDefault();
     }
   }

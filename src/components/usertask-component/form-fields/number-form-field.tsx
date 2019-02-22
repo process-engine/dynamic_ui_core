@@ -48,7 +48,7 @@ export class NumberFormField implements IFormField {
   private _handleKeyDown(event: any): void {
     const value: string = this.value + event.key;
 
-    if (this._inputValidator.shouldValidateKey(event.keyCode) && !this._inputValidator.isValid(value)) {
+    if (this._inputValidator.validateKey(event.keyCode) && !this._inputValidator.isValid(value)) {
       event.preventDefault();
     }
   }
