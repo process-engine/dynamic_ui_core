@@ -12,8 +12,12 @@ export class DateInputValidator {
     const isEnterPressed: boolean = event.keyCode === keyCodeEnter;
     const isBackspacePressed: boolean = event.keyCode === keyCodeBackspace;
     const isDotPosition: boolean = event.target.value.length === 2 || event.target.value.length === 5;
-    const isValidKey: boolean = (event.keyCode <= keyCodeDigitNine && event.keyCode >= keyCodeDigitZero) || isBackspacePressed || isEnterPressed;
+    const isValidKey: boolean = (event.keyCode <= keyCodeDigitNine && event.keyCode >= keyCodeDigitZero) || isBackspacePressed;
     const keyCodeIsDot: boolean = event.keyCode === keyCodeDigitDot;
+
+    if (isEnterPressed) {
+      return this.isValidDate(event.target.value);
+    }
 
     if (isDotPosition) {
 
