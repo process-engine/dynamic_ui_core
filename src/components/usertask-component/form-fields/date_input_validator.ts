@@ -19,7 +19,7 @@ export class DateInputValidator extends InputValidator {
     const isValidKey: boolean = (keyCode <= keyCodeDigitNine && keyCode >= keyCodeDigitZero) || keyCode === keyCodeBackspace;
 
     if (isEnterPressed) {
-      return this.isValid(value) && this.isValidDate(value);
+      return this.isValidDate(value);
     }
 
     if (isFirstDotPosition || isSecondDotPosition) {
