@@ -31,15 +31,12 @@ export class DateFormField implements IFormField {
   }
 
   public render(): any {
-    return (
-      <div class= 'form-group'>
-        <label htmlFor={this.formField.id}>{this.formField.label}</label>
-        <input type='text' data-provide='datepicker' class='form-control' maxlength='10' placeholder='--.--.----'
-          id={this.formField.id} value={this.value} onFocus={(event: any): void => this._handleChange(event)}
-          onKeyDown={(event: any): void => this._handleKeyDown(event)}></input>
-
-      </div>
-    );
+    return <div class= 'form-group'>
+              <label htmlFor={this.formField.id}>{this.formField.label}</label>
+              <input type='text' data-provide='datepicker' class='form-control' maxlength='10' placeholder='--.--.----'
+                id={this.formField.id} value={this.value} onFocus={(event: any): void => this._handleChange(event)}
+                onKeyDown={(event: any): void => this._handleKeyDown(event)}></input>
+            </div>;
   }
 
   private _handleChange(event: any): void {

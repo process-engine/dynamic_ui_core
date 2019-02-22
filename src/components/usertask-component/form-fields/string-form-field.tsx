@@ -22,15 +22,13 @@ export class StringFormField implements IFormField {
   }
 
   public render(): any {
-    return (
-      <div class='form-group'>
-        <label htmlFor={this.formField.id}>{this.formField.label}</label>
-        <input type='text'
-          class='form-control' id={this.formField.id} name={this.formField.id} value={this.value}
-          onInput={(event: any): void => this._handleChange(event)}>
-        </input>
-      </div>
-    );
+    return <div class='form-group'>
+              <label htmlFor={this.formField.id}>{this.formField.label}</label>
+              <input type='text'
+                class='form-control' id={this.formField.id} name={this.formField.id} value={this.value}
+                onInput={(event: any): void => this._handleChange(event)}>
+              </input>
+            </div>;
   }
 
   private _handleChange(event: any): void {

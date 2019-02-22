@@ -31,13 +31,11 @@ export class LongFormField implements IFormField {
   }
 
   public render(): any {
-    return (
-      <div class='form-group'>
-        <label htmlFor={this.formField.id}>{this.formField.label}</label>
-        <input type='text' class='form-control' id={this.formField.id} name={this.formField.label} value={this.value}
-          onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
-      </div>
-    );
+    return <div class='form-group'>
+              <label htmlFor={this.formField.id}>{this.formField.label}</label>
+              <input type='text' class='form-control' id={this.formField.id} name={this.formField.label} value={this.value}
+                onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
+            </div>;
   }
 
   private _handleInput(event: any): void {
