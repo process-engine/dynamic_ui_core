@@ -13,17 +13,20 @@ export class DateInputValidator extends InputValidator {
     const keyCodeBackspace: number = 8;
     const keyCodeEnter: number = 13;
 
-    if (keyCode === keyCodeEnter) {
+    const isEnterPressed: boolean = keyCode === keyCodeEnter;
+    const isFirstDotPosition: boolean = value.length === 2;
+    const isSecondDotPosition: boolean = value.length === 5;
+    const isValidKey: boolean = (keyCode <= keyCodeDigitNine && keyCode >= keyCodeDigitZero) || keyCode === keyCodeBackspace;
+
+    if (isEnterPressed) {
       return this.isValid(value) && this.isValidDate(value);
     }
 
-    if (value.length === 2) {
-      return keyCode === keyCodeDigitDot || keyCode === keyCodeBackspace;
-    } else if (value.length === 5) {
+    if (isFirstDotPosition || isSecondDotPosition) {
       return keyCode === keyCodeDigitDot || keyCode === keyCodeBackspace;
     }
 
-    return (keyCode <= keyCodeDigitNine && keyCode >= keyCodeDigitZero) || keyCode === keyCodeBackspace;
+    return isValidKey;
   }
 
   public isValidDate(value: string): boolean {
@@ -36,8 +39,9 @@ export class DateInputValidator extends InputValidator {
 
   private isDayInMonth(day: number, month: number, year: number): boolean {
     const numberOfDaysInSelectedMonth: number = new Date(year, month, 0).getDate();
+    const isGivenDayInMonth: boolean = day <= numberOfDaysInSelectedMonth;
 
-    return day <= numberOfDaysInSelectedMonth;
+    return isGivenDayInMonth;
   }
 
 }

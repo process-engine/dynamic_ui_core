@@ -13,7 +13,9 @@ export class NumberInputValidator extends InputValidator {
   public validateKey(keyCode: number): boolean {
     const keyCodeDigitOne: number = 49;
 
-    return keyCode >= keyCodeDigitOne;
+    const isValidKey: boolean = keyCode >= keyCodeDigitOne;
+
+    return isValidKey;
   }
 
 }

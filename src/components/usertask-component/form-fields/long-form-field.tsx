@@ -15,11 +15,16 @@ export class LongFormField implements IFormField {
 
   public formField: DataModels.UserTasks.UserTaskFormField;
 
+  private readonly _inputValidator: InputValidator;
+
+  constructor() {
+    const validatorRegex: string = '^\\d+$';
+    this._inputValidator = new InputValidator(validatorRegex);
+  }
+
   public get name(): string {
     return this.formField.id;
   }
-
-  private readonly _inputValidator: InputValidator = new InputValidator('^\\d+$');
 
   public componentWillLoad(): void {
     this.value = this.formField.defaultValue;
@@ -46,7 +51,9 @@ export class LongFormField implements IFormField {
   private _handleKeyDown(event: any): void {
     const value: string = (this.value) ? this.value + event.key : event.key;
 
-    if (this._inputValidator.validateKey(event.keyCode) && !this._inputValidator.isValid(value)) {
+    const isNoValidInput: boolean = this._inputValidator.validateKey(event.keyCode) && !this._inputValidator.isValid(value);
+
+    if (isNoValidInput) {
       event.preventDefault();
     }
   }

@@ -15,11 +15,16 @@ export class NumberFormField implements IFormField {
 
   public formField: DataModels.UserTasks.UserTaskFormField;
 
+  private readonly _inputValidator: NumberInputValidator;
+
+  constructor() {
+    const validatorRegex: string = '^-?\\d*\\,?\\d*$';
+    this._inputValidator = new NumberInputValidator(validatorRegex);
+  }
+
   public get name(): string {
     return this.formField.id;
   }
-
-  private readonly _inputValidator: NumberInputValidator = new NumberInputValidator('^-?\\d*\\,?\\d*$');
 
   public componentWillLoad(): void {
     this.value = this.formField.defaultValue;
@@ -48,7 +53,9 @@ export class NumberFormField implements IFormField {
   private _handleKeyDown(event: any): void {
     const value: string = this.value + event.key;
 
-    if (this._inputValidator.validateKey(event.keyCode) && !this._inputValidator.isValid(value)) {
+    const isNoValidInput: boolean = this._inputValidator.validateKey(event.keyCode) && !this._inputValidator.isValid(value);
+
+    if (isNoValidInput) {
       event.preventDefault();
     }
   }

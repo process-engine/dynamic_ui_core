@@ -15,12 +15,16 @@ export class DateFormField implements IFormField {
 
   public formField: DataModels.UserTasks.UserTaskFormField;
 
+  private readonly _inputValidator: DateInputValidator;
+
+  constructor() {
+    const validatorRegex: string = `/^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/`;
+    this._inputValidator = new DateInputValidator(validatorRegex);
+  }
+
   public get name(): string {
     return this.formField.id;
   }
-
-  // tslint:disable-next-line
-  private readonly _inputValidator: DateInputValidator = new DateInputValidator('/^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/');
 
   public componentWillLoad(): void {
     this.value = this.formField.defaultValue;
@@ -45,7 +49,9 @@ export class DateFormField implements IFormField {
   private _handleKeyDown(event: any): void {
     const value: string = this.value + event.key;
 
-    if (!this._inputValidator.validateKey(event.keyCode, event.target.value) && !this._inputValidator.isValid(value)) {
+    const isValidInput: boolean = (!this._inputValidator.validateKey(event.keyCode, event.target.value) && !this._inputValidator.isValid(value));
+
+    if (isValidInput) {
       event.preventDefault();
     }
   }
