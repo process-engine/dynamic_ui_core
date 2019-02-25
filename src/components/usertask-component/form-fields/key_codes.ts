@@ -5,4 +5,8 @@ export enum KeyCodes {
   BACKSPACE = 8,
   ENTER = 13,
   COMMA = 188,
+  CTRL = 17,
+  COMMAND = 91,
+  C = 67,
+  V = 86,
 }

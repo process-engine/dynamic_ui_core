@@ -34,7 +34,7 @@ export class NumberFormField implements IFormField {
     return <div class='form-group'>
               <label>{this.formField.label}</label>
               <input type='text' class='form-control' id={this.formField.id} name={this.formField.label}
-                placeholder='0.0' value={this.value} pattern='^-?\d+(,|\.)\d+$'
+                placeholder='0.0' value={this.value} pattern='^(-?\d+(,|\.)\d+)|(\d+)$'
                 onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
             </div>;
   }
@@ -51,7 +51,7 @@ export class NumberFormField implements IFormField {
 
   private _handleKeyDown(event: IKeyDownOnInputEvent): void {
 
-    const isValidInput: boolean = this._numberinputValidator.validateKey(event.keyCode);
+    const isValidInput: boolean = this._numberinputValidator.validateKey(event);
 
     if (isValidInput) {
       return;
