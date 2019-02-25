@@ -4,10 +4,19 @@ import {KeyCodes} from './key_codes';
 export class DateInputValidator {
 
   public validateKey(event: IKeyDownOnInputEvent): boolean {
+
+    const keyCode: number = event.keyCode;
+    const isCTRLPressed: boolean = event.ctrlKey;
+    const isCommandPressed: boolean = event.metaKey;
+
     const isEnterPressed: boolean = event.keyCode === KeyCodes.ENTER;
     const isBackspacePressed: boolean = event.keyCode === KeyCodes.BACKSPACE;
     const isDotPosition: boolean = event.target.value.length === 2 || event.target.value.length === 5;
-    const isValidKey: boolean = (event.keyCode <= KeyCodes.NINE && event.keyCode >= KeyCodes.ZERO) || isBackspacePressed;
+    const isCopyPastePressed: boolean = (keyCode === KeyCodes.C || keyCode === KeyCodes.V) && (isCTRLPressed || isCommandPressed);
+    const isValidKey: boolean = (event.keyCode <= KeyCodes.NINE && event.keyCode >= KeyCodes.ZERO)
+                                || isBackspacePressed
+                                || isCopyPastePressed;
+
     const keyCodeIsDot: boolean = event.keyCode === KeyCodes.DOT;
 
     if (isEnterPressed) {
