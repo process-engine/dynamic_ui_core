@@ -23,18 +23,17 @@ export class EnumFormField implements IFormField {
   }
 
   public render(): any {
-    return (
-      <div class='form-group'>
-        <label>{this.formField.label}</label>
-        <select class='form-control' id={this.formField.id} name={this.formField.label} onInput={(event: any): void => this._handleSelect(event)}>
-          {
-            this.formField.enumValues.map((enumValue: DataModels.UserTasks.UserTaskEnumValue): any => {
-              return <option value={enumValue.id} selected={this.value === enumValue.id}>{enumValue.name}</option>;
-            })
-          }
-        </select>
-      </div>
-    );
+    return <div class='form-group'>
+              <label>{this.formField.label}</label>
+              <select class='form-control' id={this.formField.id}
+                name={this.formField.label} onInput={(event: any): void => this._handleSelect(event)}>
+                {
+                  this.formField.enumValues.map((enumValue: DataModels.UserTasks.UserTaskEnumValue): any => {
+                    return <option value={enumValue.id} selected={this.value === enumValue.id}>{enumValue.name}</option>;
+                  })
+                }
+              </select>
+            </div>;
   }
 
   public _handleSelect(event: any): void {

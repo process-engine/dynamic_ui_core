@@ -2,7 +2,7 @@ import {DataModels} from '@process-engine/consumer_api_contracts';
 import {Component, State} from '@stencil/core';
 
 import {IFormField} from './iform_field';
-import {InputValidator} from './input_validator';
+import {NumberInputValidator} from './number_input_validator';
 
 @Component({
   tag: 'long-form-field',
@@ -15,39 +15,46 @@ export class LongFormField implements IFormField {
 
   public formField: DataModels.UserTasks.UserTaskFormField;
 
+  private _numberinputValidator: NumberInputValidator;
+
+  constructor() {
+    this._numberinputValidator = new NumberInputValidator(/^\d+$/);
+  }
+
   public get name(): string {
     return this.formField.id;
   }
-
-  private readonly _inputValidator: InputValidator = new InputValidator('^\\d+$');
 
   public componentWillLoad(): void {
     this.value = this.formField.defaultValue;
   }
 
   public render(): any {
-    return (
-      <div class='form-group'>
-        <label htmlFor={this.formField.id}>{this.formField.label}</label>
-        <input type='text' class='form-control' id={this.formField.id} name={this.formField.label} value={this.value}
-          onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
-      </div>
-    );
+    return <div class='form-group'>
+              <label htmlFor={this.formField.id}>{this.formField.label}</label>
+              <input type='text' class='form-control' id={this.formField.id} name={this.formField.label} value={this.value}
+                placeholder='0' pattern='^\d+$'
+                onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
+            </div>;
   }
 
   private _handleInput(event: any): void {
     const value: string = event.target.value;
 
-    if (this._inputValidator.isValid(value)) {
+    if (this._numberinputValidator.isValid(value)) {
       this.value = parseInt(value);
+    } else {
+      event.preventDefault();
     }
   }
 
   private _handleKeyDown(event: any): void {
-    const value: string = (this.value) ? this.value + event.key : event.key;
+    const isValidInput: boolean = this._numberinputValidator.validateKey(event.keyCode);
 
-    if (this._inputValidator.shouldValidateKey(event.keyCode) && !this._inputValidator.isValid(value)) {
-      event.preventDefault();
+    if (isValidInput) {
+      return;
     }
+
+    event.preventDefault();
   }
 }
