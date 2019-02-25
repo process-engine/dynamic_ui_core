@@ -1,3 +1,4 @@
+import {IKeyDownOnInputEvent} from './ikey_down_on_input_event';
 import {KeyCodes} from './key_codes';
 
 export class NumberInputValidator {
@@ -11,16 +12,23 @@ export class NumberInputValidator {
     return this._regex.test(value);
   }
 
-  public validateKey(keyCode: number): boolean {
+  public validateKey(event: IKeyDownOnInputEvent): boolean {
+
+    const keyCode: number = event.keyCode;
+    const isCTRLPressed: boolean = event.ctrlKey;
+    const isCommandPressed: boolean = event.metaKey;
+
     const isEnterPressed: boolean = keyCode === KeyCodes.ENTER;
     const isBackspacePressed: boolean = keyCode === KeyCodes.BACKSPACE;
     const isKeyCommaPressed: boolean = keyCode === KeyCodes.COMMA;
     const isKeyDotPressed: boolean = keyCode === KeyCodes.DOT;
+    const isCopyPastePressed: boolean = (keyCode === KeyCodes.C || keyCode === KeyCodes.V) && (isCTRLPressed || isCommandPressed);
     const isValidKey: boolean = (keyCode <= KeyCodes.NINE && keyCode >= KeyCodes.ZERO)
                                 || isBackspacePressed
                                 || isEnterPressed
                                 || isKeyCommaPressed
-                                || isKeyDotPressed;
+                                || isKeyDotPressed
+                                || isCopyPastePressed;
 
     return isValidKey;
   }
