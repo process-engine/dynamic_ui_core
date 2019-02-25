@@ -34,7 +34,7 @@ export class LongFormField implements IFormField {
               <label htmlFor={this.formField.id}>{this.formField.label}</label>
               <input type='text' class='form-control' id={this.formField.id} name={this.formField.label} value={this.value}
                 placeholder='0' pattern='^\d+$'
-                onKeyUp={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
+                onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
             </div>;
   }
 
@@ -43,6 +43,8 @@ export class LongFormField implements IFormField {
 
     if (this._numberinputValidator.isValid(value)) {
       this.value = parseInt(value);
+    } else {
+      event.preventDefault();
     }
   }
 
