@@ -2,6 +2,7 @@ import {DataModels} from '@process-engine/consumer_api_contracts';
 import {Component, State} from '@stencil/core';
 
 import {IFormField} from './iform_field';
+import { IKeyDownOnInputEvent } from './ikey_down_on_input_event';
 import {NumberInputValidator} from './number_input_validator';
 
 @Component({
@@ -34,9 +35,15 @@ export class LongFormField implements IFormField {
     return <div class='form-group'>
               <label htmlFor={this.formField.id}>{this.formField.label}</label>
               <input type='text' class='form-control' id={this.formField.id} name={this.formField.label} value={this.value}
-                placeholder='0' pattern='^\d+$'
-                onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
+                placeholder='0' pattern='^\d*$'
+                onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}
+                onChange={(event: any): void => this._handleChange(event)}> </input>
             </div>;
+  }
+
+  private _handleChange(event: IKeyDownOnInputEvent): void {
+    this.isValid = this._numberinputValidator.isValid(event.target.value);
+    this._setStyle(event);
   }
 
   private _handleInput(event: any): void {
@@ -49,9 +56,18 @@ export class LongFormField implements IFormField {
     }
   }
 
+  private _setStyle(event: IKeyDownOnInputEvent): void {
+    const isEmptyInput: boolean = event.target.value.length === 0;
+
+    const element: HTMLElement = document.getElementById(this.formField.id);
+    element.style.borderColor = (this.isValid || isEmptyInput) ? '' : 'red';
+    if (isEmptyInput) {
+      this.isValid = true;
+    }
+  }
+
   private _handleKeyDown(event: any): void {
     const isValidInput: boolean = this._numberinputValidator.validateKey(event);
-    this.isValid = isValidInput;
 
     if (isValidInput) {
       return;

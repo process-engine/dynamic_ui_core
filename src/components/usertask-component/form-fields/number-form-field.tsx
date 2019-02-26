@@ -36,8 +36,14 @@ export class NumberFormField implements IFormField {
               <label>{this.formField.label}</label>
               <input type='text' class='form-control' id={this.formField.id} name={this.formField.label}
                 placeholder='0.0' value={this.value} pattern='^(-?\d+(,|\.)\d+)|(\d+)$'
-                onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
+                onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}
+                onChange={(event: any): void => this._handleChange(event)}></input>
             </div>;
+  }
+
+  private _handleChange(event: IKeyDownOnInputEvent): void {
+    this.isValid = this._numberinputValidator.isValid(event.target.value);
+    this._setStyle(event);
   }
 
   private _handleInput(event: IKeyDownOnInputEvent): void {
@@ -50,11 +56,21 @@ export class NumberFormField implements IFormField {
     }
   }
 
+  private _setStyle(event: IKeyDownOnInputEvent): void {
+    const isEmptyInput: boolean = event.target.value.length === 0;
+
+    const element: HTMLElement = document.getElementById(this.formField.id);
+    element.style.borderColor = (this.isValid || isEmptyInput) ? '' : 'red';
+
+    if (isEmptyInput) {
+      this.isValid = true;
+    }
+  }
+
   private _handleKeyDown(event: IKeyDownOnInputEvent): void {
 
     const isValidInput: boolean = this._numberinputValidator.validateKey(event);
 
-    this.isValid = isValidInput;
     if (isValidInput) {
       return;
     }

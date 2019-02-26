@@ -1,5 +1,5 @@
 import {DataModels} from '@process-engine/consumer_api_contracts';
-import {Component, Element, State} from '@stencil/core';
+import {Component, State} from '@stencil/core';
 
 import {DateInputValidator} from './date_input_validator';
 import {IFormField} from './iform_field';
@@ -45,6 +45,11 @@ export class DateFormField implements IFormField {
     this.value = event.target.value;
     this.isValid = this._inputValidator.isValidDate(event.target.value);
 
+    this._setStyle(event);
+
+  }
+
+  private _setStyle(event: IKeyDownOnInputEvent): void {
     const isEmptyInput: boolean = event.target.value.length === 0;
 
     const element: HTMLElement = document.getElementById(this.formField.id);
@@ -53,7 +58,6 @@ export class DateFormField implements IFormField {
     if (isEmptyInput) {
       this.isValid = true;
     }
-
   }
 
   private _handleKeyDown(event: IKeyDownOnInputEvent): void {
