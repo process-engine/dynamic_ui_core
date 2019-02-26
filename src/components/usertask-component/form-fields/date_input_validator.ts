@@ -4,10 +4,13 @@ import {KeyCodes} from './key_codes';
 export class DateInputValidator {
 
   public validateKey(event: IKeyDownOnInputEvent): boolean {
+
     const isEnterPressed: boolean = event.keyCode === KeyCodes.ENTER;
     const isBackspacePressed: boolean = event.keyCode === KeyCodes.BACKSPACE;
     const isDotPosition: boolean = event.target.value.length === 2 || event.target.value.length === 5;
-    const isValidKey: boolean = (event.keyCode <= KeyCodes.NINE && event.keyCode >= KeyCodes.ZERO) || isBackspacePressed;
+    const isCopyPastePressed: boolean = this.isCopyAndPastePressed(event);
+    const isValidKey: boolean = this.isKeyValid(event, isBackspacePressed, isCopyPastePressed);
+
     const keyCodeIsDot: boolean = event.keyCode === KeyCodes.DOT;
 
     if (isEnterPressed) {
@@ -39,6 +42,16 @@ export class DateInputValidator {
     const isGivenDayInMonth: boolean = day <= numberOfDaysInSelectedMonth;
 
     return isGivenDayInMonth;
+  }
+
+  private isCopyAndPastePressed(event: IKeyDownOnInputEvent ): boolean {
+    return (event.keyCode === KeyCodes.C || event.keyCode === KeyCodes.V) && (event.ctrlKey || event.metaKey);
+  }
+
+  private isKeyValid(event: IKeyDownOnInputEvent, isBackspacePressed: boolean, isCopyPastePressed: boolean): boolean {
+    return (event.keyCode <= KeyCodes.NINE && event.keyCode >= KeyCodes.ZERO)
+            || isBackspacePressed
+            || isCopyPastePressed;
   }
 
 }

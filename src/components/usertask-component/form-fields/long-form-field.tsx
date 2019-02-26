@@ -49,7 +49,7 @@ export class LongFormField implements IFormField {
   }
 
   private _handleKeyDown(event: any): void {
-    const isValidInput: boolean = this._numberinputValidator.validateKey(event.keyCode);
+    const isValidInput: boolean = this._numberinputValidator.validateKey(event);
 
     if (isValidInput) {
       return;
