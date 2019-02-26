@@ -1,5 +1,5 @@
 import {DataModels} from '@process-engine/consumer_api_contracts';
-import {Component, State} from '@stencil/core';
+import {Component, Element, State} from '@stencil/core';
 
 import {DateInputValidator} from './date_input_validator';
 import {IFormField} from './iform_field';
@@ -44,6 +44,15 @@ export class DateFormField implements IFormField {
   private _handleChange(event: IKeyDownOnInputEvent): void {
     this.value = event.target.value;
     this.isValid = this._inputValidator.isValidDate(event.target.value);
+
+    if (this.isValid) {
+      const element: HTMLElement = document.getElementById(this.formField.id);
+      element.style.borderColor = '';
+    } else {
+      const element: HTMLElement = document.getElementById(this.formField.id);
+      element.style.borderColor = 'red';
+    }
+
   }
 
   private _handleKeyDown(event: IKeyDownOnInputEvent): void {
