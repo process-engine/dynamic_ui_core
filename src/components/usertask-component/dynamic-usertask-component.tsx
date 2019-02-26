@@ -127,9 +127,9 @@ export class DynamicUserTaskComponent {
   private _handleSubmit(event: Event): void {
     event.preventDefault();
 
-    const isValid: boolean = this._isInputValid();
+    const inputIsValid: boolean = this._isInputValid();
 
-    if (isValid) {
+    if (inputIsValid) {
       this.submitted.emit({
         correlationId: this.usertask.correlationId,
         processInstanceId: this.usertask.processInstanceId,
