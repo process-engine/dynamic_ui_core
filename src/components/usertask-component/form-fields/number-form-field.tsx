@@ -15,6 +15,7 @@ export class NumberFormField implements IFormField {
   @State() public value: number;
 
   public formField: DataModels.UserTasks.UserTaskFormField;
+  public isValid: boolean = true;
 
   private _numberinputValidator: NumberInputValidator;
 
@@ -53,6 +54,7 @@ export class NumberFormField implements IFormField {
 
     const isValidInput: boolean = this._numberinputValidator.validateKey(event);
 
+    this.isValid = isValidInput;
     if (isValidInput) {
       return;
     }

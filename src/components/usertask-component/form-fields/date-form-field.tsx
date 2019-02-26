@@ -15,6 +15,7 @@ export class DateFormField implements IFormField {
   @State() public value: string;
 
   public formField: DataModels.UserTasks.UserTaskFormField;
+  public isValid: boolean = true;
 
   private readonly _inputValidator: DateInputValidator;
 
@@ -47,6 +48,7 @@ export class DateFormField implements IFormField {
   private _handleKeyDown(event: IKeyDownOnInputEvent): void {
 
     const isValidInput: boolean = this._inputValidator.validateKey(event);
+    this.isValid = isValidInput;
 
     if (isValidInput) {
       return;

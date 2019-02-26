@@ -14,6 +14,7 @@ export class LongFormField implements IFormField {
   @State() public value: number;
 
   public formField: DataModels.UserTasks.UserTaskFormField;
+  public isValid: boolean = true;
 
   private _numberinputValidator: NumberInputValidator;
 
@@ -50,6 +51,7 @@ export class LongFormField implements IFormField {
 
   private _handleKeyDown(event: any): void {
     const isValidInput: boolean = this._numberinputValidator.validateKey(event);
+    this.isValid = isValidInput;
 
     if (isValidInput) {
       return;

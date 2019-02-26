@@ -127,13 +127,17 @@ export class DynamicUserTaskComponent {
   private _handleSubmit(event: Event): void {
     event.preventDefault();
 
-    this.submitted.emit({
-      correlationId: this.usertask.correlationId,
-      processInstanceId: this.usertask.processInstanceId,
-      userTaskId: this.usertask.id,
-      userTaskInstanceId: this.usertask.flowNodeInstanceId,
-      results: this._getFormResults(),
-    });
+    const isValid: boolean = this._isInputValid();
+
+    if (isValid) {
+      this.submitted.emit({
+        correlationId: this.usertask.correlationId,
+        processInstanceId: this.usertask.processInstanceId,
+        userTaskId: this.usertask.id,
+        userTaskInstanceId: this.usertask.flowNodeInstanceId,
+        results: this._getFormResults(),
+      });
+    }
   }
 
   private _handleProceed(event: Event): void {
@@ -158,6 +162,17 @@ export class DynamicUserTaskComponent {
 
   private _handleCancel(event: Event): void {
     this.canceled.emit();
+  }
+
+  private _isInputValid(): boolean {
+    for (const formField of this._formFields) {
+      if (!formField.isValid) {
+        console.log('Check:', false);
+        return false;
+      }
+    }
+    console.log('Check:', true);
+    return true;
   }
 
   private _getFormResults(): DataModels.UserTasks.UserTaskResult {
