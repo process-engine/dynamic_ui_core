@@ -45,12 +45,13 @@ export class DateFormField implements IFormField {
     this.value = event.target.value;
     this.isValid = this._inputValidator.isValidDate(event.target.value);
 
-    if (this.isValid) {
-      const element: HTMLElement = document.getElementById(this.formField.id);
-      element.style.borderColor = '';
-    } else {
-      const element: HTMLElement = document.getElementById(this.formField.id);
-      element.style.borderColor = 'red';
+    const isEmptyInput: boolean = event.target.value.length === 0;
+
+    const element: HTMLElement = document.getElementById(this.formField.id);
+    element.style.borderColor = (this.isValid || isEmptyInput) ? '' : 'red';
+
+    if (isEmptyInput) {
+      this.isValid = true;
     }
 
   }
