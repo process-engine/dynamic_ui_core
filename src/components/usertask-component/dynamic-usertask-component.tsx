@@ -62,14 +62,14 @@ export class DynamicUserTaskComponent {
       const isConfirmUserTask: boolean = this.usertask.data.preferredControl === 'confirm';
 
       if (isConfirmUserTask) {
-      
+
         return this._renderConfirmUserTask();
       } else {
-      
+
         return this._renderUserTask();
       }
     } else {
-    
+
       return <div class='card form_card'>
         <div class='card-body'>
           <h3 class='card-title mb-0'>UserTask finished.</h3>
@@ -101,7 +101,7 @@ export class DynamicUserTaskComponent {
   }
 
   private _renderUserTask(): any {
-  
+
     return <div class='card form_card'>
       <div class='card-body'>
 
@@ -167,11 +167,10 @@ export class DynamicUserTaskComponent {
   private _isInputValid(): boolean {
     for (const formField of this._formFields) {
       if (!formField.isValid) {
-        console.log('Check:', false);
         return false;
       }
     }
-    console.log('Check:', true);
+
     return true;
   }
 
