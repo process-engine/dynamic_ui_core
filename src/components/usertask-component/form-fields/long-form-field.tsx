@@ -2,7 +2,7 @@ import {DataModels} from '@process-engine/consumer_api_contracts';
 import {Component, State} from '@stencil/core';
 
 import {IFormField} from './iform_field';
-import { IKeyDownOnInputEvent } from './ikey_down_on_input_event';
+import {IKeyDownOnInputEvent} from './ikey_down_on_input_event';
 import {NumberInputValidator} from './number_input_validator';
 
 @Component({
@@ -37,7 +37,8 @@ export class LongFormField implements IFormField {
               <input type='text' class='form-control' id={this.formField.id} name={this.formField.label} value={this.value}
                 placeholder='0' pattern='^\d*$'
                 onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}
-                onChange={(event: any): void => this._handleChange(event)}> </input>
+                onChange={(event: any): void => this._handleChange(event)}>
+              </input>
             </div>;
   }
 

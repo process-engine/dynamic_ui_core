@@ -37,7 +37,8 @@ export class NumberFormField implements IFormField {
               <input type='text' class='form-control' id={this.formField.id} name={this.formField.label}
                 placeholder='0.0' value={this.value} pattern='^(-?\d+(,|\.)\d+)|(\d+)$'
                 onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}
-                onChange={(event: any): void => this._handleChange(event)}></input>
+                onChange={(event: any): void => this._handleChange(event)}>
+              </input>
             </div>;
   }
 
