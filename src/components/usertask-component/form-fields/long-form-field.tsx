@@ -18,7 +18,7 @@ export class LongFormField implements IFormField {
   public isValid: boolean = true;
 
   private _numberinputValidator: NumberInputValidator;
-  private readonly validationRegex: string = '^\\d*$';
+  private readonly validationRegex: string = '^-?\\d+$';
 
   constructor() {
     this._numberinputValidator = new NumberInputValidator(this.validationRegex);
