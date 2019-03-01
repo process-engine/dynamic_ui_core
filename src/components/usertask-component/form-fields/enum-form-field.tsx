@@ -11,6 +11,7 @@ import {IFormField} from './iform_field';
 export class EnumFormField implements IFormField {
 
   @State() public value: string;
+  public isValid: boolean = true;
 
   public formField: DataModels.UserTasks.UserTaskFormField;
 

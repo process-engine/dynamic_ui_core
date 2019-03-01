@@ -15,11 +15,13 @@ export class NumberFormField implements IFormField {
   @State() public value: number;
 
   public formField: DataModels.UserTasks.UserTaskFormField;
+  public isValid: boolean = true;
 
   private _numberinputValidator: NumberInputValidator;
+  private readonly validationRegex: string = '^(-?\\d+(,|\\.)\\d+)|(\\d+)$';
 
   constructor() {
-    this._numberinputValidator = new NumberInputValidator(/^-?\d+(,|\.)\d+$/);
+    this._numberinputValidator = new NumberInputValidator(this.validationRegex);
   }
 
   public get name(): string {
@@ -34,9 +36,17 @@ export class NumberFormField implements IFormField {
     return <div class='form-group'>
               <label>{this.formField.label}</label>
               <input type='text' class='form-control' id={this.formField.id} name={this.formField.label}
-                placeholder='0.0' value={this.value} pattern='^(-?\d+(,|\.)\d+)|(\d+)$'
-                onKeyDown={(event: any): void => this._handleKeyDown(event)} onInput={(event: any): void => this._handleInput(event)}></input>
+                placeholder='0.0' value={this.value} pattern={this.validationRegex}
+                onKeyDown={(event: IKeyDownOnInputEvent): void => this._handleKeyDown(event)}
+                onInput={(event: IKeyDownOnInputEvent): void => this._handleInput(event)}
+                onChange={(event: IKeyDownOnInputEvent): void => this._handleChange(event)}>
+              </input>
             </div>;
+  }
+
+  private _handleChange(event: IKeyDownOnInputEvent): void {
+    this.isValid = this._numberinputValidator.isValid(event.target.value);
+    this._setStyle(event);
   }
 
   private _handleInput(event: IKeyDownOnInputEvent): void {
@@ -46,6 +56,17 @@ export class NumberFormField implements IFormField {
       this.value = parseFloat(value.replace(',', '.'));
     } else {
       event.preventDefault();
+    }
+  }
+
+  private _setStyle(event: IKeyDownOnInputEvent): void {
+    const isEmptyInput: boolean = event.target.value.length === 0;
+
+    const element: HTMLElement = document.getElementById(this.formField.id);
+    element.style.borderColor = (this.isValid || isEmptyInput) ? '' : 'red';
+
+    if (isEmptyInput) {
+      this.isValid = true;
     }
   }
 
