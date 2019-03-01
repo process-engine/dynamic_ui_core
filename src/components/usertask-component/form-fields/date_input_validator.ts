@@ -11,18 +11,16 @@ export class DateInputValidator {
     const isCopyPastePressed: boolean = this.isCopyAndPastePressed(event);
     const isValidKey: boolean = this.isKeyValid(event, isBackspacePressed, isCopyPastePressed);
 
-    const keyCodeIsDot: boolean = event.keyCode === KeyCodes.DOT;
-
     if (isEnterPressed) {
       return this.isValidDate(event.target.value);
     }
 
     if (isDotPosition) {
 
-      if (keyCodeIsDot || isBackspacePressed) {
+      if (isBackspacePressed) {
         return true;
       } else {
-        return false;
+        event.target.value = event.target.value.concat('.');
       }
     }
 
