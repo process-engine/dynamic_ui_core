@@ -4,7 +4,7 @@ import {KeyCodes} from './key_codes';
 export class NumberInputValidator {
   private readonly _regex: RegExp;
 
-  constructor(regex: RegExp) {
+  constructor(regex: string) {
     this._regex = new RegExp(regex);
   }
 

@@ -166,8 +166,8 @@ export class DynamicUserTaskComponent {
 
   private _isInputValid(): boolean {
     for (const formField of this._formFields) {
-      const hasFormFieldValidInput: boolean = formField.isValid;
-      if (!hasFormFieldValidInput) {
+      const formFieldInputIsInvalid: boolean = !formField.isValid;
+      if (formFieldInputIsInvalid) {
 
         return false;
       }
