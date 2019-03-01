@@ -14,6 +14,7 @@ export class NumberInputValidator {
 
   public validateKey(event: IKeyDownOnInputEvent): boolean {
 
+    /* tslint:disable:cyclomatic-complexity */
     const keyCode: number = event.keyCode;
     const isCTRLPressed: boolean = event.ctrlKey;
     const isCommandPressed: boolean = event.metaKey;
