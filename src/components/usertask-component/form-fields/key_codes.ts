@@ -9,4 +9,5 @@ export enum KeyCodes {
   COMMAND = 91,
   C = 67,
   V = 86,
+  MINUS = 189,
 }

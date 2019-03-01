@@ -14,6 +14,7 @@ export class NumberInputValidator {
 
   public validateKey(event: IKeyDownOnInputEvent): boolean {
 
+    /* tslint:disable:cyclomatic-complexity */
     const keyCode: number = event.keyCode;
     const isCTRLPressed: boolean = event.ctrlKey;
     const isCommandPressed: boolean = event.metaKey;
@@ -22,13 +23,15 @@ export class NumberInputValidator {
     const isBackspacePressed: boolean = keyCode === KeyCodes.BACKSPACE;
     const isKeyCommaPressed: boolean = keyCode === KeyCodes.COMMA;
     const isKeyDotPressed: boolean = keyCode === KeyCodes.DOT;
+    const isMinusKeyPressd: boolean = keyCode === KeyCodes.MINUS;
     const isCopyPastePressed: boolean = (keyCode === KeyCodes.C || keyCode === KeyCodes.V) && (isCTRLPressed || isCommandPressed);
     const isValidKey: boolean = (keyCode <= KeyCodes.NINE && keyCode >= KeyCodes.ZERO)
                                 || isBackspacePressed
                                 || isEnterPressed
                                 || isKeyCommaPressed
                                 || isKeyDotPressed
-                                || isCopyPastePressed;
+                                || isCopyPastePressed
+                                || isMinusKeyPressd;
 
     return isValidKey;
   }

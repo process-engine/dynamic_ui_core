@@ -18,7 +18,7 @@ export class NumberFormField implements IFormField {
   public isValid: boolean = true;
 
   private _numberinputValidator: NumberInputValidator;
-  private readonly validationRegex: string = '^(-?\\d+(,|\\.)\\d+)|(\\d+)$';
+  private readonly validationRegex: string = '^(-?\\d+(,|\\.)\\d+)|(-?\\d+)$';
 
   constructor() {
     this._numberinputValidator = new NumberInputValidator(this.validationRegex);
