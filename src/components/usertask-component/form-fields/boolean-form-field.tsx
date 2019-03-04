@@ -11,6 +11,7 @@ import {IFormField} from './iform_field';
 export class BooleanFormField implements IFormField {
 
   public formField: DataModels.UserTasks.UserTaskFormField;
+  public isValid: boolean = true;
 
   public get name(): string {
     return this.formField.id;

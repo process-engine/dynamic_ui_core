@@ -62,14 +62,14 @@ export class DynamicUserTaskComponent {
       const isConfirmUserTask: boolean = this.usertask.data.preferredControl === 'confirm';
 
       if (isConfirmUserTask) {
-      
+
         return this._renderConfirmUserTask();
       } else {
-      
+
         return this._renderUserTask();
       }
     } else {
-    
+
       return <div class='card form_card'>
         <div class='card-body'>
           <h3 class='card-title mb-0'>UserTask finished.</h3>
@@ -101,7 +101,7 @@ export class DynamicUserTaskComponent {
   }
 
   private _renderUserTask(): any {
-  
+
     return <div class='card form_card'>
       <div class='card-body'>
 
@@ -127,13 +127,17 @@ export class DynamicUserTaskComponent {
   private _handleSubmit(event: Event): void {
     event.preventDefault();
 
-    this.submitted.emit({
-      correlationId: this.usertask.correlationId,
-      processInstanceId: this.usertask.processInstanceId,
-      userTaskId: this.usertask.id,
-      userTaskInstanceId: this.usertask.flowNodeInstanceId,
-      results: this._getFormResults(),
-    });
+    const inputIsValid: boolean = this._isInputValid();
+
+    if (inputIsValid) {
+      this.submitted.emit({
+        correlationId: this.usertask.correlationId,
+        processInstanceId: this.usertask.processInstanceId,
+        userTaskId: this.usertask.id,
+        userTaskInstanceId: this.usertask.flowNodeInstanceId,
+        results: this._getFormResults(),
+      });
+    }
   }
 
   private _handleProceed(event: Event): void {
@@ -158,6 +162,18 @@ export class DynamicUserTaskComponent {
 
   private _handleCancel(event: Event): void {
     this.canceled.emit();
+  }
+
+  private _isInputValid(): boolean {
+    for (const formField of this._formFields) {
+      const formFieldInputIsInvalid: boolean = !formField.isValid;
+      if (formFieldInputIsInvalid) {
+
+        return false;
+      }
+    }
+
+    return true;
   }
 
   private _getFormResults(): DataModels.UserTasks.UserTaskResult {
