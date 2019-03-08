@@ -135,6 +135,8 @@ export class DynamicUserTaskComponent {
         processInstanceId: this.usertask.processInstanceId,
         userTaskId: this.usertask.id,
         userTaskInstanceId: this.usertask.flowNodeInstanceId,
+      });
+      this.submitted.emit({
         results: this._getFormResults(),
       });
     }
