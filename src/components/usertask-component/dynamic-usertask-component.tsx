@@ -134,7 +134,7 @@ export class DynamicUserTaskComponent {
         correlationId: this.usertask.correlationId,
         processInstanceId: this.usertask.processInstanceId,
         userTaskId: this.usertask.id,
-        userTaskInstanceId: this.usertask.flowNodeInstanceId,
+        flowNodeInstanceId: this.usertask.flowNodeInstanceId,
         results: this._getFormResults(),
       });
     }
@@ -145,7 +145,7 @@ export class DynamicUserTaskComponent {
       correlationId: this.usertask.correlationId,
       processInstanceId: this.usertask.processInstanceId,
       userTaskId: this.usertask.id,
-      userTaskInstanceId: this.usertask.flowNodeInstanceId,
+      flowNodeInstanceId: this.usertask.flowNodeInstanceId,
       results: this._getConfirmResult(true),
     });
   }
@@ -155,7 +155,7 @@ export class DynamicUserTaskComponent {
       correlationId: this.usertask.correlationId,
       processInstanceId: this.usertask.processInstanceId,
       userTaskId: this.usertask.id,
-      userTaskInstanceId: this.usertask.flowNodeInstanceId,
+      flowNodeInstanceId: this.usertask.flowNodeInstanceId,
       results: this._getConfirmResult(false),
     });
   }
