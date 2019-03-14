@@ -86,7 +86,13 @@ export class DynamicUserTaskComponent {
 
         <h3 class='card-title'>{this.usertask.name}</h3>
 
-        <p>{firstFormField.label}</p>
+        {
+          this._formFields.map((formField: any) => {
+            return formField.render();
+          })
+        }
+
+        <p>{firstBooleanFormField.label}</p>
         <br></br>
         <div class='float-right'>
           <button type='button' class='btn btn-secondary' onClick={(e: Event): void => this._handleCancel(e)}
@@ -115,9 +121,10 @@ export class DynamicUserTaskComponent {
           }
           <br></br>
           <div class='float-right'>
-            <button type='button' class='btn btn-secondary' onClick={(e: Event): void => this._handleCancel(e)}
+            <button type='button' class='btn btn-secondary'
+              onClick={(e: Event): void => this._handleCancel(e)}
               id='dynamic-ui-wrapper-cancel-button'>Cancel</button>&nbsp;
-          <button type='submit' class='btn btn-primary' id='dynamic-ui-wrapper-continue-button'>Continue</button>
+            <button type='submit' class='btn btn-primary' id='dynamic-ui-wrapper-continue-button'>Continue</button>
           </div>
         </form>
       </div>
