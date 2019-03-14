@@ -79,14 +79,27 @@ export class DynamicUserTaskComponent {
   }
 
   private _renderConfirmUserTask(): any {
-    const firstFormField: DataModels.UserTasks.UserTaskFormField = this.usertask.data.formFields[0];
+    const firstBooleanFormField: DataModels.UserTasks.UserTaskFormField =
+      this.usertask.data.formFields.find((formField: DataModels.UserTasks.UserTaskFormField) => {
+        return formField.type === 'boolean';
+      });
+
+    const indexOfFormField: number = this.usertask.data.formFields.indexOf(firstBooleanFormField);
+
+    this._formFields.splice(indexOfFormField, 1);
 
     return <div class='card form_card'>
       <div class='card-body'>
 
         <h3 class='card-title'>{this.usertask.name}</h3>
 
-        <p>{firstFormField.label}</p>
+        {
+          this._formFields.map((formField: IFormField) => {
+            return formField.render();
+          })
+        }
+
+        <p>{firstBooleanFormField.label}</p>
         <br></br>
         <div class='float-right'>
           <button type='button' class='btn btn-secondary' onClick={(e: Event): void => this._handleCancel(e)}
@@ -115,9 +128,10 @@ export class DynamicUserTaskComponent {
           }
           <br></br>
           <div class='float-right'>
-            <button type='button' class='btn btn-secondary' onClick={(e: Event): void => this._handleCancel(e)}
+            <button type='button' class='btn btn-secondary'
+              onClick={(e: Event): void => this._handleCancel(e)}
               id='dynamic-ui-wrapper-cancel-button'>Cancel</button>&nbsp;
-          <button type='submit' class='btn btn-primary' id='dynamic-ui-wrapper-continue-button'>Continue</button>
+            <button type='submit' class='btn btn-primary' id='dynamic-ui-wrapper-continue-button'>Continue</button>
           </div>
         </form>
       </div>
@@ -188,9 +202,17 @@ export class DynamicUserTaskComponent {
 
   private _getConfirmResult(proceedClicked: boolean): DataModels.UserTasks.UserTaskResult {
     const result: DataModels.UserTasks.UserTaskResult = {formFields: {}};
-    const firstFormField: DataModels.UserTasks.UserTaskFormField = this.usertask.data.formFields[0];
 
-    result.formFields[firstFormField.id] = proceedClicked;
+    const firstBooleanFormField: DataModels.UserTasks.UserTaskFormField =
+    this.usertask.data.formFields.find((formField: DataModels.UserTasks.UserTaskFormField) => {
+      return formField.type === 'boolean';
+    });
+
+    for (const formField of this._formFields) {
+      result.formFields[formField.name] = formField.value;
+    }
+
+    result.formFields[firstBooleanFormField.id] = proceedClicked;
 
     return result;
   }
