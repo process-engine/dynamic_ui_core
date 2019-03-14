@@ -202,9 +202,17 @@ export class DynamicUserTaskComponent {
 
   private _getConfirmResult(proceedClicked: boolean): DataModels.UserTasks.UserTaskResult {
     const result: DataModels.UserTasks.UserTaskResult = {formFields: {}};
-    const firstFormField: DataModels.UserTasks.UserTaskFormField = this.usertask.data.formFields[0];
 
-    result.formFields[firstFormField.id] = proceedClicked;
+    const firstBooleanFormField: DataModels.UserTasks.UserTaskFormField =
+    this.usertask.data.formFields.find((formField: DataModels.UserTasks.UserTaskFormField) => {
+      return formField.type === 'boolean';
+    });
+
+    for (const formField of this._formFields) {
+      result.formFields[formField.name] = formField.value;
+    }
+
+    result.formFields[firstBooleanFormField.id] = proceedClicked;
 
     return result;
   }
