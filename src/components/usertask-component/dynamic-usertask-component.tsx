@@ -94,7 +94,7 @@ export class DynamicUserTaskComponent {
         <h3 class='card-title'>{this.usertask.name}</h3>
 
         {
-          this._formFields.map((formField: DataModels.UserTasks.UserTaskFormField) => {
+          this._formFields.map((formField: IFormField) => {
             return formField.render();
           })
         }
