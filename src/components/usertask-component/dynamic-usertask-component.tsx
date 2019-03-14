@@ -79,7 +79,14 @@ export class DynamicUserTaskComponent {
   }
 
   private _renderConfirmUserTask(): any {
-    const firstFormField: DataModels.UserTasks.UserTaskFormField = this.usertask.data.formFields[0];
+    const firstBooleanFormField: DataModels.UserTasks.UserTaskFormField =
+      this.usertask.data.formFields.find((formField: DataModels.UserTasks.UserTaskFormField) => {
+        return formField.type === 'boolean';
+      });
+
+    const indexOfFormField: number = this.usertask.data.formFields.indexOf(firstBooleanFormField);
+
+    this._formFields.splice(indexOfFormField, 1);
 
     return <div class='card form_card'>
       <div class='card-body'>
