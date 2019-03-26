@@ -23,15 +23,17 @@ export class NumberInputValidator {
     const isBackspacePressed: boolean = keyCode === KeyCodes.BACKSPACE;
     const isKeyCommaPressed: boolean = keyCode === KeyCodes.COMMA;
     const isKeyDotPressed: boolean = keyCode === KeyCodes.DOT;
-    const isMinusKeyPressd: boolean = keyCode === KeyCodes.MINUS;
+    const isMinusKeyPressed: boolean = keyCode === KeyCodes.MINUS;
     const isCopyPastePressed: boolean = (keyCode === KeyCodes.C || keyCode === KeyCodes.V) && (isCTRLPressed || isCommandPressed);
+    const isTabPressed: boolean = event.keyCode === KeyCodes.TAB;
     const isValidKey: boolean = (keyCode <= KeyCodes.NINE && keyCode >= KeyCodes.ZERO)
                                 || isBackspacePressed
                                 || isEnterPressed
                                 || isKeyCommaPressed
                                 || isKeyDotPressed
                                 || isCopyPastePressed
-                                || isMinusKeyPressd;
+                                || isMinusKeyPressed
+                                || isTabPressed;
 
     return isValidKey;
   }
