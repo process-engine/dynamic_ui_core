@@ -10,4 +10,5 @@ export enum KeyCodes {
   C = 67,
   V = 86,
   MINUS = 189,
+  TAB = 9,
 }
