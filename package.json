@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/process-engine/dynamic_ui_core#readme",
   "dependencies": {
-    "@process-engine/consumer_api_client_bundle": "0.1.1",
+    "@process-engine/consumer_api_client_bundle": "feature~update_bundle",
     "@process-engine/consumer_api_contracts": "5.0.0",
     "@process-engine/dynamic_ui_contracts": "1.0.0",
     "@types/socket.io": "2.1.2",

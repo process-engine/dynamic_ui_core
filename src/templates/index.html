@@ -59,7 +59,7 @@
         const component = document.getElementById('userTaskComponent');
         component.addEventListener('submitted', event => {
           const userTask = event.detail;
-          consumerApi.finishUserTask(identity, userTask.processInstanceId, userTask.correlationId, userTask.userTaskInstanceId, userTask.results)
+          consumerApi.finishUserTask(identity, userTask.processInstanceId, userTask.correlationId, userTask.flowNodeInstanceId, userTask.results)
             .then(result => {
               component.usertask = undefined;
             });
