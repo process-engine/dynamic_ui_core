@@ -4,9 +4,7 @@
  * It contains typing information for all components that exist in this project.
  */
 
-
 import '@stencil/core';
-
 
 import {
   IManualTask,
@@ -14,7 +12,6 @@ import {
 import {
   IUserTask,
 } from './usertask-component';
-
 
 export namespace Components {
 
@@ -78,7 +75,6 @@ declare global {
     'string-form-field': Components.StringFormFieldAttributes;
   }
 
-
   interface HTMLManualtaskComponentElement extends Components.ManualtaskComponent, HTMLStencilElement {}
   var HTMLManualtaskComponentElement: {
     prototype: HTMLManualtaskComponentElement;
@@ -128,14 +124,14 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
-    'manualtask-component': HTMLManualtaskComponentElement
-    'dynamic-usertask-component': HTMLDynamicUsertaskComponentElement
-    'boolean-form-field': HTMLBooleanFormFieldElement
-    'date-form-field': HTMLDateFormFieldElement
-    'enum-form-field': HTMLEnumFormFieldElement
-    'long-form-field': HTMLLongFormFieldElement
-    'number-form-field': HTMLNumberFormFieldElement
-    'string-form-field': HTMLStringFormFieldElement
+    'manualtask-component': HTMLManualtaskComponentElement;
+    'dynamic-usertask-component': HTMLDynamicUsertaskComponentElement;
+    'boolean-form-field': HTMLBooleanFormFieldElement;
+    'date-form-field': HTMLDateFormFieldElement;
+    'enum-form-field': HTMLEnumFormFieldElement;
+    'long-form-field': HTMLLongFormFieldElement;
+    'number-form-field': HTMLNumberFormFieldElement;
+    'string-form-field': HTMLStringFormFieldElement;
   }
 
   interface ElementTagNameMap {
@@ -148,7 +144,6 @@ declare global {
     'number-form-field': HTMLNumberFormFieldElement;
     'string-form-field': HTMLStringFormFieldElement;
   }
-
 
   export namespace JSX {
     export interface Element {}
