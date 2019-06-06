@@ -10,7 +10,7 @@ export class DynamicUIService implements IDynamicUIApi {
   }
 
   public async getIndex(formKey: string): Promise<any> {
-    const template: string = fs.readFileSync(`${__dirname}/templates/index.html`).toString();
+    const template = fs.readFileSync(`${__dirname}/templates/index.html`).toString();
 
     return Handlebars.compile(template)({
       form_key: formKey,
@@ -20,8 +20,9 @@ export class DynamicUIService implements IDynamicUIApi {
   }
 
   public async getWebcomponent(formKey: string): Promise<any> {
-    const webcomponent: string = fs.readFileSync(`${__dirname}/../dynamic-usertask-component.js`).toString();
+    const webcomponent = fs.readFileSync(`${__dirname}/../dynamic-usertask-component.js`).toString();
 
     return webcomponent;
   }
+
 }
