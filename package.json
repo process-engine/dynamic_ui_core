@@ -4,9 +4,15 @@
   "description": "Businesslogic of dynamic ui",
   "main": "dist/commonjs/index.js",
   "scripts": {
-    "build": "gulp build && stencil build",
-    "lint": "gulp lint",
-    "test": "gulp test"
+    "build": "npm run build-tsc && stencil build",
+    "build-tsc": "npm run clean && npm run build-commonjs && npm run build-amd",
+    "build-commonjs": "tsc",
+    "build-amd": "tsc --module amd --outDir ./dist/amd",
+    "clean": "rm -rf dist",
+    "lint": "eslint src/**/*.ts src/*.ts",
+    "lint-fix": "eslint --fix src/**/*.ts src/*.ts",
+    "prepare": "npm run build",
+    "test": ":"
   },
   "files": [
     "dist/**",
@@ -23,7 +29,7 @@
   },
   "homepage": "https://github.com/process-engine/dynamic_ui_core#readme",
   "dependencies": {
-    "@process-engine/consumer_api_client_bundle": "feature~update_bundle",
+    "@process-engine/consumer_api_client_bundle": "0.2.0",
     "@process-engine/consumer_api_contracts": "6.0.0",
     "@process-engine/dynamic_ui_contracts": "1.0.0",
     "@stencil/core": "^0.18.0",
@@ -32,14 +38,11 @@
     "handlebars": "4.1.2"
   },
   "devDependencies": {
-    "@essential-projects/tslint-config": "^1.1.5",
+    "@essential-projects/eslint-config": "^1.0.0",
     "@types/node": "^10.12.2",
     "@types/socket.io": "^2.1.2",
-    "gulp": "^4.0.2",
-    "gulptraum": "^3.1.0",
-    "gulptraum-typescript": "^3.0.0",
+    "eslint": "^5.16.0",
     "tsconfig": "^7.0.0",
-    "tslint": "^5.17.0",
     "typescript": "^3.4.5"
   }
 }
