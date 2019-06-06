@@ -26,13 +26,13 @@
     "@process-engine/consumer_api_client_bundle": "feature~update_bundle",
     "@process-engine/consumer_api_contracts": "6.0.0",
     "@process-engine/dynamic_ui_contracts": "1.0.0",
+    "@stencil/core": "^0.18.0",
     "addict-ioc": "2.5.6",
     "express": "4.17.1",
     "handlebars": "4.1.2"
   },
   "devDependencies": {
     "@essential-projects/tslint-config": "^1.1.5",
-    "@stencil/core": "^0.18.0",
     "@types/node": "^10.12.2",
     "@types/socket.io": "^2.1.2",
     "gulp": "^4.0.2",
