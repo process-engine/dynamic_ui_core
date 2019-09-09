@@ -48,7 +48,7 @@ For a full example of a process with a configures UserTask see:
 
 ## Configure and Display confirm UserTasks
 
-To configure a UserTask to use the "confirm" control add the `preferredControl`
+To configure a UserTask to use the "confirm", control add the `preferredControl`
 key with the value `confirm` to the properties of the UserTask.
 
 ![Confirm UserTask 1](./docs/images/ConfirmUserTask(1).png)
@@ -68,9 +68,9 @@ You can now again
 - save the diagram
 - deploy it to the ProcessEngine
 - run it
-- click on the task un the Live Execution Tracker
+- click on the task in the Live Execution Tracker
 
-You can now the the configured confirm UserTask.
+You can now see the configured confirm UserTask.
 Since it is a confirm UserTask the DynamicUi rendered some extra buttons.
 
 ![Confirm UserTask 3](./docs/images/ConfirmUserTask(3).png)
@@ -78,7 +78,7 @@ Since it is a confirm UserTask the DynamicUi rendered some extra buttons.
 Clicking on "Proceed" will lead to a `true` in the first boolean form field of
 the UserTask.
 
-Clicking on "Decline" will lead to a `false`in the first boolean form fueld of
+Clicking on "Decline" will lead to a `false` in the first boolean form fueld of
 the UserTask.
 
 ### Example Process
