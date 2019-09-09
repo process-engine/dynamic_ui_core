@@ -78,7 +78,7 @@ Since it is a confirm UserTask the DynamicUi rendered some extra buttons.
 Clicking on "Proceed" will lead to a `true` in the first boolean form field of
 the UserTask.
 
-Clicking on "Decline" will lead to a `false` in the first boolean form fueld of
+Clicking on "Decline" will lead to a `false` in the first boolean form field of
 the UserTask.
 
 ### Example Process
