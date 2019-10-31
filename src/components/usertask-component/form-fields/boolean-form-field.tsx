@@ -19,7 +19,7 @@ export class BooleanFormField implements IFormField {
 
   @State() public value: boolean;
   public componentWillLoad(): void {
-    this.value = this.formField.defaultValue === 'true';
+    this.value = this.formField.defaultValue === 'true' || this.formField.defaultValue === '1' || this.formField.defaultValue === true;
   }
 
   public render(): any {
