@@ -29,7 +29,11 @@ export class NumberFormField implements IFormField {
   }
 
   public componentWillLoad(): void {
-    this.value = parseFloat(this.formField.defaultValue.replace(',', '.'));
+    const formFieldDefaultValue = this.formField.defaultValue;
+    const parsedDefaultValue = parseFloat(formFieldDefaultValue.replace(',', '.'));
+
+    // eslint-disable-next-line no-restricted-globals
+    this.value = isNaN(parsedDefaultValue) ? formFieldDefaultValue : parsedDefaultValue;
   }
 
   public render(): JSX.Element {
