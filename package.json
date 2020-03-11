@@ -1,6 +1,6 @@
 {
   "name": "@process-engine/dynamic_ui_core",
-  "version": "1.6.0",
+  "version": "1.7.0-alpha.1",
   "description": "Businesslogic of dynamic ui",
   "main": "dist/commonjs/index.js",
   "scripts": {

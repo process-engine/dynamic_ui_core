@@ -29,19 +29,23 @@ export class NumberFormField implements IFormField {
   }
 
   public componentWillLoad(): void {
-    this.value = this.formField.defaultValue;
+    const formFieldDefaultValue = this.formField.defaultValue;
+    const parsedDefaultValue = parseFloat(formFieldDefaultValue.replace(',', '.'));
+
+    // eslint-disable-next-line no-restricted-globals
+    this.value = isNaN(parsedDefaultValue) ? formFieldDefaultValue : parsedDefaultValue;
   }
 
-  public render(): any {
+  public render(): JSX.Element {
     return <div class='form-group'>
-              <label>{this.formField.label}</label>
-              <input type='text' class='form-control' id={this.formField.id} name={this.formField.label}
-                placeholder='0.0' value={this.value} pattern={this.validationRegex}
-                onKeyDown={(event: IKeyDownOnInputEvent): void => this._handleKeyDown(event)}
-                onInput={(event: IKeyDownOnInputEvent): void => this._handleInput(event)}
-                onChange={(event: IKeyDownOnInputEvent): void => this._handleChange(event)}>
-              </input>
-            </div>;
+      <label>{this.formField.label}</label>
+      <input type='text' class='form-control' id={this.formField.id} name={this.formField.label}
+        placeholder='0.0' value={this.value} pattern={this.validationRegex}
+        onKeyDown={(event: IKeyDownOnInputEvent): void => this._handleKeyDown(event)}
+        onInput={(event: IKeyDownOnInputEvent): void => this._handleInput(event)}
+        onChange={(event: IKeyDownOnInputEvent): void => this._handleChange(event)}>
+      </input>
+    </div>;
   }
 
   private _handleChange(event: IKeyDownOnInputEvent): void {
@@ -80,4 +84,5 @@ export class NumberFormField implements IFormField {
 
     event.preventDefault();
   }
+
 }
