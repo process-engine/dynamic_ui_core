@@ -88,6 +88,10 @@ export class DynamicUserTaskComponent {
 
     this._formFields.splice(indexOfFormField, 1);
 
+    if(!firstBooleanFormField) {
+      return this._renderUserTask();
+    }
+
     return <div class='card form_card'>
       <div class='card-body'>
 
