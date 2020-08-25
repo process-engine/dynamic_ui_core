@@ -1,5 +1,5 @@
 import {DataModels} from '@process-engine/consumer_api_contracts';
-import {Component, State} from '@stencil/core';
+import {Component, State, h} from '@stencil/core';
 import {IFormField} from './iform_field';
 import {IKeyDownOnInputEvent} from './ikey_down_on_input_event';
 
@@ -25,15 +25,16 @@ export class StringFormField implements IFormField {
 
   public render(): any {
     return <div class='form-group'>
-              <label htmlFor={this.formField.id}>{this.formField.label}</label>
-              <input type='text'
-                class='form-control' id={this.formField.id} name={this.formField.id} value={this.value}
-                onInput={(event: IKeyDownOnInputEvent): void => this._handleChange(event)}>
-              </input>
-            </div>;
+      <label htmlFor={this.formField.id}>{this.formField.label}</label>
+      <input type='text'
+        class='form-control' id={this.formField.id} name={this.formField.id} value={this.value}
+        onInput={(event: IKeyDownOnInputEvent): void => this.handleChange(event)}>
+      </input>
+    </div>;
   }
 
-  private _handleChange(event: IKeyDownOnInputEvent): void {
+  private handleChange(event: IKeyDownOnInputEvent): void {
     this.value = event.target.value;
   }
+
 }

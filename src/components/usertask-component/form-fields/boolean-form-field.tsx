@@ -1,5 +1,7 @@
 import {DataModels} from '@process-engine/consumer_api_contracts';
-import {Component, State} from '@stencil/core';
+import {
+  Component, JSX, Prop, State, h,
+} from '@stencil/core';
 
 import {IFormField} from './iform_field';
 
@@ -10,7 +12,7 @@ import {IFormField} from './iform_field';
 })
 export class BooleanFormField implements IFormField {
 
-  public formField: DataModels.UserTasks.UserTaskFormField;
+  @Prop() public formField: DataModels.UserTasks.UserTaskFormField;
   public isValid: boolean = true;
 
   public get name(): string {
@@ -22,17 +24,18 @@ export class BooleanFormField implements IFormField {
     this.value = this.formField.defaultValue === 'true' || this.formField.defaultValue === '1' || this.formField.defaultValue === true;
   }
 
-  public render(): any {
+  public render(): JSX.Element {
     return <div class='form-check'>
       <input class='form-check-input' id={this.formField.id} type='checkbox'
-        checked={this.value} onInput={(event: any): void => this._handleClick(event)}></input>
+        checked={this.value} onInput={(event: any): void => this.handleClick(event)}></input>
       <label class='form-check-label' htmlFor={this.formField.id}>
         {this.formField.label}
       </label>
     </div>;
   }
 
-  private _handleClick(event: any): void {
+  private handleClick(event: any): void {
     this.value = event.target.checked === true;
   }
+
 }
