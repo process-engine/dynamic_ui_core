@@ -35,7 +35,7 @@
     "@stencil/core": "^0.18.0",
     "addict-ioc": "2.5.6",
     "express": "4.17.1",
-    "handlebars": "4.1.2"
+    "handlebars": "4.3.0"
   },
   "devDependencies": {
     "@essential-projects/eslint-config": "^1.0.0",
