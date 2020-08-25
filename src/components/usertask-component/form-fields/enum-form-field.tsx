@@ -1,5 +1,7 @@
 import {DataModels} from '@process-engine/consumer_api_contracts';
-import {Component, State} from '@stencil/core';
+import {
+  Component, JSX, Prop, State, h,
+} from '@stencil/core';
 
 import {IFormField} from './iform_field';
 
@@ -13,7 +15,7 @@ export class EnumFormField implements IFormField {
   @State() public value: string;
   public isValid: boolean = true;
 
-  public formField: DataModels.UserTasks.UserTaskFormField;
+  @Prop() public formField: DataModels.UserTasks.UserTaskFormField;
 
   public get name(): string {
     return this.formField.id;
@@ -23,21 +25,22 @@ export class EnumFormField implements IFormField {
     this.value = this.formField.defaultValue;
   }
 
-  public render(): any {
+  public render(): JSX.Element {
     return <div class='form-group'>
-              <label>{this.formField.label}</label>
-              <select class='form-control' id={this.formField.id}
-                name={this.formField.label} onInput={(event: any): void => this._handleSelect(event)}>
-                {
-                  this.formField.enumValues.map((enumValue: DataModels.UserTasks.UserTaskEnumValue): any => {
-                    return <option value={enumValue.id} selected={this.value === enumValue.id}>{enumValue.name}</option>;
-                  })
-                }
-              </select>
-            </div>;
+      <label>{this.formField.label}</label>
+      <select class='form-control' id={this.formField.id}
+        name={this.formField.label} onInput={(event: any): void => this.handleSelect(event)}>
+        {
+          this.formField.enumValues.map((enumValue: DataModels.UserTasks.UserTaskEnumValue): any => {
+            return <option value={enumValue.id} selected={this.value === enumValue.id}>{enumValue.name}</option>;
+          })
+        }
+      </select>
+    </div>;
   }
 
-  public _handleSelect(event: any): void {
+  public handleSelect(event: any): void {
     this.value = event.target.value;
   }
+
 }

@@ -1,7 +1,9 @@
+/* eslint-disable dot-notation */
 import {
-  Component, Event, EventEmitter, Prop, Watch,
+  Component, Event, EventEmitter, JSX, Prop, Watch, h,
 } from '@stencil/core';
 
+import {DataModels} from '@process-engine/consumer_api_contracts';
 import {
   BooleanFormField,
   DateFormField,
@@ -13,7 +15,6 @@ import {
   NumberFormField,
   StringFormField,
 } from '.';
-import { DataModels } from '@process-engine/consumer_api_contracts/dist/data_models';
 
 @Component({
   tag: 'dynamic-usertask-component',
@@ -26,17 +27,17 @@ export class DynamicUserTaskComponent {
   @Event() public submitted: EventEmitter;
   @Event() public canceled: EventEmitter;
 
-  private _formFieldComponentsForTyp: Array<IConstructor<IFormField>>;
-  private _formFields: Array<IFormField> = [];
+  private formFieldComponentsForTyp: Array<IConstructor<IFormField>> = [];
+  private formFields: Array<IFormField> = [];
 
   constructor() {
-    this._formFieldComponentsForTyp[DataModels.UserTasks.UserTaskFormFieldType.string] = StringFormField;
-    this._formFieldComponentsForTyp[DataModels.UserTasks.UserTaskFormFieldType.long] = LongFormField;
-    this._formFieldComponentsForTyp[DataModels.UserTasks.UserTaskFormFieldType.number] = NumberFormField;
-    this._formFieldComponentsForTyp[DataModels.UserTasks.UserTaskFormFieldType.boolean] = BooleanFormField;
-    this._formFieldComponentsForTyp['decimal'] = NumberFormField;
-    this._formFieldComponentsForTyp[DataModels.UserTasks.UserTaskFormFieldType.date] = DateFormField;
-    this._formFieldComponentsForTyp[DataModels.UserTasks.UserTaskFormFieldType.enum] = EnumFormField;
+    this.formFieldComponentsForTyp['string'] = StringFormField;
+    this.formFieldComponentsForTyp['long'] = LongFormField;
+    this.formFieldComponentsForTyp['number'] = NumberFormField;
+    this.formFieldComponentsForTyp['boolean'] = BooleanFormField;
+    this.formFieldComponentsForTyp['decimal'] = NumberFormField;
+    this.formFieldComponentsForTyp['date'] = DateFormField;
+    this.formFieldComponentsForTyp['enum'] = EnumFormField;
   }
 
   public componentWillLoad(): void {
@@ -45,20 +46,20 @@ export class DynamicUserTaskComponent {
 
   @Watch('usertask')
   public watchUserTaskHandler(newUserTask: IUserTask, oldUserTask: IUserTask): void {
-    this._formFields = [];
+    this.formFields = [];
 
     const hasUserTask: boolean = newUserTask !== undefined && newUserTask !== null;
 
     if (hasUserTask) {
       for (const formField of newUserTask.data.formFields) {
-        const component: any = this._createComponentForFormField(formField);
+        const component: any = this.createComponentForFormField(formField);
         component.componentWillLoad();
-        this._formFields.push(component);
+        this.formFields.push(component);
       }
     }
   }
 
-  public render(): any {
+  public render(): JSX.Element {
     const hasUserTask: boolean = this.usertask !== undefined && this.usertask !== null;
     if (hasUserTask) {
       // eslint-disable-next-line dot-notation
@@ -66,10 +67,10 @@ export class DynamicUserTaskComponent {
 
       if (isConfirmUserTask) {
 
-        return this._renderConfirmUserTask();
+        return this.renderConfirmUserTask();
       }
 
-      return this._renderUserTask();
+      return this.renderUserTask();
 
     }
 
@@ -81,18 +82,18 @@ export class DynamicUserTaskComponent {
 
   }
 
-  private _renderConfirmUserTask(): any {
+  private renderConfirmUserTask(): JSX.Element {
     const firstBooleanFormField: DataModels.UserTasks.UserTaskFormField =
-      this.usertask.data.formFields.find((formField: DataModels.UserTasks.UserTaskFormField) => {
+      this.usertask.data.formFields.find((formField: DataModels.UserTasks.UserTaskFormField): boolean => {
         return formField.type === 'boolean';
       });
 
     const indexOfFormField: number = this.usertask.data.formFields.indexOf(firstBooleanFormField);
 
-    this._formFields.splice(indexOfFormField, 1);
+    this.formFields.splice(indexOfFormField, 1);
 
     if (!firstBooleanFormField) {
-      return this._renderUserTask();
+      return this.renderUserTask();
     }
 
     return <div class='card form_card'>
@@ -101,7 +102,7 @@ export class DynamicUserTaskComponent {
         <h3 class='card-title'>{this.usertask.name}</h3>
 
         {
-          this._formFields.map((formField: IFormField) => {
+          this.formFields.map((formField: IFormField): void => {
             return formField.render();
           })
         }
@@ -109,34 +110,34 @@ export class DynamicUserTaskComponent {
         <p>{firstBooleanFormField.label}</p>
         <br></br>
         <div class='float-right'>
-          <button type='button' class='btn btn-secondary' onClick={(e: Event): void => this._handleCancel(e)}
+          <button type='button' class='btn btn-secondary' onClick={(e: Event): void => this.handleCancel(e)}
             id='dynamic-ui-wrapper-cancel-button'>Cancel</button>&nbsp;
-          <button type='button' class='btn btn-danger' onClick={(e: Event): void => this._handleDecline(e)}
+          <button type='button' class='btn btn-danger' onClick={(e: Event): void => this.handleDecline(e)}
             id='dynamic-ui-wrapper-decline-button'>Decline</button>&nbsp;
-          <button type='button' class='btn btn-success' onClick={(e: Event): void => this._handleProceed(e)}
+          <button type='button' class='btn btn-success' onClick={(e: Event): void => this.handleProceed(e)}
             id='dynamic-ui-wrapper-proceed-button'>Proceed</button>
         </div>
       </div>
     </div>;
   }
 
-  private _renderUserTask(): any {
+  private renderUserTask(): JSX.Element {
 
     return <div class='card form_card'>
       <div class='card-body'>
 
         <h3 class='card-title'>{this.usertask.name}</h3>
 
-        <form onSubmit={(e: Event): void => this._handleSubmit(e)} >
+        <form onSubmit={(e: Event): void => this.handleSubmit(e)} >
           {
-            this._formFields.map((formField: any) => {
+            this.formFields.map((formField: IFormField): void => {
               return formField.render();
             })
           }
           <br></br>
           <div class='float-right'>
             <button type='button' class='btn btn-secondary'
-              onClick={(e: Event): void => this._handleCancel(e)}
+              onClick={(e: Event): void => this.handleCancel(e)}
               id='dynamic-ui-wrapper-cancel-button'>Cancel</button>&nbsp;
             <button type='submit' class='btn btn-primary' id='dynamic-ui-wrapper-continue-button'>Continue</button>
           </div>
@@ -145,10 +146,10 @@ export class DynamicUserTaskComponent {
     </div>;
   }
 
-  private _handleSubmit(event: Event): void {
+  private handleSubmit(event: Event): void {
     event.preventDefault();
 
-    const inputIsValid: boolean = this._isInputValid();
+    const inputIsValid: boolean = this.isInputValid();
 
     if (inputIsValid) {
       this.submitted.emit({
@@ -156,37 +157,37 @@ export class DynamicUserTaskComponent {
         processInstanceId: this.usertask.processInstanceId,
         userTaskId: this.usertask.id,
         flowNodeInstanceId: this.usertask.flowNodeInstanceId,
-        results: this._getFormResults(),
+        results: this.getFormResults(),
       });
     }
   }
 
-  private _handleProceed(event: Event): void {
+  private handleProceed(event: Event): void {
     this.submitted.emit({
       correlationId: this.usertask.correlationId,
       processInstanceId: this.usertask.processInstanceId,
       userTaskId: this.usertask.id,
       flowNodeInstanceId: this.usertask.flowNodeInstanceId,
-      results: this._getConfirmResult(true),
+      results: this.getConfirmResult(true),
     });
   }
 
-  private _handleDecline(event: Event): void {
+  private handleDecline(event: Event): void {
     this.submitted.emit({
       correlationId: this.usertask.correlationId,
       processInstanceId: this.usertask.processInstanceId,
       userTaskId: this.usertask.id,
       flowNodeInstanceId: this.usertask.flowNodeInstanceId,
-      results: this._getConfirmResult(false),
+      results: this.getConfirmResult(false),
     });
   }
 
-  private _handleCancel(event: Event): void {
+  private handleCancel(event: Event): void {
     this.canceled.emit();
   }
 
-  private _isInputValid(): boolean {
-    for (const formField of this._formFields) {
+  private isInputValid(): boolean {
+    for (const formField of this.formFields) {
       const formFieldInputIsInvalid = !formField.isValid;
       if (formFieldInputIsInvalid) {
 
@@ -197,25 +198,25 @@ export class DynamicUserTaskComponent {
     return true;
   }
 
-  private _getFormResults(): DataModels.UserTasks.UserTaskResult {
+  private getFormResults(): DataModels.UserTasks.UserTaskResult {
     const result: DataModels.UserTasks.UserTaskResult = {formFields: {}};
 
-    for (const formField of this._formFields) {
+    for (const formField of this.formFields) {
       result.formFields[formField.name] = formField.value;
     }
 
     return result;
   }
 
-  private _getConfirmResult(proceedClicked: boolean): DataModels.UserTasks.UserTaskResult {
+  private getConfirmResult(proceedClicked: boolean): DataModels.UserTasks.UserTaskResult {
     const result: DataModels.UserTasks.UserTaskResult = {formFields: {}};
 
     const firstBooleanFormField: DataModels.UserTasks.UserTaskFormField =
-    this.usertask.data.formFields.find((formField: DataModels.UserTasks.UserTaskFormField) => {
+    this.usertask.data.formFields.find((formField: DataModels.UserTasks.UserTaskFormField): boolean => {
       return formField.type === 'boolean';
     });
 
-    for (const formField of this._formFields) {
+    for (const formField of this.formFields) {
       result.formFields[formField.name] = formField.value;
     }
 
@@ -224,9 +225,9 @@ export class DynamicUserTaskComponent {
     return result;
   }
 
-  private _createComponentForFormField(formField: DataModels.UserTasks.UserTaskFormField): any {
-    const type: IConstructor<any> = this._formFieldComponentsForTyp[formField.type];
-    const component: any = new type();
+  private createComponentForFormField(formField: DataModels.UserTasks.UserTaskFormField): any {
+    const Type: IConstructor<any> = this.formFieldComponentsForTyp[formField.type];
+    const component: any = new Type(formField);
     component.formField = formField;
     component.value = formField.defaultValue;
 
