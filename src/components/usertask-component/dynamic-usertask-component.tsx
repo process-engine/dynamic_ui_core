@@ -27,17 +27,17 @@ export class DynamicUserTaskComponent {
   @Event() public submitted: EventEmitter;
   @Event() public canceled: EventEmitter;
 
-  private formFieldComponentsForTyp: Array<IConstructor<IFormField>> = [];
+  private formFieldComponentsForType: Array<IConstructor<IFormField>> = [];
   private formFields: Array<IFormField> = [];
 
   constructor() {
-    this.formFieldComponentsForTyp['string'] = StringFormField;
-    this.formFieldComponentsForTyp['long'] = LongFormField;
-    this.formFieldComponentsForTyp['number'] = NumberFormField;
-    this.formFieldComponentsForTyp['boolean'] = BooleanFormField;
-    this.formFieldComponentsForTyp['decimal'] = NumberFormField;
-    this.formFieldComponentsForTyp['date'] = DateFormField;
-    this.formFieldComponentsForTyp['enum'] = EnumFormField;
+    this.formFieldComponentsForType['string'] = StringFormField;
+    this.formFieldComponentsForType['long'] = LongFormField;
+    this.formFieldComponentsForType['number'] = NumberFormField;
+    this.formFieldComponentsForType['boolean'] = BooleanFormField;
+    this.formFieldComponentsForType['decimal'] = NumberFormField;
+    this.formFieldComponentsForType['date'] = DateFormField;
+    this.formFieldComponentsForType['enum'] = EnumFormField;
   }
 
   public componentWillLoad(): void {
@@ -226,7 +226,7 @@ export class DynamicUserTaskComponent {
   }
 
   private createComponentForFormField(formField: DataModels.UserTasks.UserTaskFormField): any {
-    const Type: IConstructor<any> = this.formFieldComponentsForTyp[formField.type];
+    const Type: IConstructor<any> = this.formFieldComponentsForType[formField.type];
     const component: any = new Type(formField);
     component.formField = formField;
     component.value = formField.defaultValue;
