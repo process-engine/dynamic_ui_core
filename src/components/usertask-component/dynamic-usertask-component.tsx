@@ -1,6 +1,6 @@
-import {Component, Event, EventEmitter, Prop, Watch} from '@stencil/core';
-
-import {DataModels} from '@process-engine/consumer_api_contracts';
+import {
+  Component, Event, EventEmitter, Prop, Watch,
+} from '@stencil/core';
 
 import {
   BooleanFormField,
@@ -13,6 +13,7 @@ import {
   NumberFormField,
   StringFormField,
 } from '.';
+import { DataModels } from '@process-engine/consumer_api_contracts/dist/data_models';
 
 @Component({
   tag: 'dynamic-usertask-component',
@@ -20,21 +21,22 @@ import {
   shadow: false,
 })
 export class DynamicUserTaskComponent {
+
   @Prop() public usertask: IUserTask;
   @Event() public submitted: EventEmitter;
   @Event() public canceled: EventEmitter;
 
-  private _formFieldComponentsForTyp: Array<IConstructor<IFormField>> = [];
+  private _formFieldComponentsForTyp: Array<IConstructor<IFormField>>;
   private _formFields: Array<IFormField> = [];
 
   constructor() {
-    this._formFieldComponentsForTyp['string'] = StringFormField;
-    this._formFieldComponentsForTyp['long'] = LongFormField;
-    this._formFieldComponentsForTyp['number'] = NumberFormField;
-    this._formFieldComponentsForTyp['boolean'] = BooleanFormField;
+    this._formFieldComponentsForTyp[DataModels.UserTasks.UserTaskFormFieldType.string] = StringFormField;
+    this._formFieldComponentsForTyp[DataModels.UserTasks.UserTaskFormFieldType.long] = LongFormField;
+    this._formFieldComponentsForTyp[DataModels.UserTasks.UserTaskFormFieldType.number] = NumberFormField;
+    this._formFieldComponentsForTyp[DataModels.UserTasks.UserTaskFormFieldType.boolean] = BooleanFormField;
     this._formFieldComponentsForTyp['decimal'] = NumberFormField;
-    this._formFieldComponentsForTyp['date'] = DateFormField;
-    this._formFieldComponentsForTyp['enum'] = EnumFormField;
+    this._formFieldComponentsForTyp[DataModels.UserTasks.UserTaskFormFieldType.date] = DateFormField;
+    this._formFieldComponentsForTyp[DataModels.UserTasks.UserTaskFormFieldType.enum] = EnumFormField;
   }
 
   public componentWillLoad(): void {
@@ -59,23 +61,24 @@ export class DynamicUserTaskComponent {
   public render(): any {
     const hasUserTask: boolean = this.usertask !== undefined && this.usertask !== null;
     if (hasUserTask) {
-      const isConfirmUserTask: boolean = this.usertask.data.preferredControl === 'confirm';
+      // eslint-disable-next-line dot-notation
+      const isConfirmUserTask: boolean = this.usertask.data['customForm'] === 'confirm' || this.usertask.data.preferredControl === 'confirm';
 
       if (isConfirmUserTask) {
 
         return this._renderConfirmUserTask();
-      } else {
-
-        return this._renderUserTask();
       }
-    } else {
 
-      return <div class='card form_card'>
-        <div class='card-body'>
-          <h3 class='card-title mb-0'>UserTask finished.</h3>
-        </div>
-      </div>;
+      return this._renderUserTask();
+
     }
+
+    return <div class='card form_card'>
+      <div class='card-body'>
+        <h3 class='card-title mb-0'>UserTask finished.</h3>
+      </div>
+    </div>;
+
   }
 
   private _renderConfirmUserTask(): any {
@@ -88,7 +91,7 @@ export class DynamicUserTaskComponent {
 
     this._formFields.splice(indexOfFormField, 1);
 
-    if(!firstBooleanFormField) {
+    if (!firstBooleanFormField) {
       return this._renderUserTask();
     }
 
@@ -184,7 +187,7 @@ export class DynamicUserTaskComponent {
 
   private _isInputValid(): boolean {
     for (const formField of this._formFields) {
-      const formFieldInputIsInvalid: boolean = !formField.isValid;
+      const formFieldInputIsInvalid = !formField.isValid;
       if (formFieldInputIsInvalid) {
 
         return false;
@@ -229,4 +232,5 @@ export class DynamicUserTaskComponent {
 
     return component;
   }
+
 }

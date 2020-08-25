@@ -46,9 +46,6 @@ export class DateFormField implements IFormField {
 
   private _handleChange(event: IKeyDownOnInputEvent): void {
     this.value = event.target.value;
-    this.isValid = this._inputValidator.isValidDate(event.target.value);
-
-    this._setStyle(event);
   }
 
   private _setStyle(event: IKeyDownOnInputEvent): void {
@@ -63,6 +60,8 @@ export class DateFormField implements IFormField {
   }
 
   private _handleKeyDown(event: IKeyDownOnInputEvent): void {
+    this.isValid = this._inputValidator.isValidDate(event.target.value);
+    this._setStyle(event);
 
     const isValidInput: boolean = this._inputValidator.validateKey(event);
 
