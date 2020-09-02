@@ -22,7 +22,7 @@ export class EnumFormField implements IFormField {
   }
 
   public componentWillLoad(): void {
-    this.value = this.formField.defaultValue;
+    this.value = this.formField.defaultValue || this.formField.enumValues[0].id;
   }
 
   public render(): JSX.Element {
